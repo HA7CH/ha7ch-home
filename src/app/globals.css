@@ -384,17 +384,35 @@ ul {
 
 .footer-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 1rem;
 }
 
-.footer-row p {
+.footer-row p,
+.local-time {
   color: var(--muted);
   font-size: 0.8125rem;
   font-weight: 460;
   line-height: normal;
   letter-spacing: -0.0025rem;
+}
+
+.local-times {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.clock-text {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.clock-text[data-ready="true"] {
+  opacity: 1;
 }
 
 @media screen and (max-width: 768px) {

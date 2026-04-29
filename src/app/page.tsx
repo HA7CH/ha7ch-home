@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LocalTimes } from "./local-times";
 
 const projects = [
   {
@@ -161,8 +162,7 @@ export default function Home() {
 
       <footer className="site-footer">
         <div className="footer-row">
-          <p>HA7CH</p>
-          <p>A tiny builder lab.</p>
+          <LocalTimes />
         </div>
       </footer>
     </main>
