@@ -6,9 +6,9 @@ export const metadata: Metadata = {
   title: "HA7CH",
   description: "A tiny builder lab hatching vibe-coded products.",
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg"
+    icon: "/ha7ch.svg",
+    shortcut: "/ha7ch.svg",
+    apple: "/ha7ch.svg"
   },
   openGraph: {
     title: "HA7CH",
