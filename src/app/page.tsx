@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { LocalTimes } from "./local-times";
-import { NewBadge } from "./new-badge";
 
 type ListItem = {
   group?: string;
@@ -9,7 +8,6 @@ type ListItem = {
   href?: string;
   date?: string;
   meta: string;
-  isNew?: boolean;
 };
 
 const projects: ListItem[] = [
@@ -19,8 +17,7 @@ const projects: ListItem[] = [
     description: "Turn a PDF resume into a living personal site.",
     href: "https://cv.ha7ch.com",
     date: "2026-04-30",
-    meta: "Apr 30",
-    isNew: true
+    meta: "Apr 30"
   },
   {
     title: "Railly Friends",
@@ -92,10 +89,7 @@ function PostList({ title, items }: { title: string; items: ListItem[] }) {
                   {item.group ? <span className="group-label">{item.group}</span> : null}
                   <span className="item-copy">
                     {item.title ? (
-                      <span className="item-title-row">
-                        <span className="item-title">{item.title}</span>
-                        {item.isNew ? <NewBadge /> : null}
-                      </span>
+                      <span className="item-title">{item.title}</span>
                     ) : null}
                     {item.description ? (
                       <span className="item-description">{item.description}</span>
@@ -134,7 +128,7 @@ export default function Home() {
               className="brand-logo"
               src="/ha7ch.svg"
               alt="HA7CH"
-              width={480}
+              width={482}
               height={78}
               loading="eager"
             />
