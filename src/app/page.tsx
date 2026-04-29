@@ -92,8 +92,8 @@ function PostList({ title, items }: { title: string; items: ListItem[] }) {
                   {item.group ? <span className="group-label">{item.group}</span> : null}
                   <span className="item-copy">
                     {item.title ? (
-                      <span className="item-title">
-                        {item.title}
+                      <span className="item-title-row">
+                        <span className="item-title">{item.title}</span>
                         {item.isNew ? <NewBadge /> : null}
                       </span>
                     ) : null}

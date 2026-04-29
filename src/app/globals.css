@@ -312,6 +312,12 @@ ul {
   gap: 0.1875rem;
 }
 
+.item-title-row {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+}
+
 .item-title {
   display: inline-flex;
   width: fit-content;

@@ -2,7 +2,7 @@
 
 import { RoughNotation } from "react-rough-notation";
 
-const ACCENT = "rgb(255, 0, 170)";
+const ACCENT = "rgb(0, 220, 100)";
 
 export function NewBadge() {
   return (
