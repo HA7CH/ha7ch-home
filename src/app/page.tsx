@@ -14,12 +14,6 @@ const projects = [
     description: "One-day social experiments for train travelers.",
     href: "https://raily.ha7ch.com",
     meta: "raily.ha7ch.com"
-  },
-  {
-    group: "Next",
-    title: "More soon",
-    description: "Small tools, fast experiments, strange ideas.",
-    meta: "Soon"
   }
 ];
 
@@ -129,7 +123,7 @@ export default function Home() {
               className="brand-logo"
               src="/ha7ch.svg"
               alt="HA7CH"
-              width={487}
+              width={480}
               height={78}
               loading="eager"
             />

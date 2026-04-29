@@ -1,14 +1,14 @@
-<svg width="487" height="78" viewBox="0 0 487 78" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect y="9" width="16" height="60" fill="#D9D9D9"/>
-<rect x="16" y="45.7814" width="14" height="47" transform="rotate(-90 16 45.7814)" fill="#D9D9D9"/>
-<rect x="63" y="9" width="16" height="60" fill="#D9D9D9"/>
-<path d="M129 9H145L108 69H92L129 9Z" fill="#D9D9D9"/>
-<path d="M146 9H130L167 69H183L146 9Z" fill="#D9D9D9"/>
-<path d="M289 12.9226L270.84 12.9226L202.5 78H226.62L289 12.9226Z" fill="#D9D9D9"/>
-<path d="M302.5 0H208.5L196 13.0774H289L302.5 0Z" fill="#D9D9D9"/>
-<path d="M315.5 31V47L387.5 24L394.5 8L315.5 31Z" fill="#D9D9D9"/>
-<path d="M315.5 47V31L387.5 54L394.5 70L315.5 47Z" fill="#D9D9D9"/>
-<rect x="407.5" y="9" width="16" height="60" fill="#D9D9D9"/>
-<rect x="423.5" y="45.7814" width="14" height="47" transform="rotate(-90 423.5 45.7814)" fill="#D9D9D9"/>
-<rect x="470.5" y="9" width="16" height="60" fill="#D9D9D9"/>
+<svg width="480" height="78" viewBox="0 0 480 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect y="9" width="16.2025" height="60" fill="#D9D9D9"/>
+<rect x="16.2025" y="45.7814" width="14" height="47.5949" transform="rotate(-90 16.2025 45.7814)" fill="#D9D9D9"/>
+<rect x="63.7975" y="9" width="16.2025" height="60" fill="#D9D9D9"/>
+<path d="M130 14H146L109 64H93L130 14Z" fill="#D9D9D9"/>
+<path d="M147 14H131L168 64H184L147 14Z" fill="#D9D9D9"/>
+<path d="M290 12.9226L271.84 12.9226L203.5 78H227.62L290 12.9226Z" fill="#D9D9D9"/>
+<path d="M303.5 0H209.5L197 13.0774H290L303.5 0Z" fill="#D9D9D9"/>
+<path d="M316.5 31V47L380.297 24L386.5 8L316.5 31Z" fill="#D9D9D9"/>
+<path d="M316.5 47V31L380.297 54L386.5 70L316.5 47Z" fill="#D9D9D9"/>
+<rect x="399.5" y="9" width="16.2025" height="60" fill="#D9D9D9"/>
+<rect x="415.702" y="45.7814" width="14" height="47.5949" transform="rotate(-90 415.702 45.7814)" fill="#D9D9D9"/>
+<rect x="463.297" y="9" width="16.2025" height="60" fill="#D9D9D9"/>
 </svg>
