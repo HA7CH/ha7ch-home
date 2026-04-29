@@ -1,19 +1,38 @@
 import Image from "next/image";
 import { LocalTimes } from "./local-times";
+import { NewBadge } from "./new-badge";
 
-const projects = [
+type ListItem = {
+  group?: string;
+  title?: string;
+  description?: string;
+  href?: string;
+  date?: string;
+  meta: string;
+  isNew?: boolean;
+};
+
+const projects: ListItem[] = [
   {
     group: "Live",
     title: "Resume Hatch",
     description: "Turn a PDF resume into a living personal site.",
     href: "https://cv.ha7ch.com",
-    meta: "cv.ha7ch.com"
+    date: "2026-04-30",
+    meta: "Apr 30",
+    isNew: true
   },
   {
     title: "Railly Friends",
     description: "One-day social experiments for train travelers.",
     href: "https://raily.ha7ch.com",
-    meta: "raily.ha7ch.com"
+    date: "2026-04-29",
+    meta: "Apr 29"
+  },
+  {
+    group: "Next",
+    description: "Small tools, fast experiments, strange ideas.",
+    meta: "Soon"
   }
 ];
 
@@ -22,11 +41,6 @@ const writing = [
     group: "2026",
     title: "Why we bought ha7ch.com",
     href: "/why-we-bought-ha7ch-com",
-    meta: "Draft"
-  },
-  {
-    title: "Vibe coding is a container, not a wish machine",
-    href: "/vibe-coding-container",
     meta: "Draft"
   },
   {
@@ -41,14 +55,6 @@ const contacts = [
   { label: "GitHub", href: "https://github.com/ha7ch" },
   { label: "Email", href: "mailto:hello@ha7ch.com" }
 ];
-
-type ListItem = {
-  group?: string;
-  title: string;
-  description?: string;
-  href?: string;
-  meta: string;
-};
 
 function BasicLink({
   href,
@@ -85,17 +91,22 @@ function PostList({ title, items }: { title: string; items: ListItem[] }) {
                 <>
                   {item.group ? <span className="group-label">{item.group}</span> : null}
                   <span className="item-copy">
-                    <span className="item-title">{item.title}</span>
+                    {item.title ? (
+                      <span className="item-title">
+                        {item.title}
+                        {item.isNew ? <NewBadge /> : null}
+                      </span>
+                    ) : null}
                     {item.description ? (
                       <span className="item-description">{item.description}</span>
                     ) : null}
                   </span>
-                  <time>{item.meta}</time>
+                  <time dateTime={item.date}>{item.meta}</time>
                 </>
               );
 
               return (
-                <li key={item.title}>
+                <li key={item.href ?? item.title ?? item.description ?? item.meta}>
                   {item.href ? (
                     <a href={item.href}>{inner}</a>
                   ) : (
