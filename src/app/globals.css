@@ -254,11 +254,13 @@ ul {
   flex-direction: column;
 }
 
-.post-list > ul > li > ul > li:last-child > a::after {
+.post-list > ul > li > ul > li:last-child > a::after,
+.post-list > ul > li > ul > li:last-child > .post-list-row::after {
   display: none;
 }
 
-.post-list a {
+.post-list a,
+.post-list-row {
   position: relative;
   display: flex;
   align-items: flex-start;
@@ -268,13 +270,27 @@ ul {
   padding: 0.735rem 0 0.735rem 6.75rem;
 }
 
-.post-list a::after {
+.post-list a::after,
+.post-list-row::after {
   position: absolute;
   right: 0;
   bottom: 0;
   left: 6.75rem;
   content: "";
   border-bottom: 1px solid var(--rule);
+}
+
+.post-list-row {
+  cursor: default;
+}
+
+.post-list-row .item-title {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.post-list-row .item-title::after {
+  display: none;
 }
 
 .group-label {
@@ -345,17 +361,17 @@ ul {
 }
 
 @media screen and (min-width: 520px) {
-  .post-list > ul:hover .group-label,
-  .post-list > ul:hover .item-title,
-  .post-list > ul:hover .item-description,
-  .post-list > ul:hover time {
+  .post-list > ul:has(a:hover) .group-label,
+  .post-list > ul:has(a:hover) .item-title,
+  .post-list > ul:has(a:hover) .item-description,
+  .post-list > ul:has(a:hover) time {
     opacity: 0.3;
   }
 
-  .post-list > ul:hover a:hover .group-label,
-  .post-list > ul:hover a:hover .item-title,
-  .post-list > ul:hover a:hover .item-description,
-  .post-list > ul:hover a:hover time {
+  .post-list > ul:has(a:hover) a:hover .group-label,
+  .post-list > ul:has(a:hover) a:hover .item-title,
+  .post-list > ul:has(a:hover) a:hover .item-description,
+  .post-list > ul:has(a:hover) a:hover time {
     opacity: 1;
   }
 }

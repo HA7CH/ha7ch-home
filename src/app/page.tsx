@@ -19,12 +19,11 @@ const projects = [
     group: "Next",
     title: "More soon",
     description: "Small tools, fast experiments, strange ideas.",
-    href: "/more-soon",
     meta: "Soon"
   }
 ];
 
-const notes = [
+const writing = [
   {
     group: "2026",
     title: "Why we bought ha7ch.com",
@@ -53,7 +52,7 @@ type ListItem = {
   group?: string;
   title: string;
   description?: string;
-  href: string;
+  href?: string;
   meta: string;
 };
 
@@ -87,9 +86,9 @@ function PostList({ title, items }: { title: string; items: ListItem[] }) {
       <ul>
         <li>
           <ul>
-            {items.map((item) => (
-              <li key={item.title}>
-                <a href={item.href}>
+            {items.map((item) => {
+              const inner = (
+                <>
                   {item.group ? <span className="group-label">{item.group}</span> : null}
                   <span className="item-copy">
                     <span className="item-title">{item.title}</span>
@@ -98,9 +97,21 @@ function PostList({ title, items }: { title: string; items: ListItem[] }) {
                     ) : null}
                   </span>
                   <time>{item.meta}</time>
-                </a>
-              </li>
-            ))}
+                </>
+              );
+
+              return (
+                <li key={item.title}>
+                  {item.href ? (
+                    <a href={item.href}>{inner}</a>
+                  ) : (
+                    <div className="post-list-row" aria-disabled="true">
+                      {inner}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </li>
       </ul>
@@ -134,16 +145,8 @@ export default function Home() {
         </p>
 
         <p>
-          <BasicLink href="https://cv.ha7ch.com">Resume Hatch</BasicLink> turns a
-          PDF resume into a living personal site.{" "}
-          <BasicLink href="https://raily.ha7ch.com">Railly Friends</BasicLink>{" "}
-          explores one-day social experiments for train travelers.
-        </p>
-
-        <p>
-          We write notes about buying domains, treating vibe coding as a
-          container rather than a wish machine, and shipping tiny products in 48
-          hours.
+          We write treating vibe coding as a container rather than a wish
+          machine, and shipping tiny products in 48 hours.
         </p>
 
         <p>
@@ -158,7 +161,7 @@ export default function Home() {
       </article>
 
       <PostList title="Projects" items={projects} />
-      <PostList title="Notes" items={notes} />
+      <PostList title="Writing" items={writing} />
 
       <footer className="site-footer">
         <div className="footer-row">
