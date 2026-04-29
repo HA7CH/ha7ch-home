@@ -128,7 +128,7 @@ export default function Home() {
               className="brand-logo"
               src="/ha7ch.svg"
               alt="HA7CH"
-              width={482}
+              width={487}
               height={78}
               loading="eager"
             />
