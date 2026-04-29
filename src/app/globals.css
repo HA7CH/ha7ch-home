@@ -1,0 +1,272 @@
+:root {
+  --background: #f7f5ef;
+  --paper: #fffdf8;
+  --ink: #23221f;
+  --muted: #6e6a62;
+  --faint: #d9d3c7;
+  --link: #315f7d;
+  --link-hover: #173f59;
+  --rule: rgba(35, 34, 31, 0.14);
+  --selection: #d8e8ee;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background:
+    linear-gradient(90deg, rgba(35, 34, 31, 0.035) 1px, transparent 1px) 0 0 / 44px 44px,
+    var(--background);
+  color: var(--ink);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-family:
+    ui-serif,
+    "Iowan Old Style",
+    "Palatino Linotype",
+    Palatino,
+    Georgia,
+    serif;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle at 78% 14%, rgba(49, 95, 125, 0.08), transparent 24rem),
+    linear-gradient(180deg, rgba(255, 253, 248, 0.7), rgba(247, 245, 239, 0));
+}
+
+::selection {
+  background: var(--selection);
+}
+
+a {
+  color: var(--link);
+  text-underline-offset: 0.16em;
+  text-decoration-thickness: 0.06em;
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration-color: transparent;
+}
+
+.site-shell {
+  width: min(100% - 40px, 760px);
+  margin: 0 auto;
+  padding: clamp(56px, 10vw, 112px) 0 72px;
+}
+
+.intro {
+  padding-bottom: clamp(48px, 8vw, 84px);
+}
+
+.brand-line {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: clamp(28px, 5vw, 48px);
+  color: var(--muted);
+}
+
+.hatch-mark {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  color: #3d4f3f;
+}
+
+.stamp {
+  margin: 0;
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(3.9rem, 13vw, 8.5rem);
+  font-weight: 560;
+  line-height: 0.88;
+  letter-spacing: 0;
+}
+
+.lede {
+  max-width: 32rem;
+  margin-top: clamp(20px, 4vw, 32px);
+  font-size: clamp(1.42rem, 3.2vw, 2.1rem);
+  line-height: 1.18;
+  color: #3a3935;
+}
+
+.section-block {
+  display: grid;
+  grid-template-columns: 8.6rem minmax(0, 1fr);
+  gap: clamp(20px, 5vw, 46px);
+  padding: clamp(30px, 6vw, 46px) 0;
+  border-top: 1px solid var(--rule);
+}
+
+.section-block h2 {
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.project-list {
+  display: grid;
+  gap: 22px;
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: minmax(8.5rem, 0.58fr) minmax(13rem, 1fr) max-content;
+  gap: 18px;
+  align-items: baseline;
+}
+
+.project-row h3 {
+  font-size: 1.04rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.project-row p,
+.project-row a,
+.contact p,
+.note-list a {
+  font-size: 1.04rem;
+  line-height: 1.5;
+}
+
+.project-row p {
+  color: var(--muted);
+}
+
+.project-row a {
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.86rem;
+  white-space: nowrap;
+}
+
+.note-list {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.note-list li {
+  position: relative;
+  padding-left: 21px;
+}
+
+.note-list li::before {
+  position: absolute;
+  top: 0.72em;
+  left: 0;
+  width: 7px;
+  height: 1px;
+  content: "";
+  background: var(--faint);
+}
+
+.contact {
+  padding-bottom: 0;
+}
+
+.contact p {
+  color: var(--muted);
+}
+
+.contact a {
+  color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .site-shell {
+    width: min(100% - 32px, 760px);
+    padding-top: 44px;
+  }
+
+  .section-block {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .project-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding-left: 18px;
+    border-left: 1px solid var(--rule);
+  }
+
+  .project-row + .project-row {
+    padding-top: 10px;
+  }
+
+  .project-row a {
+    margin-top: 4px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
