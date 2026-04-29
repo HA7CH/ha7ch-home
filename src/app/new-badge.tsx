@@ -12,8 +12,8 @@ export function NewBadge() {
         show
         color={ACCENT}
         strokeWidth={1.5}
-        padding={4}
         animationDuration={800}
+        animationDelay={600}
       >
         <span>New</span>
       </RoughNotation>
