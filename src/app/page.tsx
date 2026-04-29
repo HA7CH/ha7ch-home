@@ -12,7 +12,7 @@ type ListItem = {
 
 const projects: ListItem[] = [
   {
-    group: "Live",
+    group: "2026",
     title: "Resume Hatch",
     description: "Turn a PDF resume into a living personal site.",
     href: "https://cv.ha7ch.com",
