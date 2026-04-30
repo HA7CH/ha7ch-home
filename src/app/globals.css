@@ -108,8 +108,7 @@ ul {
 }
 
 .article > *,
-.homepage > section,
-.homepage > footer {
+.homepage > section {
   animation: stagger-in 0.5s ease both;
 }
 
@@ -143,10 +142,6 @@ ul {
 
 .homepage > section:nth-of-type(2) {
   animation-delay: 0.4s;
-}
-
-.homepage > footer {
-  animation-delay: 0.45s;
 }
 
 .article {
@@ -385,52 +380,6 @@ ul {
   transform: translateX(0.25rem) rotate(45deg);
 }
 
-.site-footer {
-  padding: 2.5rem 0 5rem;
-}
-
-.site-footer::before {
-  display: block;
-  width: 3.125rem;
-  height: 1px;
-  margin: 0 0 2.375rem;
-  content: "";
-  background: #ededed;
-}
-
-.footer-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 1rem;
-}
-
-.footer-row p,
-.local-time {
-  color: var(--muted);
-  font-size: 0.8125rem;
-  font-weight: 460;
-  line-height: normal;
-  letter-spacing: -0.0025rem;
-}
-
-.local-times {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-}
-
-.clock-text {
-  display: inline-block;
-  font-variant-numeric: tabular-nums;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.clock-text[data-ready="true"] {
-  opacity: 1;
-}
-
 @media screen and (max-width: 768px) {
   body::before {
     height: 2.5rem;
@@ -461,11 +410,6 @@ ul {
     font-size: 0.8125rem;
     white-space: nowrap;
     text-align: right;
-  }
-
-  .footer-row {
-    align-items: flex-start;
-    flex-direction: column;
   }
 }
 

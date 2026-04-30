@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { LocalTimes } from "./local-times";
 
 type ListItem = {
   group?: string;
@@ -161,12 +160,6 @@ export default function Home() {
 
       <PostList title="Projects" items={projects} />
       <PostList title="Writing" items={writing} />
-
-      <footer className="site-footer">
-        <div className="footer-row">
-          <LocalTimes />
-        </div>
-      </footer>
     </main>
   );
 }
