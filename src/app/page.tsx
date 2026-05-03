@@ -49,7 +49,8 @@ const writing = [
 const contacts = [
   { label: "X", href: "https://x.com/lawted2" },
   { label: "GitHub", href: "https://github.com/LAWTED/ha7ch-home" },
-  { label: "Email", href: "mailto:lawtedwu@gmail.com" }
+  { label: "Email", href: "mailto:lawtedwu@gmail.com" },
+  { label: "WeChat", href: "/wechat" }
 ];
 
 function BasicLink({

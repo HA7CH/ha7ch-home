@@ -355,6 +355,32 @@ ul {
   transition: opacity 0.14s ease;
 }
 
+.wechat-title {
+  font-size: 1.125rem;
+  font-weight: 540;
+  line-height: 1.5rem;
+  letter-spacing: -0.01125rem;
+}
+
+.wechat-back {
+  padding-top: 0;
+  color: var(--muted);
+}
+
+.wechat-qr {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 1.5rem;
+}
+
+.wechat-qr img {
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 0.5rem;
+}
+
 @media screen and (min-width: 520px) {
   .post-list > ul:has(a:hover) .group-label,
   .post-list > ul:has(a:hover) .item-title,
