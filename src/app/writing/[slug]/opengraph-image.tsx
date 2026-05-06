@@ -24,6 +24,7 @@ export default async function Image({ params }: { params: Params }) {
   const logoHeight = Math.round((logoWidth * 78) / 487);
 
   const paragraphs = article?.en ?? [];
+  const title = article?.titleEn ?? "HA7CH Writing";
 
   return new ImageResponse(
     (
@@ -43,7 +44,7 @@ export default async function Image({ params }: { params: Params }) {
           style={{
             position: "absolute",
             inset: 0,
-            padding: "64px 80px 140px",
+            padding: "64px 80px 180px",
             display: "flex",
             flexDirection: "column",
             gap: "18px",
@@ -72,12 +73,29 @@ export default async function Image({ params }: { params: Params }) {
             bottom: 0,
             left: 0,
             right: 0,
-            height: "220px",
+            height: "260px",
             background:
-              "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 70%)",
+              "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 60%)",
             display: "flex",
           }}
         />
+
+        {/* Title bottom-left */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 60,
+            left: 80,
+            display: "flex",
+            fontSize: 44,
+            fontWeight: 600,
+            color: "#111111",
+            letterSpacing: "-0.02em",
+            lineHeight: 1,
+          }}
+        >
+          {title}
+        </div>
 
         {/* Logo bottom-right */}
         <div
@@ -86,6 +104,7 @@ export default async function Image({ params }: { params: Params }) {
             bottom: 60,
             right: 80,
             display: "flex",
+            alignItems: "center",
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
