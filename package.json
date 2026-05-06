@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@altano/satori-fit-text": "^2.0.2",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"
