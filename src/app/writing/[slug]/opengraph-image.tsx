@@ -23,8 +23,7 @@ export default async function Image({ params }: { params: Params }) {
   const logoWidth = 160;
   const logoHeight = Math.round((logoWidth * 78) / 487);
 
-  const title = article?.titleEn ?? "HA7CH Writing";
-  const date = article?.dateDisplay ?? "";
+  const paragraphs = article?.en ?? [];
 
   return new ImageResponse(
     (
@@ -35,40 +34,62 @@ export default async function Image({ params }: { params: Params }) {
           background: "#ffffff",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
-          padding: "72px 80px",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        {/* Logo */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={dataUrl} alt="HA7CH" width={logoWidth} height={logoHeight} />
-
-        {/* Title + date */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <div
-            style={{
-              fontSize: 72,
-              fontWeight: 600,
-              color: "#111111",
-              lineHeight: 1.15,
-              letterSpacing: "-0.02em",
-              maxWidth: "900px",
-            }}
-          >
-            {title}
-          </div>
-          {date ? (
+        {/* Article text filling the background */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            padding: "64px 80px 140px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "18px",
+            overflow: "hidden",
+          }}
+        >
+          {paragraphs.map((para, i) => (
             <div
+              key={i}
               style={{
-                fontSize: 28,
-                color: "rgba(0,0,0,0.4)",
+                fontSize: 26,
                 fontWeight: 400,
-                letterSpacing: "-0.01em",
+                color: "#111111",
+                lineHeight: 1.6,
               }}
             >
-              {date}
+              {para}
             </div>
-          ) : null}
+          ))}
+        </div>
+
+        {/* Bottom fade */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: "220px",
+            background:
+              "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 70%)",
+            display: "flex",
+          }}
+        />
+
+        {/* Logo bottom-right */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 60,
+            right: 80,
+            display: "flex",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={dataUrl} alt="HA7CH" width={logoWidth} height={logoHeight} />
         </div>
       </div>
     ),
