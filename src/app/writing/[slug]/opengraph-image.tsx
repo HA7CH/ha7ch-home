@@ -107,7 +107,7 @@ export default async function Image({ params }: { params: Params }) {
           style={{
             position: "absolute",
             bottom: 60,
-            left: 80,
+            left: 40,
             display: "flex",
             fontSize: titleFontSize,
             fontWeight: 600,
@@ -115,6 +115,7 @@ export default async function Image({ params }: { params: Params }) {
             color: "#111111",
             letterSpacing: "-0.02em",
             lineHeight: 1,
+            textAlign: "left",
           }}
         >
           {title}
