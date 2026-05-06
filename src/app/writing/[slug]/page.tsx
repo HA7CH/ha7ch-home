@@ -18,7 +18,7 @@ export async function generateMetadata({
   const article = getArticle(slug);
   if (!article) return {};
   return {
-    title: `${article.titleEn} — HA7CH`,
+    title: "HA7CH",
     description: article.titleZh,
     openGraph: {
       title: article.titleEn,
