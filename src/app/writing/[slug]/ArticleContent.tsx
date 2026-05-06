@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { Article } from "@/content/writing";
 
 export default function ArticleContent({ article }: { article: Article }) {
-  const [lang, setLang] = useState<"zh" | "en">("zh");
+  const [lang, setLang] = useState<"zh" | "en">("en");
 
   const title = lang === "zh" ? article.titleZh : article.titleEn;
   const content = lang === "zh" ? article.zh : article.en;
