@@ -44,7 +44,7 @@ export default async function Image({ params }: { params: Params }) {
           style={{
             position: "absolute",
             inset: 0,
-            padding: "64px 80px 180px",
+            padding: "32px 40px 180px",
             display: "flex",
             flexDirection: "column",
             gap: "18px",
