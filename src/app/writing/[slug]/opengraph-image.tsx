@@ -76,7 +76,7 @@ export default async function Image({ params }: { params: Params }) {
             <div
               key={i}
               style={{
-                fontSize: 32,
+                fontSize: 28,
                 fontWeight: 400,
                 color: "#111111",
                 lineHeight: 1.6,
