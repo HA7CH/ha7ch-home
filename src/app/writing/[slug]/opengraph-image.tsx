@@ -20,10 +20,13 @@ export default async function Image({ params }: { params: Params }) {
   const { slug } = await params;
   const article = getArticle(slug);
 
-  const [svg, fontData] = await Promise.all([
+  const [svg, fontData600, fontData300] = await Promise.all([
     readFile(join(process.cwd(), "public/ha7ch.svg"), "utf-8"),
     fetch(
       "https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-600-normal.woff"
+    ).then((r) => r.arrayBuffer()),
+    fetch(
+      "https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-300-normal.woff"
     ).then((r) => r.arrayBuffer()),
   ]);
 
@@ -36,7 +39,9 @@ export default async function Image({ params }: { params: Params }) {
   const paragraphs = article?.en ?? [];
   const title = article?.titleEn ?? "HA7CH Writing";
 
-  const font = { name: "Inter", data: fontData, weight: 600 as const };
+  const font600 = { name: "Inter", data: fontData600, weight: 600 as const };
+  const font300 = { name: "Inter", data: fontData300, weight: 300 as const };
+  const font = font600;
 
   const titleFontSize = await findLargestUsableFontSize({
     text: title,
@@ -77,7 +82,7 @@ export default async function Image({ params }: { params: Params }) {
               key={i}
               style={{
                 fontSize: 28,
-                fontWeight: 400,
+                fontWeight: 300,
                 color: "#111111",
                 lineHeight: 1.6,
                 fontFamily: "Inter",
@@ -136,6 +141,6 @@ export default async function Image({ params }: { params: Params }) {
         </div>
       </div>
     ),
-    { ...size, fonts: [font] }
+    { ...size, fonts: [font600, font300] }
   );
 }
