@@ -1,0 +1,45 @@
+import type { Article } from "./types";
+
+const article: Article = {
+  slug: "zero-token-design",
+  titleZh: "零 Token 设计",
+  titleEn: "Zero Token Design",
+  date: "2026-05-07",
+  dateDisplay: "May 7",
+  zh: [
+    "它不是说产品不用 AI，而是说：AI 产品不一定要在自己的 runtime 里烧 token。",
+    "以前做 AI SaaS，默认逻辑很简单：用户点一下，产品调用一次模型；再点一下，再烧一次 token。这在 2023 年合理，因为那时候大多数用户没有自己的 AI 工作台。",
+    "但现在不一样了。",
+    "Codex、Claude Code、OpenCode、Cursor 这类本地 agent workspace 越来越成熟。它们不只是聊天框——它们能在用户自己的目录里读文件、跑命令、改代码、执行脚手架，完整地处理一个工作流。",
+    "所以我觉得，下一代 AI 产品可以被设计成不同的样子。",
+    "不是每个产品都自己包一个 chatbot、自己承担所有推理成本。更好的方式是：让用户在自己的 agent workspace 里完成推理，把结果写回产品。",
+    "这和 Bring Your Own Key 不一样。",
+    "BYOK 还是要让用户申请 API key、配置 key、理解 billing，本质上只是把账单转嫁给用户，体验很重。零 Token 设计不是让用户把 key 塞进我的产品——而是让我的产品进入用户已经在用的工作台。",
+    "CV Pro 就是我理解里的零 Token AI 产品。",
+    "它当然是 AI 产品：简历解析、JD tailoring、内容重写都需要 AI。但这些不应该都发生在 CV Pro 的服务器上。更自然的方式是，用户复制一段 quick start prompt——里面可能有一行 npx 命令——丢进自己的 agent。Agent 去跑命令、解析文件、处理错误、生成结构化数据，然后把 schema 写回 CV Pro。",
+    "CV Pro 负责的是 schema、数据库、URL view、版本、展示和分发。",
+    "说白了就是：让 agent 去干活，让产品把结果接住。",
+    "我觉得每个在做 AI 产品的人都值得认真想一想这个问题：",
+    "你的产品应该自己做所有推理？还是应该变成一个能被 agent 操作、能沉淀结果、能漂亮地分发出去的系统？",
+    "这，就是区别所在。",
+  ],
+  en: [
+    "It's not that the product doesn't need AI. It's that an AI product doesn't always need to burn its own tokens at runtime.",
+    "The old logic was simple: user clicks, product calls the model. Click again, burn another token. That made sense in 2023, because most users didn't have their own AI workspace back then.",
+    "But now it's different.",
+    "Codex, Claude Code, OpenCode, Cursor — these local agent workspaces are getting seriously mature. They're not just chatboxes. They can read your files, run bash commands, edit code, run npx or uvx, and handle an entire workflow inside your own environment.",
+    "So I think the next generation of AI products can be built differently.",
+    "Not every product needs to put a chatbot inside the webpage and absorb all the inference costs itself. A better way might be: let the user finish the reasoning inside their own agent workspace, then push the result back into your product.",
+    "And this is different from Bring Your Own Key.",
+    "BYOK still asks users to apply for an API key, configure it, understand billing, and plug it into your product. That's just transferring the bill to the customer — the UX is still heavy. Zero-token design isn't about asking users to configure a key inside my product. It's about letting my product plug into the tools they already use.",
+    "CV Pro is a zero-token AI product in my understanding.",
+    "It's absolutely an AI product — resume parsing, JD tailoring, content rewriting all need AI. But these don't have to happen on CV Pro's servers. The more natural flow: user copies a quick-start prompt (maybe with an npx command inside), drops it into their own agent. The agent runs the command, parses the file, handles errors, generates a structured schema, and pushes that schema back to CV Pro.",
+    "CV Pro is responsible for the schema, database, URL views, versioning, rendering, and distribution.",
+    "Simply put: let the agent do the work. Let the product catch the result.",
+    "I think every founder building AI products should think carefully about this:",
+    "Should your product do all the reasoning itself? Or should it become a system that can be operated by agents, capture results, and distribute them beautifully?",
+    "That's the difference.",
+  ],
+};
+
+export default article;

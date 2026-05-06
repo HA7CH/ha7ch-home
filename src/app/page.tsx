@@ -32,16 +32,23 @@ const projects: ListItem[] = [
   }
 ];
 
-const writing = [
+const writing: ListItem[] = [
   {
     group: "2026",
+    title: "零 Token 设计",
+    description: "Zero Token Design",
+    href: "/writing/zero-token-design",
+    date: "2026-05-07",
+    meta: "May 7"
+  },
+  {
     title: "Why we bought ha7ch.com",
-    href: "/why-we-bought-ha7ch-com",
+    href: "/writing/why-we-bought-ha7ch-com",
     meta: "Draft"
   },
   {
     title: "How we ship tiny products in 48 hours",
-    href: "/ship-tiny-products-48-hours",
+    href: "/writing/ship-tiny-products-48-hours",
     meta: "Draft"
   }
 ];

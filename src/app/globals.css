@@ -413,6 +413,108 @@ ul {
   }
 }
 
+.writing-page {
+  max-width: 36.375rem;
+  padding: 5rem 1rem 4rem;
+  margin: 0 auto;
+}
+
+.writing-back {
+  display: inline-block;
+  margin-bottom: 3rem;
+  font-size: 0.875rem;
+  font-weight: 460;
+  letter-spacing: -0.00563rem;
+  color: var(--muted);
+  transition: color 0.15s ease;
+}
+
+.writing-back:hover {
+  color: var(--body-color);
+}
+
+.writing-article {
+  max-width: 70ch;
+  animation: stagger-in 0.5s ease both;
+}
+
+.writing-header {
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 1.75rem;
+}
+
+.writing-title {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.625rem;
+}
+
+.writing-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 460;
+  line-height: 1.25rem;
+  letter-spacing: -0.00563rem;
+}
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.lang-btn {
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 460;
+  letter-spacing: -0.00563rem;
+  line-height: 1.25rem;
+  color: var(--muted);
+  padding: 0;
+  transition: color 0.15s ease;
+}
+
+.lang-btn.active {
+  color: var(--body-color);
+}
+
+.lang-btn:hover {
+  color: var(--body-color);
+}
+
+.lang-divider {
+  color: var(--muted);
+  opacity: 0.4;
+  font-size: 0.875rem;
+  user-select: none;
+}
+
+.writing-body p {
+  font-size: 0.9375rem;
+  font-weight: 440;
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+  color: #222;
+}
+
+.writing-body p + p {
+  margin-top: 1.125rem;
+}
+
+@media screen and (max-width: 768px) {
+  .writing-page {
+    padding: 2rem 1.5rem 4rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
