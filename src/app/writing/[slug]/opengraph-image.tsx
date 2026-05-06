@@ -26,6 +26,9 @@ export default async function Image({ params }: { params: Params }) {
   const paragraphs = article?.en ?? [];
   const title = article?.titleEn ?? "HA7CH Writing";
 
+  const titleFontSize =
+    title.length <= 20 ? 80 : title.length <= 35 ? 64 : 48;
+
   return new ImageResponse(
     (
       <div
@@ -87,7 +90,7 @@ export default async function Image({ params }: { params: Params }) {
             bottom: 60,
             left: 80,
             display: "flex",
-            fontSize: 44,
+            fontSize: titleFontSize,
             fontWeight: 600,
             color: "#111111",
             letterSpacing: "-0.02em",
