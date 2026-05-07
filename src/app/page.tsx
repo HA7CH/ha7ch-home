@@ -35,6 +35,13 @@ const projects: ListItem[] = [
 const writing: ListItem[] = [
   {
     group: "2026",
+    title: "Powerball Effect",
+    description: "Power Effect",
+    href: "/writing/powerball-effect",
+    date: "2026-05-08",
+    meta: "May 8"
+  },
+  {
     title: "零 Token 设计",
     description: "Zero Token Design",
     href: "/writing/zero-token-design",
