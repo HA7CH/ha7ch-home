@@ -12,9 +12,16 @@ type ListItem = {
 const projects: ListItem[] = [
   {
     group: "2026",
-    title: "ai-cv",
+    title: "Raily",
+    description: "Flighty for Rail.",
+    href: "https://testflight.apple.com/join/dN2uQn6y",
+    date: "2026-05-08",
+    meta: "May 8"
+  },
+  {
+    title: "cv.pro",
     description: "AI-native resume.",
-    href: "https://ai-cv.ha7ch.com",
+    href: "https://cv.ha7ch.com",
     date: "2026-04-30",
     meta: "Apr 30"
   },
