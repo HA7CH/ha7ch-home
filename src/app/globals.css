@@ -382,7 +382,7 @@ ul {
 
 @media screen and (max-width: 768px) {
   body::before {
-    height: 2.5rem;
+    display: none;
   }
 
   .homepage {
