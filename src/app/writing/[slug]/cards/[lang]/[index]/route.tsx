@@ -78,6 +78,8 @@ export async function GET(_req: Request, { params }: { params: Params }) {
   const isFirst = i === 0;
   const total = cards.length;
   const title = lang === "zh" ? article.titleZh : article.titleEn;
+  const activeLangLabel = lang === "zh" ? "中文" : "English";
+  const inactiveLangLabel = lang === "zh" ? "English" : "中文";
 
   return new ImageResponse(
     (
@@ -101,15 +103,60 @@ export async function GET(_req: Request, { params }: { params: Params }) {
           <div
             style={{
               marginTop: 51,
-              fontSize: 38,
-              fontWeight: 500,
-              color: "#111",
-              letterSpacing: "-0.02em",
-              lineHeight: 1.4,
               display: "flex",
+              flexDirection: "column",
             }}
           >
-            {title}
+            <div
+              style={{
+                fontSize: 38,
+                fontWeight: 500,
+                color: "#111",
+                letterSpacing: "-0.02em",
+                lineHeight: 1.4,
+                display: "flex",
+              }}
+            >
+              {title}
+            </div>
+
+            <div
+              style={{
+                marginTop: 22,
+                display: "flex",
+                alignItems: "center",
+                gap: 34,
+                color: "rgba(0,0,0,0.4)",
+                fontSize: 30,
+                fontWeight: 400,
+                lineHeight: "40px",
+                letterSpacing: "-0.00563em",
+              }}
+            >
+              <span style={{ display: "flex" }}>{article.dateDisplay}</span>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <span
+                  style={{
+                    display: "flex",
+                    color: "#111",
+                    fontWeight: 500,
+                  }}
+                >
+                  {activeLangLabel}
+                </span>
+                <span style={{ display: "flex", opacity: 0.4 }}>/</span>
+                <span style={{ display: "flex" }}>{inactiveLangLabel}</span>
+              </div>
+            </div>
+
+            <div
+              style={{
+                marginTop: 34,
+                height: 1,
+                background: "#f2f2f2",
+                display: "flex",
+              }}
+            />
           </div>
         )}
 
