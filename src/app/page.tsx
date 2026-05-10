@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Participants from "./Participants";
 
 type ListItem = {
   group?: string;
@@ -7,9 +8,15 @@ type ListItem = {
   href?: string;
   date?: string;
   meta: string;
+  dead?: boolean;
 };
 
 const projects: ListItem[] = [
+  {
+    group: "Next",
+    description: "Small tools, fast experiments, strange ideas.",
+    meta: "Soon"
+  },
   {
     group: "2026",
     title: "Raily",
@@ -33,15 +40,33 @@ const projects: ListItem[] = [
     meta: "Apr 29"
   },
   {
-    group: "Next",
-    description: "Small tools, fast experiments, strange ideas.",
-    meta: "Soon"
+    group: "2025",
+    title: "Lia browser",
+    description: "Liquid-glass Chromium with Arc-style sidebar.",
+    href: "https://liabrowser.com",
+    date: "2025-08-01",
+    meta: "RIP",
+    dead: true
+  },
+  {
+    title: "aipeep.me",
+    description: "Your AI photo roast master.",
+    href: "https://aipeep.me",
+    date: "2025-06-01",
+    meta: "RIP",
+    dead: true
   }
 ];
 
 const writing: ListItem[] = [
   {
     group: "2026",
+    title: "Attention is All You Need",
+    href: "/writing/attention-is-all-you-need",
+    date: "2026-05-11",
+    meta: "May 11"
+  },
+  {
     title: "Two Pairs of Eyes",
     href: "/writing/poetry-and-the-plaza",
     date: "2026-05-10",
@@ -66,22 +91,35 @@ const writing: ListItem[] = [
     meta: "May 7"
   },
   {
-    title: "Why we bought ha7ch.com",
-    href: "/writing/why-we-bought-ha7ch-com",
-    meta: "Draft"
-  },
-  {
-    title: "How we ship tiny products in 48 hours",
-    href: "/writing/ship-tiny-products-48-hours",
-    meta: "Draft"
+    title: "So WTF is HA7CH",
+    href: "/writing/so-wtf-is-ha7ch",
+    date: "2026-04-30",
+    meta: "Apr 30"
   }
 ];
+
+function formatUpdated(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC"
+  }).format(new Date(Date.UTC(y, m - 1, d)));
+}
+
+const latestUpdate = [...projects, ...writing]
+  .map((item) => item.date)
+  .filter((d): d is string => Boolean(d))
+  .sort()
+  .at(-1)!;
 
 const contacts = [
   { label: "X", href: "https://x.com/lawted2" },
   { label: "GitHub", href: "https://github.com/LAWTED/ha7ch-home" },
   { label: "Email", href: "mailto:lawtedwu@gmail.com" },
-  { label: "WeChat", href: "/wechat" }
+  { label: "WeChat", href: "/wechat" },
+  { label: "RedNote", href: "/rednote" }
 ];
 
 function BasicLink({
@@ -120,7 +158,7 @@ function PostList({ title, items }: { title: string; items: ListItem[] }) {
                   {item.group ? <span className="group-label">{item.group}</span> : null}
                   <span className="item-copy">
                     {item.title ? (
-                      <span className="item-title">{item.title}</span>
+                      <span className={`item-title${item.dead ? " is-dead" : ""}`}>{item.title}</span>
                     ) : null}
                     {item.description ? (
                       <span className="item-description">{item.description}</span>
@@ -164,7 +202,7 @@ export default function Home() {
               loading="eager"
             />
           </h1>
-          <time dateTime="2026-04-30">Updated Apr 30, 2026</time>
+          <time dateTime={latestUpdate}>Updated {formatUpdated(latestUpdate)}</time>
         </header>
 
         <p>HA7CH is a tiny builder lab hatching vibe-coded products.</p>
@@ -192,6 +230,7 @@ export default function Home() {
 
       <PostList title="Projects" items={projects} />
       <PostList title="Writing" items={writing} />
+      <Participants />
     </main>
   );
 }

@@ -11,6 +11,8 @@
   "dependencies": {
     "@altano/satori-fit-text": "^2.0.2",
     "@vercel/analytics": "^2.0.1",
+    "jszip": "^3.10.1",
+    "motion": "^12.38.0",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"
