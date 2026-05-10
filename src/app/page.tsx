@@ -44,8 +44,8 @@ const writing: ListItem[] = [
     group: "2026",
     title: "Two Pairs of Eyes",
     href: "/writing/poetry-and-the-plaza",
-    date: "2026-05-09",
-    meta: "May 9"
+    date: "2026-05-10",
+    meta: "May 10"
   },
   {
     title: "MVP as Research",
