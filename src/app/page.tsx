@@ -42,6 +42,12 @@ const projects: ListItem[] = [
 const writing: ListItem[] = [
   {
     group: "2026",
+    title: "Two Pairs of Eyes",
+    href: "/writing/poetry-and-the-plaza",
+    date: "2026-05-09",
+    meta: "May 9"
+  },
+  {
     title: "MVP as Research",
     href: "/writing/mvp-as-research",
     date: "2026-05-09",
