@@ -11,7 +11,8 @@ const PARTICIPANTS: Participant[] = [
   { name: "jaxper", src: "/avatars/jaxper.png", job: "Mountain View, CA" },
   { name: "SnowCat", src: "/avatars/snowcat.png", job: "Beijing, China" },
   { name: "Claude", src: "/avatars/claude.png", job: "Anthropic" },
-  { name: "ChatGPT", src: "/avatars/chatgpt.png", job: "OpenAI" }
+  { name: "ChatGPT", src: "/avatars/chatgpt.png", job: "OpenAI" },
+  { name: "Gemini", src: "/avatars/gemini.png", job: "Google" }
 ];
 
 export default function Participants() {
