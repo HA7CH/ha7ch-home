@@ -695,6 +695,10 @@ ul {
   text-wrap: pretty;
 }
 
+.writing-body[data-lang="zh"] p {
+  text-wrap: stable;
+}
+
 .writing-body p + p {
   margin-top: 1.125rem;
 }

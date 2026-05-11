@@ -97,7 +97,7 @@ export default function ArticleContent({ article }: { article: Article }) {
             </div>
           </div>
         </header>
-        <div className="writing-body">
+        <div className="writing-body" data-lang={lang}>
           {content.map((para, i) => (
             <p key={i}>{para}</p>
           ))}
