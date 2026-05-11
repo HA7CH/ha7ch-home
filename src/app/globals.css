@@ -703,6 +703,12 @@ ul {
   margin-top: 1.125rem;
 }
 
+.writing-divider {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin: 2rem 0;
+}
+
 .legal-body section + section {
   margin-top: 1.5rem;
 }
