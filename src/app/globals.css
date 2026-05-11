@@ -175,6 +175,10 @@ ul {
   letter-spacing: -0.00563rem;
 }
 
+.article p {
+  text-wrap: pretty;
+}
+
 .article header time {
   color: var(--muted);
 }
@@ -688,6 +692,7 @@ ul {
   line-height: 1.7;
   letter-spacing: -0.005em;
   color: #222;
+  text-wrap: pretty;
 }
 
 .writing-body p + p {
