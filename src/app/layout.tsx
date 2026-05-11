@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ha7ch.com"),
   title: "HA7CH",
   description: "A tiny builder lab hatching vibe-coded products.",
+  icons: {
+    icon: "/ha7ch-icon.svg",
+    shortcut: "/ha7ch-icon.svg",
+    apple: "/ha7ch-icon.svg"
+  },
   openGraph: {
     title: "HA7CH",
     description: "A tiny builder lab hatching vibe-coded products.",
