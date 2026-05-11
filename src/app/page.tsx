@@ -134,7 +134,7 @@ const latestUpdate = [...projects, ...writing]
 
 const contacts = [
   { label: "X", href: "https://x.com/lawted2" },
-  { label: "GitHub", href: "https://github.com/LAWTED/ha7ch-home" },
+  { label: "GitHub", href: "https://github.com/HA7CH/ha7ch-home" },
   { label: "Email", href: "mailto:lawtedwu@gmail.com" },
   { label: "WeChat", href: "/wechat" },
   { label: "RedNote", href: "/rednote" }
