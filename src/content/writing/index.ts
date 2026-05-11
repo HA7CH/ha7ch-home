@@ -5,7 +5,7 @@ import mvpAsResearch from "./mvp-as-research";
 import poetryAndThePlaza from "./poetry-and-the-plaza";
 import attentionIsAllYouNeed from "./attention-is-all-you-need";
 import soWtfIsHa7ch from "./so-wtf-is-ha7ch";
-import codeAgentAndTokenEfficiency from "./CodeAgent&TokenEfficiency";
+import codeAgentAndTokenEfficiency from "./code-agent-and-token-efficiency";
 
 export type { Article };
 
