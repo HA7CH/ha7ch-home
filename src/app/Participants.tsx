@@ -9,6 +9,7 @@ type Participant = { name: string; src: string; job: string };
 const PARTICIPANTS: Participant[] = [
   { name: "lawted", src: "/avatars/lawted.png", job: "Shenzhen, China" },
   { name: "jaxper", src: "/avatars/jaxper.png", job: "United States" },
+  { name: "SnowCat", src: "/avatars/snowcat.png", job: "Beijing, China" },
   { name: "Claude", src: "/avatars/claude.png", job: "Anthropic" },
   { name: "ChatGPT", src: "/avatars/chatgpt.png", job: "OpenAI" }
 ];

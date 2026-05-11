@@ -49,7 +49,7 @@ const REST_PAGE_BODY_HEIGHT =
   FOOTER_HEIGHT;
 
 export function paginateForCards(paragraphs: string[], lang: Lang): CardPage[] {
-  const cleaned = paragraphs.map((p) => p.trim()).filter(Boolean);
+  const cleaned = paragraphs.map((p) => p.trim()).filter((p) => p && p !== "---");
   if (cleaned.length === 0) return [[]];
 
   const cards: CardPage[] = [];

@@ -98,9 +98,9 @@ export default function ArticleContent({ article }: { article: Article }) {
           </div>
         </header>
         <div className="writing-body" data-lang={lang}>
-          {content.map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
+          {content.map((para, i) =>
+            para === "---" ? <hr key={i} className="writing-divider" /> : <p key={i}>{para}</p>
+          )}
         </div>
       </article>
     </main>
