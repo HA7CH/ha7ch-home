@@ -67,6 +67,12 @@ const writing: ListItem[] = [
     meta: "May 11"
   },
   {
+    title: "FDE Is The Future",
+    href: "/writing/fde-is-the-future",
+    date: "2026-05-11",
+    meta: "May 11"
+  },
+  {
     title: "Code Agent and Token Cost",
     href: "/writing/code-agent-and-token-efficiency",
     date: "2026-05-11",
