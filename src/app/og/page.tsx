@@ -4,6 +4,7 @@ const RATIOS = [
   { label: "1.91:1 (OG)", path: "opengraph-image", w: 600, h: 315 },
   { label: "2.35:1", path: "og-235", w: 600, h: 255 },
   { label: "1:1", path: "og-11", w: 400, h: 400 },
+  { label: "combined", path: "og-combined", w: 800, h: 236 },
 ];
 
 export default function OGPreview() {
