@@ -20,7 +20,7 @@ const projects: ListItem[] = [
   {
     group: "2026",
     title: "中登BOT",
-    description: "A WeChat Claude bot for reading the global pulse.",
+    description: "A WeChat Bot for reading the global pulse.",
     href: "https://wwc.ha7ch.com",
     date: "2026-05-12",
     meta: "May 12"
