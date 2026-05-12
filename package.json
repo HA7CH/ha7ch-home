@@ -15,7 +15,8 @@
     "motion": "^12.38.0",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@types/node": "latest",
