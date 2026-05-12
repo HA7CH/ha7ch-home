@@ -44,8 +44,8 @@ export async function GET(_req: Request, { params }: { params: Params }) {
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", background: "#ffffff", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
-        {/* Article text background — more room in square format */}
-        <div style={{ position: "absolute", inset: 0, padding: "48px 56px 280px", display: "flex", flexDirection: "column", gap: "22px", overflow: "hidden" }}>
+        {/* Article text — fills the main area, avoids the bottom title strip */}
+        <div style={{ position: "absolute", inset: 0, padding: "56px 56px 220px", display: "flex", flexDirection: "column", gap: "22px", overflow: "hidden" }}>
           {paragraphs.map((para, i) => (
             <div key={i} style={{ fontSize: 32, fontWeight: 300, color: "#111111", lineHeight: 1.65, fontFamily: "Inter" }}>
               {para}
@@ -53,18 +53,20 @@ export async function GET(_req: Request, { params }: { params: Params }) {
           ))}
         </div>
 
-        {/* Bottom fade */}
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "360px", background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%)", display: "flex" }} />
-
-        {/* Title bottom-left */}
-        <div style={{ position: "absolute", bottom: 96, left: 56, right: 56, display: "flex", fontSize: titleFontSize, fontWeight: 600, fontFamily: "Inter", color: "#111111", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
-          {title}
-        </div>
-
-        {/* Logo bottom-right */}
-        <div style={{ position: "absolute", bottom: 56, right: 56, display: "flex", alignItems: "center" }}>
+        {/* Logo top-right */}
+        <div style={{ position: "absolute", top: 24, right: 36, display: "flex", alignItems: "center" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={dataUrl} alt="HA7CH" width={logoWidth} height={logoHeight} />
+        </div>
+
+        {/* Bottom fade into title strip */}
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "320px", background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 45%)", display: "flex" }} />
+
+        {/* Title — full-width bottom strip */}
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "180px", padding: "0 56px", display: "flex", alignItems: "center" }}>
+          <div style={{ fontSize: titleFontSize, fontWeight: 600, fontFamily: "Inter", color: "#111111", letterSpacing: "-0.02em", lineHeight: 1.1, display: "flex" }}>
+            {title}
+          </div>
         </div>
       </div>
     ),

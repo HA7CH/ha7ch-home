@@ -7,9 +7,9 @@ import { motion, AnimatePresence } from "motion/react";
 type Participant = { name: string; src: string; job: string };
 
 const PARTICIPANTS: Participant[] = [
-  { name: "lawted", src: "/avatars/lawted.png", job: "Shenzhen, China" },
-  { name: "jaxper", src: "/avatars/jaxper.png", job: "Mountain View, CA" },
-  { name: "SnowCat", src: "/avatars/snowcat.png", job: "Beijing, China" },
+  { name: "lawted", src: "/avatars/lawted.png", job: "Shenzhen" },
+  { name: "jaxper", src: "/avatars/jaxper.png", job: "Mountain View" },
+  { name: "SnowCat", src: "/avatars/snowcat.png", job: "Beijing" },
   { name: "Claude", src: "/avatars/claude.png", job: "Anthropic" },
   { name: "ChatGPT", src: "/avatars/chatgpt.png", job: "OpenAI" },
   { name: "Gemini", src: "/avatars/gemini.png", job: "Google" }
