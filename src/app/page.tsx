@@ -28,9 +28,9 @@ const projects: ListItem[] = [
   {
     title: "Raily",
     description: "Flighty for Rail.",
-    href: "https://testflight.apple.com/join/dN2uQn6y",
-    date: "2026-05-08",
-    meta: "May 8"
+    href: "https://apps.apple.com/app/raily-live-train-tracker/id6764391867",
+    date: "2026-05-12",
+    meta: "May 12"
   },
   {
     title: "cv.pro",
