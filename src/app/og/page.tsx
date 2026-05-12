@@ -1,5 +1,11 @@
 import { getAllSlugs, getArticle } from "@/content/writing";
 
+const RATIOS = [
+  { label: "1.91:1 (OG)", path: "opengraph-image", w: 600, h: 315 },
+  { label: "2.35:1", path: "og-235", w: 600, h: 255 },
+  { label: "1:1", path: "og-11", w: 400, h: 400 },
+];
+
 export default function OGPreview() {
   const slugs = getAllSlugs();
 
@@ -10,39 +16,32 @@ export default function OGPreview() {
         Click any card to open the raw image.
       </p>
 
-      <h2 style={{ fontFamily: "monospace", fontSize: "13px", color: "#999", marginBottom: "16px" }}>
-        HOMEPAGE
-      </h2>
-      <a href="/opengraph-image" target="_blank" style={{ display: "block", marginBottom: "40px" }}>
-        <img
-          src="/opengraph-image"
-          alt="Homepage OG"
-          style={{ width: "600px", height: "315px", objectFit: "cover", border: "1px solid #ddd", display: "block" }}
-        />
-      </a>
-
-      <h2 style={{ fontFamily: "monospace", fontSize: "13px", color: "#999", marginBottom: "16px" }}>
-        WRITING ({slugs.length})
-      </h2>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, 600px)", gap: "24px" }}>
-        {slugs.map((slug) => {
-          const article = getArticle(slug);
-          return (
-            <div key={slug}>
-              <a href={`/writing/${slug}/opengraph-image`} target="_blank" style={{ display: "block" }}>
-                <img
-                  src={`/writing/${slug}/opengraph-image`}
-                  alt={article?.titleEn ?? slug}
-                  style={{ width: "600px", height: "315px", objectFit: "cover", border: "1px solid #ddd", display: "block" }}
-                />
-              </a>
-              <p style={{ fontFamily: "monospace", fontSize: "12px", color: "#666", marginTop: "6px" }}>
-                {slug}
-              </p>
+      {slugs.map((slug) => {
+        const article = getArticle(slug);
+        return (
+          <div key={slug} style={{ marginBottom: "48px" }}>
+            <p style={{ fontFamily: "monospace", fontSize: "13px", color: "#333", marginBottom: "16px", fontWeight: "bold" }}>
+              {article?.titleEn ?? slug}
+            </p>
+            <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+              {RATIOS.map(({ label, path, w, h }) => (
+                <div key={path}>
+                  <a href={`/writing/${slug}/${path}`} target="_blank" style={{ display: "block" }}>
+                    <img
+                      src={`/writing/${slug}/${path}`}
+                      alt={label}
+                      style={{ width: `${w}px`, height: `${h}px`, objectFit: "cover", border: "1px solid #ddd", display: "block" }}
+                    />
+                  </a>
+                  <p style={{ fontFamily: "monospace", fontSize: "11px", color: "#999", marginTop: "4px" }}>
+                    {label}
+                  </p>
+                </div>
+              ))}
             </div>
-          );
-        })}
-      </div>
+          </div>
+        );
+      })}
     </main>
   );
 }
