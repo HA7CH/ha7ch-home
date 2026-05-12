@@ -42,7 +42,7 @@ const projects: ListItem[] = [
   {
     title: "Raily Friends",
     description: "One-day social experiments for train travelers.",
-    href: "https://raily.ha7ch.com",
+    href: "https://raily-friends.ha7ch.com",
     date: "2026-04-29",
     meta: "Apr 29"
   },
