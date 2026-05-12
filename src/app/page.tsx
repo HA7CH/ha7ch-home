@@ -236,16 +236,16 @@ export default function Home() {
           <time dateTime={latestUpdate}>Updated {formatUpdated(latestUpdate)}</time>
         </header>
 
-        <p>HA7CH is a tiny builder lab hatching vibe-coded products.</p>
+        <p>HA7CH is a tiny builder lab.</p>
 
         <p>
-          We build small tools, fast experiments, and strange ideas under{" "}
-          <BasicLink href="https://ha7ch.com">ha7ch.com</BasicLink>.
+          We ship small tools, fast experiments, and ideas that probably
+          shouldn&apos;t exist, usually in 48 hours.
         </p>
 
         <p>
-          We write treating vibe coding as a container rather than a wish
-          machine, and shipping tiny products in 48 hours.
+          Vibe coding is our forcing function, not a wish machine. Build the
+          thing. See if it works. Kill it if it doesn&apos;t.
         </p>
 
         <p>
