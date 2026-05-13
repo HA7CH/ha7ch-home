@@ -2,7 +2,7 @@ import type { Article } from "./types";
 
 const article: Article = {
   slug: "ha7ch-is-a-fde-accelerator",
-  titleZh: "HA7CH 是 FDE 加速器",
+  titleZh: "HA7CH 是一个 FDE 加速器",
   titleEn: "HA7CH Is a FDE Accelerator",
   date: "2026-05-11",
   dateDisplay: "May 11",
@@ -10,8 +10,7 @@ const article: Article = {
     "这两天好多人来问我们 HA7CH 到底是干什么的。答案很简单：HA7CH 是一个 FDE 加速器。",
     "---",
     "YC 帮助创始人成为公司。HA7CH 帮助人成为创始人。",
-    "YC 挑选的是已经冒尖的人，然后把他们推上台。HA7CH 找的是还没冒尖的人，在真实的问题里找，在 ship fast 里找，在 build in public 里找。",
-    "YC 是加速器。HA7CH 更像是引擎。",
+    "YC 挑选的是已经冒尖的人，然后给他们资源。HA7CH 找的是还没冒尖的人，在校园里找，在 build in public 里找，让他们去解决真实的问题，了解真实的用户，完成真实的交付。",
     "YC 会问：谁值得投资？HA7CH 会问：谁可以嗨起（ha7ch）？",
     "在产品极易被复制的世界里，护城河不再是产品本身。护城河是你能聚集、ignite、一起向前走的人。",
     "---",
@@ -56,8 +55,7 @@ const article: Article = {
     "Over the last couple of days a lot of people have been asking us what HA7CH actually does. The answer is simple: HA7CH is a FDE accelerator.",
     "---",
     "YC helps founders become companies. HA7CH helps people become founders.",
-    "YC takes people who already stand out and pushes them onto the table. HA7CH finds people before they stand out, through real-world problems, fast shipping, and public building.",
-    "YC is an accelerator. HA7CH is more like an engine.",
+    "YC takes people who already stand out and gives them resources. HA7CH finds people before they stand out, on campuses and in build in public, and puts them in front of real problems, real users, and real deliveries.",
     "YC asks: \"Who is worth investing in?\" HA7CH asks: \"Who can be ha7ch'd?\"",
     "In a world where products are easy to copy, the moat is no longer the product itself. The moat is the people you can gather, ignite, and move forward together.",
     "---",
