@@ -29,8 +29,9 @@ const projects: ListItem[] = [
     title: "中登BOT",
     description: "A WeChat Bot for reading the global pulse.",
     href: "https://wwc.ha7ch.com",
-    date: "2026-05-12",
-    meta: "May 12"
+    date: "2026-05-13",
+    meta: "RIP",
+    dead: true
   },
   {
     title: "Raily",
