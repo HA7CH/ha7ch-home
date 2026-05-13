@@ -10,10 +10,11 @@ import weDontKnowWhatHa7chIsYet from "./we-dont-know-what-ha7ch-is-yet";
 import fdeIsTheFuture from "./fde-is-the-future";
 import walkOnTwoLegs from "./walk-on-two-legs";
 import theFrogInTheWell from "./the-frog-in-the-well";
+import questionEveryInstinct from "./question-every-instinct";
 
 export type { Article };
 
-export const articles: Article[] = [theFrogInTheWell, walkOnTwoLegs, weDontKnowWhatHa7chIsYet, fdeIsTheFuture, codeAgentAndTokenEfficiency, attentionIsAllYouNeed, poetryAndThePlaza, mvpAsResearch, powerballEffect, zeroTokenDesign, soWtfIsHa7ch];
+export const articles: Article[] = [questionEveryInstinct, theFrogInTheWell, walkOnTwoLegs, weDontKnowWhatHa7chIsYet, fdeIsTheFuture, codeAgentAndTokenEfficiency, attentionIsAllYouNeed, poetryAndThePlaza, mvpAsResearch, powerballEffect, zeroTokenDesign, soWtfIsHa7ch];
 
 export function getArticle(slug: string): Article | undefined {
   return articles.find((a) => a.slug === slug);
