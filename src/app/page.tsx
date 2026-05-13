@@ -75,6 +75,12 @@ const projects: ListItem[] = [
 const writing: ListItem[] = [
   {
     group: "2026",
+    title: "The Frog in the Well",
+    href: "/writing/the-frog-in-the-well",
+    date: "2026-05-13",
+    meta: "May 13"
+  },
+  {
     title: "Walk on Two Legs",
     href: "/writing/walk-on-two-legs",
     date: "2026-05-12",
