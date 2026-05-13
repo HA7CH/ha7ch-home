@@ -19,6 +19,13 @@ const projects: ListItem[] = [
   },
   {
     group: "2026",
+    title: "微光-Glimmer",
+    description: "Your memory is the most beautiful map.",
+    href: "https://testflight.apple.com/join/HdcnmhtW",
+    date: "2026-05-13",
+    meta: "May 13"
+  },
+  {
     title: "中登BOT",
     description: "A WeChat Bot for reading the global pulse.",
     href: "https://wwc.ha7ch.com",
