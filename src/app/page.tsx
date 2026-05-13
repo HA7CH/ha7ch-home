@@ -94,8 +94,8 @@ const writing: ListItem[] = [
     meta: "May 12"
   },
   {
-    title: "We Don't Fucking Know What HA7CH Is",
-    href: "/writing/we-dont-know-what-ha7ch-is-yet",
+    title: "HA7CH Is a FDE Accelerator",
+    href: "/writing/ha7ch-is-a-fde-accelerator",
     date: "2026-05-11",
     meta: "May 11"
   },
