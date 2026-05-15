@@ -19,6 +19,13 @@ const projects: ListItem[] = [
   },
   {
     group: "2026",
+    title: "job.pro",
+    description: "Big-tech campus jobs, from your terminal.",
+    href: "https://job.ha7ch.com",
+    date: "2026-05-14",
+    meta: "May 14"
+  },
+  {
     title: "微光-Glimmer",
     description: "Your memory is the most beautiful map.",
     href: "https://testflight.apple.com/join/HdcnmhtW",
