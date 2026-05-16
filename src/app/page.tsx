@@ -33,14 +33,6 @@ const projects: ListItem[] = [
     meta: "May 13"
   },
   {
-    title: "中登BOT",
-    description: "A WeChat Bot for reading the global pulse.",
-    href: "https://wwc.ha7ch.com",
-    date: "2026-05-13",
-    meta: "RIP",
-    dead: true
-  },
-  {
     title: "Raily",
     description: "Flighty for Rail.",
     href: "https://apps.apple.com/app/raily-live-train-tracker/id6764391867",
@@ -60,6 +52,14 @@ const projects: ListItem[] = [
     href: "https://raily-friends.ha7ch.com",
     date: "2026-04-29",
     meta: "Apr 29"
+  },
+  {
+    title: "中登BOT",
+    description: "A WeChat Bot for reading the global pulse.",
+    href: "https://wwc.ha7ch.com",
+    date: "2026-05-13",
+    meta: "RIP",
+    dead: true
   },
   {
     group: "2025",
