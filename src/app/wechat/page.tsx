@@ -27,7 +27,7 @@ export default function WeChat() {
 
         <div className="wechat-qr">
           <Image
-            src="/wx-group-0508.jpg"
+            src="/wx-group-0516.jpg"
             alt="HA7CH WeChat group QR code"
             width={1080}
             height={1596}
