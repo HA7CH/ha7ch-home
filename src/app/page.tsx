@@ -19,6 +19,13 @@ const projects: ListItem[] = [
   },
   {
     group: "2026",
+    title: "AI Native Rank",
+    description: "What's your AI Native Rank? S, A, B, C, or D?",
+    href: "https://rank.ha7ch.com",
+    date: "2026-05-17",
+    meta: "May 17"
+  },
+  {
     title: "job.pro",
     description: "Big-tech campus jobs, from your terminal.",
     href: "https://job.ha7ch.com",
