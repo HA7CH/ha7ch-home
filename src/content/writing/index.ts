@@ -13,10 +13,11 @@ import theFrogInTheWell from "./the-frog-in-the-well";
 import questionEveryInstinct from "./question-every-instinct";
 import claudeCodeForEverything from "./claude-code-for-everything";
 import baseballAndTheBlameGame from "./baseball-and-the-blame-game";
+import stopSayingJiushi from "./stop-saying-jiushi";
 
 export type { Article };
 
-export const articles: Article[] = [baseballAndTheBlameGame, claudeCodeForEverything, questionEveryInstinct, theFrogInTheWell, walkOnTwoLegs, weDontKnowWhatHa7chIsYet, fdeIsTheFuture, codeAgentAndTokenEfficiency, attentionIsAllYouNeed, poetryAndThePlaza, mvpAsResearch, powerballEffect, zeroTokenDesign, soWtfIsHa7ch];
+export const articles: Article[] = [stopSayingJiushi, baseballAndTheBlameGame, claudeCodeForEverything, questionEveryInstinct, theFrogInTheWell, walkOnTwoLegs, weDontKnowWhatHa7chIsYet, fdeIsTheFuture, codeAgentAndTokenEfficiency, attentionIsAllYouNeed, poetryAndThePlaza, mvpAsResearch, powerballEffect, zeroTokenDesign, soWtfIsHa7ch];
 
 export function getArticle(slug: string): Article | undefined {
   return articles.find((a) => a.slug === slug);
