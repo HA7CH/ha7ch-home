@@ -266,9 +266,44 @@ function PostList({ title, items }: { title: string; items: ListItem[] }) {
   );
 }
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://ha7ch.com/#organization",
+      name: "HA7CH",
+      url: "https://ha7ch.com",
+      logo: "https://ha7ch.com/ha7ch-avatar.png",
+      description:
+        "A tiny builder lab shipping vibe-coded products, fast experiments, and ideas that probably shouldn't exist — usually in 48 hours.",
+      sameAs: [
+        "https://x.com/lawted2",
+        "https://github.com/HA7CH/ha7ch-home",
+        "https://www.reddit.com/r/ha7ch/",
+        "https://discord.gg/DqGBKNANZj"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ha7ch.com/#website",
+      url: "https://ha7ch.com",
+      name: "HA7CH",
+      description:
+        "A tiny builder lab shipping vibe-coded products in 48 hours.",
+      publisher: { "@id": "https://ha7ch.com/#organization" },
+      inLanguage: "en"
+    }
+  ]
+};
+
 export default function Home() {
   return (
     <main className="homepage">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <article className="article">
         <header>
           <h1>
