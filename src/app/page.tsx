@@ -223,9 +223,10 @@ function BasicLink({
 }
 
 function PostList({ title, items }: { title: string; items: ListItem[] }) {
+  const id = title.toLowerCase();
   return (
-    <section className="post-list" aria-labelledby={`${title.toLowerCase()}-title`}>
-      <h2 id={`${title.toLowerCase()}-title`} className="section-title">
+    <section id={id} className="post-list" aria-labelledby={`${id}-title`}>
+      <h2 id={`${id}-title`} className="section-title">
         {title}
       </h2>
       <ul>
@@ -266,6 +267,54 @@ function PostList({ title, items }: { title: string; items: ListItem[] }) {
   );
 }
 
+const liveProjects = projects.filter(
+  (p) => !p.dead && p.href && p.title && p.description
+);
+
+const projectsItemList = {
+  "@type": "ItemList",
+  "@id": "https://ha7ch.com/#projects",
+  name: "HA7CH Projects",
+  description: "Tools, experiments, and apps built by HA7CH.",
+  numberOfItems: liveProjects.length,
+  itemListElement: liveProjects.map((p, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "SoftwareApplication",
+      name: p.title,
+      description: p.description,
+      url: p.href,
+      datePublished: p.date,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Web, iOS, macOS",
+      creator: { "@id": "https://ha7ch.com/#organization" },
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD"
+      }
+    }
+  }))
+};
+
+const writingItemList = {
+  "@type": "ItemList",
+  "@id": "https://ha7ch.com/#writing",
+  name: "HA7CH Writing",
+  description:
+    "Essays from HA7CH on vibe coding, AI native development, FDE, MVP-as-research, and the future of building.",
+  numberOfItems: writing.filter((w) => w.title && w.href).length,
+  itemListElement: writing
+    .filter((w) => w.title && w.href)
+    .map((w, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `https://ha7ch.com${w.href}`,
+      name: w.title
+    }))
+};
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -273,10 +322,16 @@ const jsonLd = {
       "@type": "Organization",
       "@id": "https://ha7ch.com/#organization",
       name: "HA7CH",
+      alternateName: ["ha7ch", "Hatch", "HA7CH Lab"],
       url: "https://ha7ch.com",
       logo: "https://ha7ch.com/ha7ch-avatar.png",
       description:
         "A tiny builder lab shipping vibe-coded products, fast experiments, and ideas that probably shouldn't exist — usually in 48 hours.",
+      founder: {
+        "@type": "Person",
+        name: "lawted",
+        url: "https://x.com/lawted2"
+      },
       sameAs: [
         "https://x.com/lawted2",
         "https://github.com/HA7CH/ha7ch-home",
@@ -292,8 +347,10 @@ const jsonLd = {
       description:
         "A tiny builder lab shipping vibe-coded products in 48 hours.",
       publisher: { "@id": "https://ha7ch.com/#organization" },
-      inLanguage: "en"
-    }
+      inLanguage: ["en", "zh-CN"]
+    },
+    projectsItemList,
+    writingItemList
   ]
 };
 
