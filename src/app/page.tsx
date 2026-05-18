@@ -90,6 +90,12 @@ const projects: ListItem[] = [
 const writing: ListItem[] = [
   {
     group: "2026",
+    title: "Harvard Isn't Harvard, YC Isn't YC",
+    href: "/writing/harvard-is-not-harvard",
+    date: "2026-05-19",
+    meta: "May 19"
+  },
+  {
     title: "Baseball and the Blame Game",
     href: "/writing/baseball-and-the-blame-game",
     date: "2026-05-14",
