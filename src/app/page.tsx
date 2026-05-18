@@ -195,6 +195,7 @@ const contacts = [
   { label: "X", href: "https://x.com/lawted2" },
   { label: "GitHub", href: "https://github.com/HA7CH/ha7ch-home" },
   { label: "Discord", href: "https://discord.gg/DqGBKNANZj" },
+  { label: "Reddit", href: "https://www.reddit.com/r/ha7ch/" },
   { label: "Email", href: "mailto:lawtedwu@gmail.com" },
   { label: "WeChat", href: "/wechat" },
   { label: "RedNote", href: "/rednote" }
