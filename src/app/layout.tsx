@@ -5,11 +5,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://ha7ch.com"),
   title: {
-    default: "HA7CH — a tiny builder lab shipping vibe-coded products in 48 hours",
+    default: "HA7CH — a tiny builder lab & FDE community shipping vibe-coded products in 48 hours",
     template: "%s · HA7CH"
   },
   description:
-    "HA7CH is a tiny builder lab. We ship small tools, fast experiments, and ideas that probably shouldn't exist — usually in 48 hours. Vibe coding is our forcing function.",
+    "HA7CH is a tiny builder lab. We ship small tools, fast experiments, and ideas that probably shouldn't exist — usually in 48 hours.",
   applicationName: "HA7CH",
   keywords: [
     "HA7CH",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     canonical: "/"
   },
   openGraph: {
-    title: "HA7CH — a tiny builder lab shipping vibe-coded products in 48 hours",
+    title: "HA7CH — a tiny builder lab & FDE community shipping vibe-coded products in 48 hours",
     description:
       "Small tools, fast experiments, and ideas that probably shouldn't exist. Vibe coding is our forcing function. Build the thing. See if it works. Kill it if it doesn't.",
     url: "https://ha7ch.com",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "HA7CH — a tiny builder lab shipping vibe-coded products in 48 hours",
+    title: "HA7CH — a tiny builder lab & FDE community shipping vibe-coded products in 48 hours",
     description:
       "Small tools, fast experiments, ideas that probably shouldn't exist — usually in 48 hours.",
     site: "@lawted2",

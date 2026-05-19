@@ -53,7 +53,7 @@ export function GET() {
 
   const body = `# HA7CH
 
-> HA7CH is a tiny builder lab. We ship small tools, fast experiments, and ideas that probably shouldn't exist — usually in 48 hours. Vibe coding is our forcing function: build the thing, see if it works, kill it if it doesn't. Founded by lawted (https://x.com/lawted2).
+> HA7CH is a tiny builder lab and FDE community. We ship small tools, fast experiments, and ideas that probably shouldn't exist — usually in 48 hours. Vibe coding is our forcing function: build the thing, see if it works, kill it if it doesn't. Founded by lawted (https://x.com/lawted2).
 
 HA7CH (also written "ha7ch" or "Hatch") is the name of the lab and the brand. We publish small shipped projects and short essays from our home page at ${BASE_URL}.
 

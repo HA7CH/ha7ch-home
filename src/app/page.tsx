@@ -326,7 +326,7 @@ const jsonLd = {
       url: "https://ha7ch.com",
       logo: "https://ha7ch.com/ha7ch-avatar.png",
       description:
-        "A tiny builder lab shipping vibe-coded products, fast experiments, and ideas that probably shouldn't exist — usually in 48 hours.",
+        "A tiny builder lab and FDE community shipping vibe-coded products, fast experiments, and ideas that probably shouldn't exist — usually in 48 hours.",
       founder: {
         "@type": "Person",
         name: "lawted",
@@ -345,7 +345,7 @@ const jsonLd = {
       url: "https://ha7ch.com",
       name: "HA7CH",
       description:
-        "A tiny builder lab shipping vibe-coded products in 48 hours.",
+        "A tiny builder lab and FDE community shipping vibe-coded products in 48 hours.",
       publisher: { "@id": "https://ha7ch.com/#organization" },
       inLanguage: ["en", "zh-CN"]
     },
@@ -367,20 +367,22 @@ export default function Home() {
             <Image
               className="brand-logo"
               src="/ha7ch.svg"
-              alt="HA7CH"
+              alt=""
               width={487}
               height={78}
               loading="eager"
+              aria-hidden="true"
             />
+            <span className="sr-only">
+              HA7CH &mdash; a tiny builder lab &amp; FDE community shipping vibe-coded products in 48 hours
+            </span>
           </h1>
           <time dateTime={latestUpdate}>Updated {formatUpdated(latestUpdate)}</time>
         </header>
 
-        <p>HA7CH is a tiny builder lab.</p>
-
         <p>
-          We ship small tools, fast experiments, and ideas that probably
-          shouldn&apos;t exist, usually in 48 hours.
+          HA7CH is a tiny builder lab. We ship small tools, fast experiments,
+          and ideas that probably shouldn&apos;t exist &mdash; usually in 48 hours.
         </p>
 
         <p>
