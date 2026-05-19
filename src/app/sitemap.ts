@@ -14,6 +14,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0
     },
     {
+      url: `${BASE_URL}/llms.txt`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.6
+    },
+    {
+      url: `${BASE_URL}/llms-full.txt`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.6
+    },
+    {
       url: `${BASE_URL}/wechat`,
       lastModified: now,
       changeFrequency: "monthly",
@@ -27,12 +39,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   ];
 
-  const articleRoutes: MetadataRoute.Sitemap = articles.map((a) => ({
-    url: `${BASE_URL}/writing/${a.slug}`,
-    lastModified: new Date(a.date),
-    changeFrequency: "yearly",
-    priority: 0.7
-  }));
+  const articleRoutes: MetadataRoute.Sitemap = articles.flatMap((a) => [
+    {
+      url: `${BASE_URL}/writing/${a.slug}`,
+      lastModified: new Date(a.date),
+      changeFrequency: "yearly" as const,
+      priority: 0.7
+    },
+    {
+      url: `${BASE_URL}/writing/${a.slug}/md`,
+      lastModified: new Date(a.date),
+      changeFrequency: "yearly" as const,
+      priority: 0.5
+    }
+  ]);
 
   return [...staticRoutes, ...articleRoutes];
 }

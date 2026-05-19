@@ -52,7 +52,10 @@ export async function generateMetadata({
     description,
     keywords,
     authors: [{ name: "lawted", url: "https://x.com/lawted2" }],
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      types: { "text/markdown": `${url}/md` }
+    },
     openGraph: {
       title: article.titleEn,
       description,
