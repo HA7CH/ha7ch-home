@@ -26,7 +26,7 @@ const FOOTER_HEIGHT = 30;
 
 const CONTENT_WIDTH_EM = (CARD_WIDTH - PADDING_X * 2) / BODY_FONT_SIZE;
 const LINE_WIDTH_EM: Record<Lang, number> = {
-  zh: CONTENT_WIDTH_EM - 0.4,
+  zh: CONTENT_WIDTH_EM - 1.5,
   en: CONTENT_WIDTH_EM - 2,
 };
 const FIRST_PAGE_BODY_HEIGHT =

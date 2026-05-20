@@ -92,6 +92,7 @@ export async function GET(_req: Request, { params }: { params: Params }) {
           flexDirection: "column",
           fontFamily: lang === "zh" ? "Noto Sans SC, Inter" : "Inter",
           padding: "100px 96px",
+          overflow: "hidden",
         }}
       >
         <div style={{ display: "flex", alignItems: "center" }}>
@@ -167,6 +168,8 @@ export async function GET(_req: Request, { params }: { params: Params }) {
             flexDirection: "column",
             gap: 36,
             flex: 1,
+            width: "100%",
+            overflow: "hidden",
             fontSize: 32,
             fontWeight: 400,
             color: "rgba(0,0,0,0.65)",
@@ -180,6 +183,8 @@ export async function GET(_req: Request, { params }: { params: Params }) {
               style={{
                 display: "flex",
                 flexDirection: "column",
+                width: "100%",
+                overflow: "hidden",
                 lineHeight: 1.7,
               }}
             >
@@ -188,6 +193,8 @@ export async function GET(_req: Request, { params }: { params: Params }) {
                   key={lineIdx}
                   style={{
                     display: "flex",
+                    width: "100%",
+                    overflow: "hidden",
                     whiteSpace: "pre",
                   }}
                 >
@@ -201,6 +208,7 @@ export async function GET(_req: Request, { params }: { params: Params }) {
         <div
           style={{
             display: "flex",
+            width: "100%",
             justifyContent: "space-between",
             alignItems: "center",
             color: "rgba(0,0,0,0.4)",
