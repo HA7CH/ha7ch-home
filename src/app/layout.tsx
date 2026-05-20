@@ -5,29 +5,31 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://ha7ch.com"),
   title: {
-    default: "HA7CH — a tiny builder lab & FDE community shipping vibe-coded products in 48 hours",
+    default: "HA7CH: AI-native Builder Lab born at Stanford, the world's first FDE Accelerator",
     template: "%s · HA7CH"
   },
   description:
-    "HA7CH is a tiny builder lab. We ship small tools, fast experiments, and ideas that probably shouldn't exist — usually in 48 hours.",
+    "HA7CH is an AI-native Builder Lab born at Stanford. The world's first FDE Accelerator. Build in the field, hatch into impact.",
   applicationName: "HA7CH",
   keywords: [
     "HA7CH",
     "ha7ch",
+    "Hatch",
+    "AI-native Builder Lab",
+    "Builder Lab",
+    "FDE Accelerator",
+    "Forward Deployed Engineer",
+    "Stanford",
     "vibe coding",
     "AI native",
     "AI Native Rank",
-    "builder lab",
-    "indie hackers",
     "Claude Code",
     "AI agents",
     "Raily",
     "cv.pro",
     "job.pro",
     "Glimmer",
-    "lawted",
-    "48 hour build",
-    "FDE"
+    "lawted"
   ],
   authors: [{ name: "lawted", url: "https://x.com/lawted2" }],
   creator: "lawted",
@@ -36,9 +38,9 @@ export const metadata: Metadata = {
     canonical: "/"
   },
   openGraph: {
-    title: "HA7CH — a tiny builder lab & FDE community shipping vibe-coded products in 48 hours",
+    title: "HA7CH: AI-native Builder Lab born at Stanford, the world's first FDE Accelerator",
     description:
-      "Small tools, fast experiments, and ideas that probably shouldn't exist. Vibe coding is our forcing function. Build the thing. See if it works. Kill it if it doesn't.",
+      "HA7CH is an AI-native Builder Lab born at Stanford. The world's first FDE Accelerator. Build in the field, hatch into impact.",
     url: "https://ha7ch.com",
     siteName: "HA7CH",
     type: "website",
@@ -46,9 +48,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "HA7CH — a tiny builder lab & FDE community shipping vibe-coded products in 48 hours",
+    title: "HA7CH: AI-native Builder Lab born at Stanford, the world's first FDE Accelerator",
     description:
-      "Small tools, fast experiments, ideas that probably shouldn't exist — usually in 48 hours.",
+      "AI-native Builder Lab born at Stanford. World's first FDE Accelerator. Build in the field, hatch into impact.",
     site: "@lawted2",
     creator: "@lawted2"
   },

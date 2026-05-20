@@ -9,7 +9,7 @@ function toMarkdown(paragraphs: string[]): string {
 export function GET() {
   const header = `# HA7CH — Full Corpus
 
-> HA7CH is a tiny builder lab and FDE community shipping vibe-coded products in 48 hours. Founded by lawted (https://x.com/lawted2). This file bundles every essay published at ${BASE_URL}/writing for LLM ingestion. Each essay is also available individually at /writing/{slug}/md.
+> HA7CH is an AI-native Builder Lab born at Stanford, the world's first FDE Accelerator. Founded by lawted (https://x.com/lawted2). This file bundles every essay published at ${BASE_URL}/writing for LLM ingestion. Each essay is also available individually at /writing/{slug}/md.
 
 `;
 

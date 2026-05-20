@@ -1,6 +1,6 @@
 # HA7CH
 
-A tiny builder lab hatching vibe-coded products.
+An AI-native Builder Lab born at Stanford. The world's first FDE Accelerator. Build in the field, hatch into impact.
 
 Built with Next.js and ready for GitHub + Vercel.
 

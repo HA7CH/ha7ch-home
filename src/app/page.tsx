@@ -252,7 +252,7 @@ const jsonLd = {
       url: "https://ha7ch.com",
       logo: "https://ha7ch.com/ha7ch-avatar.png",
       description:
-        "A tiny builder lab and FDE community shipping vibe-coded products, fast experiments, and ideas that probably shouldn't exist — usually in 48 hours.",
+        "HA7CH is an AI-native Builder Lab born at Stanford. The world's first FDE Accelerator. Build in the field, hatch into impact.",
       founder: {
         "@type": "Person",
         name: "lawted",
@@ -271,7 +271,7 @@ const jsonLd = {
       url: "https://ha7ch.com",
       name: "HA7CH",
       description:
-        "A tiny builder lab and FDE community shipping vibe-coded products in 48 hours.",
+        "HA7CH is an AI-native Builder Lab born at Stanford. The world's first FDE Accelerator. Build in the field, hatch into impact.",
       publisher: { "@id": "https://ha7ch.com/#organization" },
       inLanguage: ["en", "zh-CN"]
     },
@@ -300,21 +300,17 @@ export default function Home() {
               aria-hidden="true"
             />
             <span className="sr-only">
-              HA7CH &mdash; a tiny builder lab &amp; FDE community shipping vibe-coded products in 48 hours
+              HA7CH: AI-native Builder Lab born at Stanford, the world&apos;s first FDE Accelerator
             </span>
           </h1>
           <time dateTime={latestUpdate}>Updated {formatUpdated(latestUpdate)}</time>
         </header>
 
-        <p>
-          HA7CH is a tiny builder lab. We ship small tools, fast experiments,
-          and ideas that probably shouldn&apos;t exist &mdash; usually in 48 hours.
-        </p>
+        <p>HA7CH is an AI-native Builder Lab born at Stanford.</p>
 
-        <p>
-          Vibe coding is our forcing function, not a wish machine. Build the
-          thing. See if it works. Kill it if it doesn&apos;t.
-        </p>
+        <p>It is the world&apos;s first FDE Accelerator.</p>
+
+        <p>Build in the field. Hatch into impact.</p>
 
         <p>
           You can find us on{" "}

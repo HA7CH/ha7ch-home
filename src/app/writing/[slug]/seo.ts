@@ -9,7 +9,10 @@ const BASE_KEYWORDS = [
   "lawted",
   "vibe coding",
   "AI native",
-  "builder lab",
+  "AI-native Builder Lab",
+  "FDE Accelerator",
+  "Forward Deployed Engineer",
+  "Stanford",
   "Claude Code"
 ];
 
