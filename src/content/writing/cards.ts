@@ -168,7 +168,17 @@ function measureTextEm(text: string) {
 
 function charWidthEm(char: string) {
   if (/\s/.test(char)) return 0.28;
-  if (/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(char)) {
+  // Han / Hiragana / Katakana scripts plus CJK Symbols and Punctuation
+  // (U+3000–U+303F, e.g. 、 。 「 」 《 》 …) and Halfwidth/Fullwidth Forms
+  // (U+FF00–U+FFEF, e.g. ， 。 ！ ？ ； ： （ ） full-width latin) all render
+  // at ~1em in Noto Sans SC. The previous version only covered the scripts,
+  // so full-width punctuation fell through to the latin fallbacks below and
+  // was severely under-estimated, causing wrapped zh lines to overflow.
+  if (
+    /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}　-〿＀-￯]/u.test(
+      char,
+    )
+  ) {
     return 1;
   }
   if (/[ilI1|]/.test(char)) return 0.24;
