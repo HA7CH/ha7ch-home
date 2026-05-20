@@ -1,15 +1,32 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { Article } from "@/content/writing";
 import { paginateForCards } from "@/content/writing/cards";
 
-export default function ArticleContent({ article }: { article: Article }) {
-  const [lang, setLang] = useState<"zh" | "en">("en");
+type Lang = "zh" | "en";
+
+export default function ArticleContent({
+  article,
+  initialLang,
+}: {
+  article: Article;
+  initialLang: Lang;
+}) {
+  const [lang, setLang] = useState<Lang>(initialLang);
   const [exporting, setExporting] = useState(false);
 
   const title = lang === "zh" ? article.titleZh : article.titleEn;
   const content = lang === "zh" ? article.zh : article.en;
+  const articlePath = `/writing/${article.slug}`;
+  const zhPath = `${articlePath}/zh`;
+
+  function selectLang(nextLang: Lang) {
+    setLang(nextLang);
+    const nextUrl = nextLang === "zh" ? zhPath : articlePath;
+    window.history.replaceState(null, "", nextUrl);
+  }
 
   async function exportCards() {
     if (exporting) return;
@@ -48,9 +65,9 @@ export default function ArticleContent({ article }: { article: Article }) {
   return (
     <main className="writing-page">
       <div className="writing-topbar">
-        <a href="/" className="writing-back">
+        <Link href="/" className="writing-back">
           HA7CH
-        </a>
+        </Link>
         <button
           className="export-btn"
           onClick={exportCards}
@@ -81,19 +98,29 @@ export default function ArticleContent({ article }: { article: Article }) {
           <div className="writing-meta">
             <time dateTime={article.date}>{article.dateDisplay}</time>
             <div className="lang-toggle">
-              <button
+              <Link
+                href={zhPath}
                 className={`lang-btn${lang === "zh" ? " active" : ""}`}
-                onClick={() => setLang("zh")}
+                aria-current={lang === "zh" ? "true" : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  selectLang("zh");
+                }}
               >
                 中文
-              </button>
+              </Link>
               <span className="lang-divider">/</span>
-              <button
+              <Link
+                href={articlePath}
                 className={`lang-btn${lang === "en" ? " active" : ""}`}
-                onClick={() => setLang("en")}
+                aria-current={lang === "en" ? "true" : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  selectLang("en");
+                }}
               >
                 English
-              </button>
+              </Link>
             </div>
           </div>
         </header>

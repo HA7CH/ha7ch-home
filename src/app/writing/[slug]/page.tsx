@@ -157,7 +157,7 @@ export default async function WritingPage({ params }: { params: Params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <ArticleContent article={article} />
+      <ArticleContent article={article} initialLang="en" />
     </>
   );
 }
