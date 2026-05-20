@@ -36,6 +36,7 @@ export async function generateMetadata({
     alternates: {
       canonical: urls.zh,
       languages: getLanguageAlternates(article),
+      types: { "text/markdown": urls.md }
     },
     openGraph: {
       title: article.titleZh,
@@ -48,6 +49,7 @@ export async function generateMetadata({
       authors: ["https://x.com/lawted2"],
       locale: "zh_CN",
       alternateLocale: ["en_US"],
+      images: [urls.ogImage],
       tags: keywords,
     },
     twitter: {
@@ -56,6 +58,7 @@ export async function generateMetadata({
       description,
       site: "@lawted2",
       creator: "@lawted2",
+      images: [urls.ogImage],
     },
   };
 }
