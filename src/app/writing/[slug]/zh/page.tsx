@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getArticle, getAllSlugs } from "@/content/writing";
-import ArticleContent from "./ArticleContent";
+import ArticleContent from "../ArticleContent";
 import {
   getArticleJsonLd,
   getBreadcrumbJsonLd,
@@ -9,7 +9,7 @@ import {
   getKeywords,
   getLanguageAlternates,
   getWritingUrls,
-} from "./seo";
+} from "../seo";
 
 type Params = Promise<{ slug: string }>;
 
@@ -25,35 +25,34 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) return {};
-  const description = getDescription(article, "en");
+  const description = getDescription(article, "zh");
   const keywords = getKeywords(article);
   const urls = getWritingUrls(article);
   return {
-    title: article.titleEn,
+    title: article.titleZh,
     description,
     keywords,
     authors: [{ name: "lawted", url: "https://x.com/lawted2" }],
     alternates: {
-      canonical: urls.en,
+      canonical: urls.zh,
       languages: getLanguageAlternates(article),
-      types: { "text/markdown": urls.md }
     },
     openGraph: {
-      title: article.titleEn,
+      title: article.titleZh,
       description,
-      url: urls.en,
+      url: urls.zh,
       siteName: "HA7CH",
       type: "article",
       publishedTime: article.date,
       modifiedTime: article.date,
       authors: ["https://x.com/lawted2"],
-      locale: "en_US",
-      alternateLocale: ["zh_CN"],
+      locale: "zh_CN",
+      alternateLocale: ["en_US"],
       tags: keywords,
     },
     twitter: {
       card: "summary_large_image",
-      title: article.titleEn,
+      title: article.titleZh,
       description,
       site: "@lawted2",
       creator: "@lawted2",
@@ -61,13 +60,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function WritingPage({ params }: { params: Params }) {
+export default async function WritingZhPage({ params }: { params: Params }) {
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
 
-  const articleSchema = getArticleJsonLd(article, "en");
-  const breadcrumbSchema = getBreadcrumbJsonLd(article, "en");
+  const articleSchema = getArticleJsonLd(article, "zh");
+  const breadcrumbSchema = getBreadcrumbJsonLd(article, "zh");
 
   return (
     <>
@@ -79,7 +78,7 @@ export default async function WritingPage({ params }: { params: Params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <ArticleContent article={article} initialLang="en" />
+      <ArticleContent article={article} initialLang="zh" />
     </>
   );
 }
