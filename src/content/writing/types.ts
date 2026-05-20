@@ -6,4 +6,7 @@ export interface Article {
   dateDisplay: string;
   zh: string[];
   en: string[];
+  description?: string;
+  descriptionZh?: string;
+  keywords?: string[];
 }

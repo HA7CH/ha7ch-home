@@ -4,20 +4,66 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ha7ch.com"),
-  title: "HA7CH",
-  description: "A tiny builder lab hatching vibe-coded products.",
+  title: {
+    default: "HA7CH — a tiny builder lab & FDE community shipping vibe-coded products in 48 hours",
+    template: "%s · HA7CH"
+  },
+  description:
+    "HA7CH is a tiny builder lab. We ship small tools, fast experiments, and ideas that probably shouldn't exist — usually in 48 hours.",
+  applicationName: "HA7CH",
+  keywords: [
+    "HA7CH",
+    "ha7ch",
+    "vibe coding",
+    "AI native",
+    "AI Native Rank",
+    "builder lab",
+    "indie hackers",
+    "Claude Code",
+    "AI agents",
+    "Raily",
+    "cv.pro",
+    "job.pro",
+    "Glimmer",
+    "lawted",
+    "48 hour build",
+    "FDE"
+  ],
+  authors: [{ name: "lawted", url: "https://x.com/lawted2" }],
+  creator: "lawted",
+  publisher: "HA7CH",
+  alternates: {
+    canonical: "/"
+  },
   openGraph: {
-    title: "HA7CH",
-    description: "A tiny builder lab hatching vibe-coded products.",
+    title: "HA7CH — a tiny builder lab & FDE community shipping vibe-coded products in 48 hours",
+    description:
+      "Small tools, fast experiments, and ideas that probably shouldn't exist. Vibe coding is our forcing function. Build the thing. See if it works. Kill it if it doesn't.",
     url: "https://ha7ch.com",
     siteName: "HA7CH",
-    type: "website"
+    type: "website",
+    locale: "en_US"
   },
   twitter: {
-    card: "summary",
-    title: "HA7CH",
-    description: "A tiny builder lab hatching vibe-coded products."
-  }
+    card: "summary_large_image",
+    title: "HA7CH — a tiny builder lab & FDE community shipping vibe-coded products in 48 hours",
+    description:
+      "Small tools, fast experiments, ideas that probably shouldn't exist — usually in 48 hours.",
+    site: "@lawted2",
+    creator: "@lawted2"
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1
+    }
+  },
+  category: "technology"
 };
 
 export const viewport: Viewport = {
