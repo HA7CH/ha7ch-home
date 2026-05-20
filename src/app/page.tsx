@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Participants from "./Participants";
+import { articles } from "@/content/writing";
 
 type ListItem = {
   group?: string;
@@ -87,99 +88,17 @@ const projects: ListItem[] = [
   }
 ];
 
-const writing: ListItem[] = [
-  {
-    group: "2026",
-    title: "The Ignored Continent",
-    href: "/writing/the-ignored-continent",
-    date: "2026-05-20",
-    meta: "May 20"
-  },
-  {
-    title: "Harvard Isn't Harvard, YC Isn't YC",
-    href: "/writing/harvard-is-not-harvard",
-    date: "2026-05-19",
-    meta: "May 19"
-  },
-  {
-    title: "Baseball and the Blame Game",
-    href: "/writing/baseball-and-the-blame-game",
-    date: "2026-05-14",
-    meta: "May 14"
-  },
-  {
-    title: "Question Every Instinct",
-    href: "/writing/question-every-instinct",
-    date: "2026-05-13",
-    meta: "May 13"
-  },
-  {
-    title: "The Frog in the Well",
-    href: "/writing/the-frog-in-the-well",
-    date: "2026-05-13",
-    meta: "May 13"
-  },
-  {
-    title: "Walk on Two Legs",
-    href: "/writing/walk-on-two-legs",
-    date: "2026-05-12",
-    meta: "May 12"
-  },
-  {
-    title: "HA7CH Is a FDE Accelerator",
-    href: "/writing/ha7ch-is-a-fde-accelerator",
-    date: "2026-05-11",
-    meta: "May 11"
-  },
-  {
-    title: "FDE Is The Future",
-    href: "/writing/fde-is-the-future",
-    date: "2026-05-11",
-    meta: "May 11"
-  },
-  {
-    title: "Code Agent and Token Cost",
-    href: "/writing/code-agent-and-token-efficiency",
-    date: "2026-05-11",
-    meta: "May 11"
-  },
-  {
-    title: "Attention is All You Need",
-    href: "/writing/attention-is-all-you-need",
-    date: "2026-05-11",
-    meta: "May 11"
-  },
-  {
-    title: "Two Pairs of Eyes",
-    href: "/writing/poetry-and-the-plaza",
-    date: "2026-05-10",
-    meta: "May 10"
-  },
-  {
-    title: "MVP as Research",
-    href: "/writing/mvp-as-research",
-    date: "2026-05-09",
-    meta: "May 9"
-  },
-  {
-    title: "Powerball Effect",
-    href: "/writing/powerball-effect",
-    date: "2026-05-08",
-    meta: "May 8"
-  },
-  {
-    title: "Zero Token Design",
-    href: "/writing/zero-token-design",
-    date: "2026-05-07",
-    meta: "May 7"
-  },
-  {
-    title: "So WTF is HA7CH",
-    href: "/writing/so-wtf-is-ha7ch",
-    date: "2026-04-30",
-    meta: "Apr 30"
-  }
-];
+const writing: ListItem[] = articles.map((article, index, all) => {
+  const year = article.date.slice(0, 4);
+  const prevYear = index > 0 ? all[index - 1].date.slice(0, 4) : null;
+  return {
+    ...(year !== prevYear ? { group: year } : {}),
+    title: article.titleEn,
+    href: `/writing/${article.slug}`,
+    date: article.date,
+    meta: article.dateDisplay
+  };
+});
 
 function formatUpdated(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
