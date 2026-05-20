@@ -100,6 +100,7 @@ const writing: ListItem[] = articles.map((article, index, all) => {
   };
 });
 
+
 function formatUpdated(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
   return new Intl.DateTimeFormat("en-US", {
