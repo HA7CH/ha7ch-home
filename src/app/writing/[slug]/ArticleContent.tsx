@@ -14,19 +14,13 @@ export default function ArticleContent({
   article: Article;
   initialLang: Lang;
 }) {
-  const [lang, setLang] = useState<Lang>(initialLang);
   const [exporting, setExporting] = useState(false);
 
+  const lang = initialLang;
   const title = lang === "zh" ? article.titleZh : article.titleEn;
   const content = lang === "zh" ? article.zh : article.en;
   const articlePath = `/writing/${article.slug}`;
   const zhPath = `${articlePath}/zh`;
-
-  function selectLang(nextLang: Lang) {
-    setLang(nextLang);
-    const nextUrl = nextLang === "zh" ? zhPath : articlePath;
-    window.history.replaceState(null, "", nextUrl);
-  }
 
   async function exportCards() {
     if (exporting) return;
@@ -102,10 +96,6 @@ export default function ArticleContent({
                 href={zhPath}
                 className={`lang-btn${lang === "zh" ? " active" : ""}`}
                 aria-current={lang === "zh" ? "true" : undefined}
-                onClick={(event) => {
-                  event.preventDefault();
-                  selectLang("zh");
-                }}
               >
                 中文
               </Link>
@@ -114,10 +104,6 @@ export default function ArticleContent({
                 href={articlePath}
                 className={`lang-btn${lang === "en" ? " active" : ""}`}
                 aria-current={lang === "en" ? "true" : undefined}
-                onClick={(event) => {
-                  event.preventDefault();
-                  selectLang("en");
-                }}
               >
                 English
               </Link>

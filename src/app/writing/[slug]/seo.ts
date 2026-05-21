@@ -62,7 +62,7 @@ export function getArticleJsonLd(article: Article, lang: Lang) {
     image: [urls.ogImage],
     datePublished: article.date,
     dateModified: article.date,
-    inLanguage: lang === "zh" ? "zh-CN" : "en",
+    inLanguage: lang === "zh" ? "zh-CN" : "en-US",
     author: {
       "@type": "Person",
       name: "lawted",
