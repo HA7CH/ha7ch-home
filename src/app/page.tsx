@@ -20,6 +20,13 @@ const projects: ListItem[] = [
   },
   {
     group: "2026",
+    title: "gaokao.pro",
+    description: "AI-native gaokao college planner. Score in, schools out.",
+    href: "https://gaokao.ha7ch.com",
+    date: "2026-05-25",
+    meta: "May 25"
+  },
+  {
     title: "AI Native Rank",
     description: "What's your AI Native Rank? S, A, B, C, or D?",
     href: "https://rank.ha7ch.com",
