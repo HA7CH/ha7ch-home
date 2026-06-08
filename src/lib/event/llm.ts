@@ -25,6 +25,7 @@ export interface Scorecard {
   confidence: number;
   decision: "pending" | "accept" | "waitlist" | "reject";
   reason_internal: string;
+  summary: string | null;
   display_name: string | null;
   phone: string | null;
   problem: string | null;
@@ -84,23 +85,21 @@ function screeningBase(eventName: string, seatTotal?: number): string {
 - 主张资源 → 要边界，是接进去了还是还在 POC，卡在哪一层。
 - 主张思考 → 要反共识，问他和别人判断不一样的地方。
 真 builder 越追越收窄（给具体场景、数字、踩坑）；背词者越追越放大（往更大的概念和趋势上滑，给不出第一手细节）。这个收窄还是放大，就是你的判断依据。
+窄而深 > 宽而浅：一个人只把一件真事讲到越追越细，比四件事都泛泛而谈更够格。
 每次只追一个点。追之前先用一句话回应或共情，别像查户口。
 
-【节奏】
-目标 3 到 5 轮内判完，最多 6 轮。
+【节奏（硬要求）】
+在和对方完成至少 5 个来回之前，绝对不要下任何 通过/候补/婉拒 结论，decision 一律保持 pending，stage 最多停在 probing。这几轮你只做一件事：每一轮，先用一句话回应或共情，再只追问一个新的、更具体的跟进问题，一层层把对方那条「真实」追到第一手细节（数字、卡点、链接、失败模式、边界）。一轮一个问题，不要一次抛多个，也别急着收尾。
 - 第 1 轮：暖场加抛钩子，听第一句自述。
-- 第 2 轮：针对主张追一层。
-- 第 3 轮：立住了就换个维度再确认一次，塌了就给一次翻盘机会，问最具体的一个点。
-- 收敛：够格就说「我去给你留个名额」，并把 stage 标到 deciding、decision 标 accept（后端会接着发邀请函）；不够格就用候补或婉拒话术，decision 标 waitlist 或 reject。
-信息始终不足、反复跑题、或对抗到无法判断，就转候补，别硬拒。
+- 第 2 到 5 轮：每轮换一个维度，或往更细处追一层，持续验证，不给结论。
+- 第 5 轮起且信息已足：才可以把 stage 标到 deciding，按真实分数给出 accept / waitlist / reject 建议（最终由后端裁定）。
+信息始终不足、反复跑题、或对抗到无法判断，等过了第 5 轮再转候补，别在前几轮就硬拒或硬过。
 
-【入场前必须自然问到的三件事】
-在你准备 accept 之前，必须已经在闲聊里自然地问到下面三样信息，并把它们填进 scorecard 的对应字段，不要用填表的口气，要顺着对话问：
-- 手机号（发邀请函、现场联络用）→ 填进 phone。
-- 今天最想解决的一个问题 → 填进 problem。
-- 最想认识哪一类人 → 填进 wants_to_meet。
-另外，只要对方报了名字或你能从对话推断出称呼，就填进 display_name。
-这三件事没问全之前，不要把 decision 标成 accept，stage 可以停在 deciding 继续问。一旦问全且够格，再 accept。
+【收尾必做：要到称呼 + 一个手机号】
+一旦你倾向通过（分数够、追问立得住），在标 accept 之前必须先做一步收尾：用一句话自然地要到对方的称呼和一个手机号，口吻像同行交换联系方式，不是填表。例如：聊得挺好，留个手机号给我，方便后面统一通知你时间地点。
+- 手机号是后续统一联络的硬性前提，没拿到手机号就把 stage 停在 deciding、decision 保持 pending 继续要，绝不在没有手机号时标 accept。
+- 对方报了手机号就填进 phone（字符串），报了称呼或你能从对话推断出称呼就填进 display_name。
+- 顺带把「今天最想解决的一个问题」填进 problem、「最想认识哪一类人」填进 wants_to_meet，这两条没问全不阻塞通过，手机号才是硬门槛。
 
 【处理异常】
 - 跑题：温和拉回，拉回两次仍跑题就判信息不足转候补。
@@ -125,7 +124,8 @@ function screeningBase(eventName: string, seatTotal?: number): string {
   "red_flags": [],
   "confidence": 0.0,
   "decision": "pending|accept|waitlist|reject",
-  "reason_internal": "给主办看的一句话",
+  "reason_internal": "判定理由，一句话：为什么收或不收",
+  "summary": "给主办看的人物小结，1到3句：他是谁、在做什么、你的研判",
   "display_name": null,
   "phone": null,
   "problem": null,
@@ -133,10 +133,11 @@ function screeningBase(eventName: string, seatTotal?: number): string {
 }
 >>>
 字段说明：
-- scores 每一维取 0 到 4 的整数。0=完全没有这一维或追问后坍塌；1=只有概念没有第一手；2=有真实片段但不够硬；3=有具体细节经得起一层追问；4=有硬数字、硬卡点、硬链接，越追越细。
+- scores 每一维取 0 到 4 的整数。0=完全没有这一维或追问后坍塌；1=只有概念没有第一手；2=有真实片段但不够硬；3=有具体细节经得起一层追问；4=有硬数字、硬卡点、硬链接，越追越细。一个人不需要四维都高：只要有一维真实、具体、追问后立得住（probe held 且该维到 3），就足以够格；solo 或早期的人 resource、scene 天然偏低是正常的，不要因此压低 project 或 thinking 的真实分数。第一手细节决定分数，维度的「数量」不决定，不要为凑总分在没有第一手证据的维度上虚高打分。
 - red_flags 从 "newbie"、"here_to_learn"、"course_seller"、"investor"、"evasive" 里选若干，没有则空数组。
 - probe_result：追问后立得住填 "held"，一追就塌填 "collapsed"，没追或还没追填 "n/a"，半立填 "partial"。
-- decision 只在 stage 为 deciding 或 done 时给出非 pending 值。confidence 低于 0.5 且已到第 4 轮时，倾向 waitlist 而不是 reject。
+- decision 只在 stage 为 deciding 或 done、且已完成至少 5 个来回时才给出非 pending 值，不满 5 个来回一律 pending。turn 字段如实填当前是第几个来回。confidence 低于 0.5 且已过第 5 轮时，倾向 waitlist 而不是 reject。
+- summary：给主办的人物速写，1 到 3 句中文，写成连贯的话，包含三点：他是谁（身份、自称）、在做什么（项目、场景、资源的一句话概括）、你的研判（够不够格、强在哪、疑点在哪）。不要罗列字段、不要复述评分数字。它和 reason_internal 不同，reason_internal 是判定理由，summary 是人物画像。还没聊出实质内容时填 null。
 - display_name、phone、problem、wants_to_meet 还没问到就填 null，问到了就填进去（手机号填字符串）。
 注意：你给出的 decision 只是建议，最终是否录取由后端规则裁定，所以请如实打分，不要为了让人通过而虚高分数。`;
 }
@@ -195,15 +196,15 @@ step 含义：刚签到还没采集填 "confirmed"；两条信息采集齐但还
 // Emits no structured block; the backend sends the whole reply as-is.
 export function assistantSystem(opts: { eventName: string; displayName: string; seatNo: number }): string {
   const name = opts.displayName && opts.displayName.trim() !== "" ? opts.displayName : "你";
-  return `你是 HA7CH「${opts.eventName}」的活动助手 bot。给你发消息的这个人已经通过筛选、拿到邀请函（座位 #${opts.seatNo}，称呼「${name}」），是确定要来的 builder。活动还没开始。全程中文，绝不要用破折号 — 或 ——，用逗号、句号、冒号代替。
+  return `你是 HA7CH「${opts.eventName}」的活动助手 bot。给你发消息的这个人（称呼「${name}」）已经通过 bouncer 这一关，信息我们记下了，是有意向来的 builder。最终名单和时间地点由主办统一确认后再通知，现在还没最终敲定。全程中文，绝不要用破折号 — 或 ——，用逗号、句号、冒号代替。
 
 【关于地址和时间（重要）】
 活动的具体地址和时间，由主办在活动前统一发给大家，你这里不掌握、也绝不要透露任何具体地址或门牌号。如果对方问地址或时间，就如实说：定了主办会统一通知你，到时候直接发你，让他放心等着就行。绝不编造地址。
 
 【要点】
-- 可以答疑一般问题：流程、带什么、怎么签到（活动当天到现场，直接给我发条消息就算签到，不扫码不填表）。
-- 语气像一个靠谱的现场对接人。每条消息别太长。
-- 不要重复发邀请函（他已经有了）。直接输出纯文本，不要任何 JSON 或标记块。`;
+- 可以答疑一般问题：流程、带什么、大概形式（线下闭门小局，互助会，所有人围成一圈）。
+- 不要把对方当成已经确认到场，名额还在统一核。如果对方追问是不是稳了，就说聊得挺好，最后名单确认了第一时间通知他。
+- 语气像一个靠谱的现场对接人。每条消息别太长。直接输出纯文本，不要任何 JSON 或标记块。`;
 }
 
 // Canned, time-agnostic line for waitlisted / rejected applicants who keep messaging. Also the
@@ -387,6 +388,7 @@ function normalizeScorecard(p: Partial<Scorecard>): Scorecard {
     confidence: conf,
     decision,
     reason_internal: typeof p.reason_internal === "string" ? p.reason_internal : "",
+    summary: typeof p.summary === "string" && p.summary.trim() !== "" ? p.summary : null,
     display_name: typeof p.display_name === "string" && p.display_name.trim() !== "" ? p.display_name : null,
     phone: typeof p.phone === "string" && p.phone.trim() !== "" ? p.phone : null,
     problem: typeof p.problem === "string" && p.problem.trim() !== "" ? p.problem : null,
@@ -415,8 +417,8 @@ function normalizeCheckin(p: Partial<Checkin>): Checkin {
 //   total = sum of the four dimensions (0-16), peak = max of the four dimensions.
 //   Gate 1 (hard red flags): any of newbie / course_seller / investor → reject.
 //                            here_to_learn AND no single dimension >= 3 → reject.
-//   Gate 2 (scores):         peak >= 4 OR total >= 9 → accept.
-//                            total 6-8 (no hard red flag) → waitlist + needsHumanReview.
+//   Gate 2 (scores):         hardPeak >= 4 OR total >= 8 OR (probe held AND hardPeak >= 3) → accept.
+//                            total 6-7 (no hard red flag) → waitlist + needsHumanReview.
 //                            total <= 5, OR probe collapsed and nothing held → reject.
 //   Gate 3 (confidence):     confidence < 0.5 AND turn >= 4 → force waitlist (don't reject blind).
 //
@@ -452,8 +454,13 @@ export function deriveDecision(sc: Scorecard): {
   const shaky = (sc.probe_result === "collapsed" || flags.has("evasive")) && sc.confidence < 0.5;
   const lowConfidenceLate = sc.confidence < 0.5 && sc.turn >= 4;
 
-  // Gate 2: scores（硬维度单维满分 或 综合够硬）。shaky 时不许走捷径。
-  if ((hardPeak >= 4 || total >= 9) && !shaky) {
+  // Gate 2: scores（硬维度单维满分、综合够硬、或窄而深且追问立得住）。shaky 时不许走捷径。
+  // depthAccept：probe held 且任一可验证硬维度（project/scene/resource）>= 3 → 救「窄而深」的真 builder。
+  // solo / 早期的人 resource、scene 天然偏低，total 常落在 7-8，原来的广度门槛 total>=9 会把他们误杀进候补。
+  // evasive 时不走这条捷径，叠一层防伪（背词者闪烁其词也别放进来）。
+  const held = sc.probe_result === "held";
+  const depthAccept = held && hardPeak >= 3 && !flags.has("evasive");
+  if ((hardPeak >= 4 || total >= 8 || depthAccept) && !shaky) {
     // 晚期仍低置信，即使分数看着够也降级到候补交人工复核，别盲目自动发函。
     if (lowConfidenceLate) return { decision: "waitlist", needsHumanReview: true, total, peak };
     return { decision: "accept", needsHumanReview: false, total, peak };
@@ -470,8 +477,8 @@ export function deriveDecision(sc: Scorecard): {
     return { decision: "waitlist", needsHumanReview: true, total, peak };
   }
 
-  // 中间带：交人工拍板（配局平衡也在这层人工决定）。
-  if (total >= 6 && total <= 8) {
+  // 中间带：交人工拍板（配局平衡也在这层人工决定）。total===8 已归入 accept（除非 shaky），所以收到 6-7。
+  if (total >= 6 && total <= 7) {
     return { decision: "waitlist", needsHumanReview: true, total, peak };
   }
 

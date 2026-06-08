@@ -23,6 +23,7 @@ type Row = {
   turn_count: number;
   today_problem: string | null;
   wants_to_meet: string | null;
+  summary: string | null;
   updated_at: number;
 };
 type EventInfo = { event_id: string; name: string; status: string; seat_total: number };
@@ -132,7 +133,7 @@ export default function EventAdminPage() {
       .filter((r) =>
         !needle
           ? true
-          : [r.display_name, r.phone, r.user_id, r.today_problem].some((v) =>
+          : [r.display_name, r.phone, r.user_id, r.today_problem, r.summary].some((v) =>
               (v ?? "").toLowerCase().includes(needle),
             ),
       )
@@ -229,6 +230,11 @@ export default function EventAdminPage() {
               <div className="c-name clickable" onClick={() => openTranscript(r)} title="点开看完整对话">
                 <span className="nm">{r.display_name || <span className="mute">未留名</span>} 💬</span>
                 <span className="uid">{r.channel === "wechat" ? "微信" : "网页"}</span>
+                {r.summary ? (
+                  <span className="sum" title={r.summary}>
+                    {r.summary}
+                  </span>
+                ) : null}
               </div>
               <div className="c-phone">{r.phone || <span className="mute">—</span>}</div>
               <div className="c-event" title={r.event_name}>{r.event_name}</div>
@@ -276,6 +282,7 @@ export default function EventAdminPage() {
                   {viewing.event_name} · {STAGE_LABEL[viewing.stage] ?? viewing.stage}
                   {viewing.phone ? ` · ${viewing.phone}` : ""}
                 </span>
+                {viewing.summary ? <p className="tx-summary">{viewing.summary}</p> : null}
               </div>
               <button onClick={() => setViewing(null)}>关闭</button>
             </div>
@@ -352,6 +359,8 @@ const boardCss = `
     border-bottom: 1px solid #e2e2dd; position: sticky; top: 0; background: #fdfdfc; }
   .c-name { font-weight: 500; display: flex; flex-direction: column; }
   .c-name .uid { font-size: 0.65rem; color: #bbb; font-weight: 400; }
+  .c-name .sum { font-size: 0.7rem; color: #888; font-weight: 400; margin-top: 0.25rem; line-height: 1.4;
+    overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help; }
   .c-phone { font-variant-numeric: tabular-nums; color: #444; }
   .c-event { color: #555; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .pill { padding: 0.12rem 0.5rem; border-radius: 1rem; font-size: 0.72rem; }
@@ -384,6 +393,7 @@ const boardCss = `
     border-bottom: 1px solid #ededea; }
   .tx-title b { font-size: 0.98rem; }
   .tx-meta { display: block; font-size: 0.76rem; color: #999; margin-top: 0.15rem; }
+  .tx-summary { font-size: 0.8rem; color: #555; margin-top: 0.4rem; line-height: 1.55; max-width: 32rem; }
   .tx-head button { background: #f4f4f1; border: 1px solid #e2e2dd; border-radius: 2rem; padding: 0.35rem 0.9rem;
     font-size: 0.8rem; cursor: pointer; }
   .tx-body { overflow-y: auto; padding: 1.1rem 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }

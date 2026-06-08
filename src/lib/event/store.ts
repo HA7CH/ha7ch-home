@@ -43,6 +43,7 @@ export interface ApplicationRow {
   confidence: number;
   red_flags: string;
   decision_reason: string | null;
+  summary: string | null;
   scorecard_json: string;
   needs_human_review: number;
   human_decided: number;
@@ -82,6 +83,7 @@ export interface ScreeningUpdate {
   red_flags: string[];
   decision: string;
   decision_reason: string;
+  summary?: string | null;
   scorecard_json: string;
   needs_human_review: boolean;
   display_name?: string | null;
@@ -280,6 +282,18 @@ export class Store {
       })
       .eq("event_id", eventId)
       .eq("user_id", userId);
+    // 人物小结单独、容错写：summary 列尚未建好时这一步报错也只吞掉，绝不拖垮上面的分数落库。
+    if (u.summary !== undefined) {
+      try {
+        await this.sb
+          .from("event_applications")
+          .update({ summary: u.summary ?? null })
+          .eq("event_id", eventId)
+          .eq("user_id", userId);
+      } catch {
+        /* summary 列可能还没建，忽略 */
+      }
+    }
     await this.updateProfile(userId, { display_name: u.display_name ?? undefined, phone: u.phone ?? undefined });
   }
 
