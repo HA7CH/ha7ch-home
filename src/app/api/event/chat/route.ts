@@ -17,16 +17,31 @@ function llmFromEnv(): LLMConfig {
 
 export async function POST(req: Request) {
   try {
-    const body = (await req.json().catch(() => ({}))) as { userId?: unknown; text?: unknown };
+    const body = (await req.json().catch(() => ({}))) as {
+      userId?: unknown;
+      text?: unknown;
+      channel?: unknown;
+      secret?: unknown;
+    };
     const userId = typeof body.userId === "string" && body.userId.trim() !== "" ? body.userId : null;
     const text = typeof body.text === "string" ? body.text : "";
     if (!userId) return NextResponse.json({ error: "missing userId" }, { status: 400 });
+
+    // The WeChat worker bridges its inbound messages here as channel="wechat"; gate that on a shared
+    // secret so only the worker can submit turns impersonating a WeChat user. Web chat stays open.
+    const channel: "web" | "wechat" = body.channel === "wechat" ? "wechat" : "web";
+    if (channel === "wechat") {
+      const expected = process.env.EVENT_BRIDGE_SECRET;
+      if (!expected || body.secret !== expected) {
+        return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+      }
+    }
 
     const llm = llmFromEnv();
     if (!llm.apiKey) return NextResponse.json({ error: "DEEPSEEK_API_KEY 未配置" }, { status: 500 });
 
     const store = createStore();
-    const replies = await handleTurn(store, llm, userId, "web", text);
+    const replies = await handleTurn(store, llm, userId, channel, text);
     return NextResponse.json({ replies });
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
