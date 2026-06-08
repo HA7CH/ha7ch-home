@@ -99,11 +99,18 @@ const projects: ListItem[] = [
 const events: ListItem[] = [
   {
     group: "2026",
-    title: "Closed-Door · Shenzhen",
-    description: "Convince the bot. Get a seat at the table.",
-    href: "/event",
+    title: "Shanghai #002 · FDE Meetup",
+    description: "6/13 下午. 扫码和 bouncer 聊两句就能报名.",
+    href: "/event/shanghai-fde-2026",
+    date: "2026-06-09",
+    meta: "Jun 13"
+  },
+  {
+    title: "Shenzhen #001 · FDE Meetup",
+    description: "已办. 31 位 builder 到场.",
+    href: "/event/shenzhen-2026",
     date: "2026-06-04",
-    meta: "Jun 4"
+    meta: "Done"
   }
 ];
 
