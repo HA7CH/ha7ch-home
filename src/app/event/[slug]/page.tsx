@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import QRCode from "qrcode";
 import { createStore, type EventRow } from "@/lib/event/store";
 
 // Per-event page, deliberately minimal: just the QR (for events still taking people) and the
@@ -59,12 +58,9 @@ export default async function EventBySlug({ params }: { params: Promise<{ slug: 
   const when = ev.time_info?.trim() || (closed ? "已举办" : "时间待定，定了通知你");
   const recap = parseRecap(ev.recap_json);
 
-  // WeChat entry: scanning opens the iLink pairing page, which adds the bouncer bot in WeChat.
-  // The whole conversation then happens inside WeChat (bridged to this same Supabase engine).
-  const applyUrl = "https://event.ha7ch.com/apply";
-  const qr = closed
-    ? null
-    : await QRCode.toDataURL(applyUrl, { width: 320, margin: 1, color: { dark: "#111111", light: "#fdfdfcff" } });
+  // WeChat entry: embed the worker's pairing page (event.ha7ch.com/apply) directly, so the QR
+  // shown here IS the live iLink pairing QR. One scan adds the bouncer bot in WeChat (no extra
+  // hop through a webpage). The worker owns getBotQrCode + status polling + activation.
 
   const info: { label: string; value: string }[] = [
     { label: "时间", value: when },
@@ -100,10 +96,15 @@ export default async function EventBySlug({ params }: { params: Promise<{ slug: 
           {(city || when) && <time>{[city, when].filter(Boolean).join(" · ")}</time>}
         </header>
 
-        {qr ? (
+        {!closed ? (
           <div className="event-qr">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={qr} alt="扫码报名" width={240} height={240} />
+            <iframe
+              src="https://event.ha7ch.com/apply?embed=1"
+              title="微信扫码报名"
+              loading="lazy"
+              scrolling="no"
+              className="event-qr-frame"
+            />
             <p className="event-qr-note">微信扫码，进 bot 跟 bouncer 聊两句就能报名。</p>
           </div>
         ) : null}
@@ -151,8 +152,8 @@ export default async function EventBySlug({ params }: { params: Promise<{ slug: 
 
       <style>{`
         .event-qr { text-align: center; margin: 1.5rem 0 2.5rem; }
-        .event-qr img { display: inline-block; width: 240px; height: 240px; padding: 0.75rem; background: #fff;
-          border: 1px solid #e6e6e2; border-radius: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.03); image-rendering: pixelated; }
+        .event-qr-frame { display: inline-block; width: 264px; height: 288px; border: 1px solid #e6e6e2;
+          border-radius: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.03); background: #fff; color-scheme: light; }
         .event-qr-note { margin-top: 0.9rem; font-size: 0.9rem; color: #555; }
         .event-qr .event-apply-cta { margin-top: 0.6rem; }
         .event-closed-note { color: #999; font-size: 0.95rem; margin-bottom: 0.5rem; }
