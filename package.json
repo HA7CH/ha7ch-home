@@ -10,16 +10,19 @@
   },
   "dependencies": {
     "@altano/satori-fit-text": "^2.0.2",
+    "@supabase/supabase-js": "^2.107.0",
     "@vercel/analytics": "^2.0.1",
     "jszip": "^3.10.1",
     "motion": "^12.38.0",
     "next": "latest",
+    "qrcode": "^1.5.4",
     "react": "latest",
     "react-dom": "latest",
     "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@types/node": "latest",
+    "@types/qrcode": "^1.5.6",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "eslint": "latest",

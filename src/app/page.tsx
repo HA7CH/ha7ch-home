@@ -10,6 +10,7 @@ type ListItem = {
   date?: string;
   meta: string;
   dead?: boolean;
+  kind?: "event";
 };
 
 const projects: ListItem[] = [
@@ -95,6 +96,24 @@ const projects: ListItem[] = [
   }
 ];
 
+const events: ListItem[] = [
+  {
+    group: "2026",
+    title: "Shanghai #002 · FDE Meetup",
+    description: "6/13 下午. 扫码和 bouncer 聊两句就能报名.",
+    href: "/event/shanghai-fde-2026",
+    date: "2026-06-09",
+    meta: "Jun 13"
+  },
+  {
+    title: "Shenzhen #001 · FDE Meetup",
+    description: "已办. 31 位 builder 到场.",
+    href: "/event/shenzhen-2026",
+    date: "2026-06-04",
+    meta: "Done"
+  }
+];
+
 const writing: ListItem[] = articles.map((article, index, all) => {
   const year = article.date.slice(0, 4);
   const prevYear = index > 0 ? all[index - 1].date.slice(0, 4) : null;
@@ -118,7 +137,7 @@ function formatUpdated(iso: string): string {
   }).format(new Date(Date.UTC(y, m - 1, d)));
 }
 
-const latestUpdate = [...projects, ...writing]
+const latestUpdate = [...events, ...projects, ...writing]
   .map((item) => item.date)
   .filter((d): d is string => Boolean(d))
   .sort()
@@ -201,7 +220,7 @@ function PostList({ title, items }: { title: string; items: ListItem[] }) {
 }
 
 const liveProjects = projects.filter(
-  (p) => !p.dead && p.href && p.title && p.description
+  (p) => !p.dead && !p.kind && p.href && p.title && p.description
 );
 
 const projectsItemList = {
@@ -229,6 +248,22 @@ const projectsItemList = {
       }
     }
   }))
+};
+
+const eventsItemList = {
+  "@type": "ItemList",
+  "@id": "https://ha7ch.com/#events",
+  name: "HA7CH Events",
+  description: "Closed-door gatherings for AI builders.",
+  numberOfItems: events.filter((e) => e.title && e.href).length,
+  itemListElement: events
+    .filter((e) => e.title && e.href)
+    .map((e, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `https://ha7ch.com${e.href}`,
+      name: e.title
+    }))
 };
 
 const writingItemList = {
@@ -282,6 +317,7 @@ const jsonLd = {
       publisher: { "@id": "https://ha7ch.com/#organization" },
       inLanguage: ["en", "zh-CN"]
     },
+    eventsItemList,
     projectsItemList,
     writingItemList
   ]
@@ -330,6 +366,7 @@ export default function Home() {
         </p>
       </article>
 
+      <PostList title="Events" items={events} />
       <PostList title="Projects" items={projects} />
       <PostList title="Writing" items={writing} />
       <Participants />
