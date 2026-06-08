@@ -215,6 +215,7 @@ export default function EventAdminPage() {
       <div className="ad-table">
         <div className="ad-tr ad-thead">
           <div className="c-name">代称</div>
+          <div className="c-sum">小结</div>
           <div className="c-phone">联系</div>
           <div className="c-event">活动</div>
           <div className="c-stage">状态</div>
@@ -230,11 +231,9 @@ export default function EventAdminPage() {
               <div className="c-name clickable" onClick={() => openTranscript(r)} title="点开看完整对话">
                 <span className="nm">{r.display_name || <span className="mute">未留名</span>} 💬</span>
                 <span className="uid">{r.channel === "wechat" ? "微信" : "网页"}</span>
-                {r.summary ? (
-                  <span className="sum" title={r.summary}>
-                    {r.summary}
-                  </span>
-                ) : null}
+              </div>
+              <div className="c-sum" title={r.summary || ""}>
+                {r.summary || <span className="mute">—</span>}
               </div>
               <div className="c-phone">{r.phone || <span className="mute">—</span>}</div>
               <div className="c-event" title={r.event_name}>{r.event_name}</div>
@@ -338,7 +337,7 @@ const gateCss = `
 `;
 
 const boardCss = `
-  .ad-wrap { max-width: 70rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem;
+  .ad-wrap { max-width: 84rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem;
     font-family: "Inter", -apple-system, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; color: #111; }
   .ad-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
   .ad-head h1 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
@@ -353,14 +352,15 @@ const boardCss = `
     font: inherit; font-size: 0.85rem; background: #fff; }
   .ad-filters input { flex: 1; min-width: 12rem; }
   .ad-table { font-size: 0.85rem; }
-  .ad-tr { display: grid; grid-template-columns: 8rem 7.5rem 1fr 6.5rem 3rem 8rem 2.5rem 10rem;
+  .ad-tr { display: grid; grid-template-columns: 7rem 1.7fr 6.5rem 7rem 5.5rem 2.4rem 7rem 2.2rem 9rem;
     gap: 0.5rem; align-items: center; padding: 0.6rem 0.4rem; border-bottom: 1px solid #f0f0ec; }
+  .c-sum { font-size: 0.78rem; color: #555; line-height: 1.45; overflow: hidden;
+    display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; cursor: help; }
+  .ad-thead .c-sum { color: #999; }
   .ad-thead { color: #999; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em;
     border-bottom: 1px solid #e2e2dd; position: sticky; top: 0; background: #fdfdfc; }
   .c-name { font-weight: 500; display: flex; flex-direction: column; }
   .c-name .uid { font-size: 0.65rem; color: #bbb; font-weight: 400; }
-  .c-name .sum { font-size: 0.7rem; color: #888; font-weight: 400; margin-top: 0.25rem; line-height: 1.4;
-    overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; cursor: help; }
   .c-phone { font-variant-numeric: tabular-nums; color: #444; }
   .c-event { color: #555; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .pill { padding: 0.12rem 0.5rem; border-radius: 1rem; font-size: 0.72rem; }
