@@ -152,8 +152,8 @@ export default async function EventBySlug({ params }: { params: Promise<{ slug: 
 
       <style>{`
         .event-qr { text-align: center; margin: 1.5rem 0 2.5rem; }
-        .event-qr-frame { display: inline-block; width: 264px; height: 288px; border: 1px solid #e6e6e2;
-          border-radius: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.03); background: #fff; color-scheme: light; }
+        .event-qr-frame { display: inline-block; width: 264px; height: 304px; border: none;
+          background: transparent; color-scheme: light; }
         .event-qr-note { margin-top: 0.9rem; font-size: 0.9rem; color: #555; }
         .event-qr .event-apply-cta { margin-top: 0.6rem; }
         .event-closed-note { color: #999; font-size: 0.95rem; margin-bottom: 0.5rem; }
