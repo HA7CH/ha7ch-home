@@ -98,6 +98,13 @@ const now = () => Date.now();
 export class Store {
   constructor(private sb: SupabaseClient) {}
 
+  // 写操作统一查错抛错。supabase-js 出错不 throw、而是 resolve 成 {error}，不查就会静默丢
+  // （「对话只记一轮」「被告知通过但库里没改」的根因）。让失败冒泡到上游由其重试/报错。
+  private async mustWrite(label: string, builder: PromiseLike<{ error: { message: string } | null }>): Promise<void> {
+    const { error } = await builder;
+    if (error) throw new Error(`Supabase ${label} 失败：${error.message}`);
+  }
+
   // ── users ────────────────────────────────────────────────────────────────
   async getUser(userId: string): Promise<UserRow | null> {
     const { data, error } = await this.sb.from("event_users").select("*").eq("user_id", userId).maybeSingle();
@@ -117,14 +124,17 @@ export class Store {
   }
 
   async setActiveEvent(userId: string, eventId: string | null): Promise<void> {
-    await this.sb.from("event_users").update({ active_event_id: eventId, updated_at: now() }).eq("user_id", userId);
+    await this.mustWrite(
+      "setActiveEvent",
+      this.sb.from("event_users").update({ active_event_id: eventId, updated_at: now() }).eq("user_id", userId),
+    );
   }
 
   async updateProfile(userId: string, patch: { display_name?: string | null; phone?: string | null }): Promise<void> {
     const set: Record<string, unknown> = { updated_at: now() };
     if (patch.display_name != null && patch.display_name !== "") set.display_name = patch.display_name;
     if (patch.phone != null && patch.phone !== "") set.phone = patch.phone;
-    await this.sb.from("event_users").update(set).eq("user_id", userId);
+    await this.mustWrite("updateProfile", this.sb.from("event_users").update(set).eq("user_id", userId));
   }
 
   // ── events ───────────────────────────────────────────────────────────────
@@ -239,61 +249,54 @@ export class Store {
 
   async createApplication(eventId: string, userId: string): Promise<void> {
     const row = { event_id: eventId, user_id: userId, stage: "screening", created_at: now(), updated_at: now() };
-    await this.sb.from("event_applications").upsert(row, { onConflict: "event_id,user_id", ignoreDuplicates: true });
+    await this.mustWrite(
+      "createApplication",
+      this.sb.from("event_applications").upsert(row, { onConflict: "event_id,user_id", ignoreDuplicates: true }),
+    );
   }
 
   async setStage(eventId: string, userId: string, stage: ApplicationRow["stage"]): Promise<void> {
-    await this.sb
-      .from("event_applications")
-      .update({ stage, updated_at: now() })
-      .eq("event_id", eventId)
-      .eq("user_id", userId);
+    await this.mustWrite(
+      "setStage",
+      this.sb.from("event_applications").update({ stage, updated_at: now() }).eq("event_id", eventId).eq("user_id", userId),
+    );
   }
 
   async setTurn(eventId: string, userId: string, n: number): Promise<void> {
-    await this.sb
-      .from("event_applications")
-      .update({ turn_count: n, updated_at: now() })
-      .eq("event_id", eventId)
-      .eq("user_id", userId);
+    await this.mustWrite(
+      "setTurn",
+      this.sb.from("event_applications").update({ turn_count: n, updated_at: now() }).eq("event_id", eventId).eq("user_id", userId),
+    );
   }
 
   async updateScreeningResult(eventId: string, userId: string, u: ScreeningUpdate): Promise<void> {
-    await this.sb
-      .from("event_applications")
-      .update({
-        score_project: u.scores.project,
-        score_scene: u.scores.scene,
-        score_resource: u.scores.resource,
-        score_thinking: u.scores.thinking,
-        faction: u.faction,
-        faction_secondary: u.faction_secondary,
-        confidence: u.confidence,
-        red_flags: JSON.stringify(u.red_flags),
-        decision: u.decision,
-        decision_reason: u.decision_reason,
-        scorecard_json: u.scorecard_json,
-        needs_human_review: u.needs_human_review ? 1 : 0,
-        today_problem: u.problem ?? null,
-        wants_to_meet: u.wants_to_meet ?? null,
-        turn_count: u.turn_count,
-        decided_at: now(),
-        updated_at: now(),
-      })
-      .eq("event_id", eventId)
-      .eq("user_id", userId);
-    // 人物小结单独、容错写：summary 列尚未建好时这一步报错也只吞掉，绝不拖垮上面的分数落库。
-    if (u.summary !== undefined) {
-      try {
-        await this.sb
-          .from("event_applications")
-          .update({ summary: u.summary ?? null })
-          .eq("event_id", eventId)
-          .eq("user_id", userId);
-      } catch {
-        /* summary 列可能还没建，忽略 */
-      }
-    }
+    await this.mustWrite(
+      "updateScreeningResult",
+      this.sb
+        .from("event_applications")
+        .update({
+          score_project: u.scores.project,
+          score_scene: u.scores.scene,
+          score_resource: u.scores.resource,
+          score_thinking: u.scores.thinking,
+          faction: u.faction,
+          faction_secondary: u.faction_secondary,
+          confidence: u.confidence,
+          red_flags: JSON.stringify(u.red_flags),
+          decision: u.decision,
+          decision_reason: u.decision_reason,
+          summary: u.summary ?? null,
+          scorecard_json: u.scorecard_json,
+          needs_human_review: u.needs_human_review ? 1 : 0,
+          today_problem: u.problem ?? null,
+          wants_to_meet: u.wants_to_meet ?? null,
+          turn_count: u.turn_count,
+          decided_at: now(),
+          updated_at: now(),
+        })
+        .eq("event_id", eventId)
+        .eq("user_id", userId),
+    );
     await this.updateProfile(userId, { display_name: u.display_name ?? undefined, phone: u.phone ?? undefined });
   }
 
@@ -310,12 +313,15 @@ export class Store {
       .order("seat_no", { ascending: false })
       .limit(1);
     const next = ((rows?.[0]?.seat_no as number) ?? 0) + 1;
-    await this.sb
-      .from("event_applications")
-      .update({ seat_no: next, invite_sent_at: now(), updated_at: now() })
-      .eq("event_id", eventId)
-      .eq("user_id", userId)
-      .is("seat_no", null);
+    await this.mustWrite(
+      "claimSeat",
+      this.sb
+        .from("event_applications")
+        .update({ seat_no: next, invite_sent_at: now(), updated_at: now() })
+        .eq("event_id", eventId)
+        .eq("user_id", userId)
+        .is("seat_no", null),
+    );
     const after = await this.getApplicant(eventId, userId);
     return after?.seat_no ?? next;
   }
@@ -328,15 +334,18 @@ export class Store {
     content: string,
     opts?: { raw?: string; scorecardJson?: string },
   ): Promise<void> {
-    await this.sb.from("event_transcripts").insert({
-      event_id: eventId,
-      user_id: userId,
-      role,
-      content,
-      raw: opts?.raw ?? null,
-      scorecard_json: opts?.scorecardJson ?? null,
-      created_at: now(),
-    });
+    await this.mustWrite(
+      "appendTranscript",
+      this.sb.from("event_transcripts").insert({
+        event_id: eventId,
+        user_id: userId,
+        role,
+        content,
+        raw: opts?.raw ?? null,
+        scorecard_json: opts?.scorecardJson ?? null,
+        created_at: now(),
+      }),
+    );
   }
 
   // Latest `limit` turns in chronological order. Assistant rows return their RAW output (incl. the
@@ -346,13 +355,14 @@ export class Store {
     userId: string,
     limit = 20,
   ): Promise<{ role: "user" | "assistant"; content: string }[]> {
-    const { data } = await this.sb
+    const { data, error } = await this.sb
       .from("event_transcripts")
       .select("role, content, raw")
       .eq("event_id", eventId)
       .eq("user_id", userId)
       .order("id", { ascending: false })
       .limit(limit);
+    if (error) throw new Error(`Supabase 读对话历史失败：${error.message}`);
     const rows = (data as { role: "user" | "assistant"; content: string; raw: string | null }[]) ?? [];
     return rows
       .reverse()

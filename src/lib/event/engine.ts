@@ -220,9 +220,7 @@ async function handleScreening(store: Store, llm: LLMConfig, a: Applicant, text:
   if (d.decision === "accept") {
     await store.claimSeat(a.event_id, a.user_id);
     await store.setStage(a.event_id, a.user_id, "accepted");
-    out.push(
-      "聊明白了，你的情况我都记下了。这场名额有限，最后一批确认我们会统一发出，合适的话第一时间联系你，地址和时间到时一起给你。",
-    );
+    // 不再硬塞一条收尾：LLM 这一轮的回复已经是收尾（prompt 约束了口径），硬塞会变成连发两条、且那条不入库。
   } else if (d.decision === "waitlist") {
     await store.setStage(a.event_id, a.user_id, "waitlisted");
   } else if (d.decision === "reject") {
