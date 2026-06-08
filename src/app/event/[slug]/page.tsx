@@ -59,7 +59,9 @@ export default async function EventBySlug({ params }: { params: Promise<{ slug: 
   const when = ev.time_info?.trim() || (closed ? "已举办" : "时间待定，定了通知你");
   const recap = parseRecap(ev.recap_json);
 
-  const applyUrl = `${SITE}/event/chat?event=${slug}`;
+  // WeChat entry: scanning opens the iLink pairing page, which adds the bouncer bot in WeChat.
+  // The whole conversation then happens inside WeChat (bridged to this same Supabase engine).
+  const applyUrl = "https://event.ha7ch.com/apply";
   const qr = closed
     ? null
     : await QRCode.toDataURL(applyUrl, { width: 320, margin: 1, color: { dark: "#111111", light: "#fdfdfcff" } });
@@ -102,7 +104,7 @@ export default async function EventBySlug({ params }: { params: Promise<{ slug: 
           <div className="event-qr">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={qr} alt="扫码报名" width={240} height={240} />
-            <p className="event-qr-note">扫码和 bouncer 聊两句就能报名。</p>
+            <p className="event-qr-note">微信扫码，进 bot 跟 bouncer 聊两句就能报名。</p>
           </div>
         ) : null}
 
