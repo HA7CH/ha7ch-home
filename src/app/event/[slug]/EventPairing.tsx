@@ -19,14 +19,7 @@ export default function EventPairing({ session, initialQrUrl }: { session: strin
 
   useEffect(() => {
     stopped.current = false;
-    const ua = navigator.userAgent || "";
-    const inWeChat = /MicroMessenger/i.test(ua);
-    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
-    const scanMsg = inWeChat
-      ? "长按上面的二维码，选「识别图中二维码」"
-      : isMobile
-        ? "在电脑上扫码，或在微信里长按识别"
-        : "打开微信，扫一扫上面的二维码";
+    const scanMsg = "微信扫码，进 bot 跟 bouncer 聊两句就能报名";
     setHint(scanMsg);
 
     let timer: ReturnType<typeof setTimeout> | undefined;
