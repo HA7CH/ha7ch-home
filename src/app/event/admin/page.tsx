@@ -38,8 +38,13 @@ const STAGE_LABEL: Record<string, string> = {
 };
 const STAGE_ORDER = ["accepted", "checked_in", "waitlisted", "screening", "rejected"];
 const FACTION_LABEL: Record<string, string> = {
-  project: "技术",
+  // 派系真实取值（评分卡里的 faction_primary）
+  tech: "技术",
+  founder: "创业",
   scene: "场景",
+  research: "研究",
+  // 兼容旧/别名字段
+  project: "技术",
   resource: "资源",
   thinking: "研究",
 };
@@ -337,7 +342,7 @@ const gateCss = `
 `;
 
 const boardCss = `
-  .ad-wrap { max-width: 84rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem;
+  .ad-wrap { max-width: 90rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem;
     font-family: "Inter", -apple-system, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; color: #111; }
   .ad-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
   .ad-head h1 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
@@ -352,7 +357,7 @@ const boardCss = `
     font: inherit; font-size: 0.85rem; background: #fff; }
   .ad-filters input { flex: 1; min-width: 12rem; }
   .ad-table { font-size: 0.85rem; }
-  .ad-tr { display: grid; grid-template-columns: 7rem 1.7fr 6.5rem 7rem 5.5rem 2.4rem 7rem 2.2rem 9rem;
+  .ad-tr { display: grid; grid-template-columns: 7rem 1.7fr 6.5rem 8rem 5.5rem 3.2rem 7rem 2.2rem 9rem;
     gap: 0.5rem; align-items: center; padding: 0.6rem 0.4rem; border-bottom: 1px solid #f0f0ec; }
   .c-sum { font-size: 0.78rem; color: #555; line-height: 1.45; overflow: hidden;
     display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; cursor: help; }
