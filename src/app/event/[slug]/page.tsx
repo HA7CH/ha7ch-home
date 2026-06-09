@@ -2,6 +2,10 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { createStore, type EventRow } from "@/lib/event/store";
+import { EVENT_CARD_COUNT } from "@/content/event/cards";
+import { fetchPairingSession } from "@/lib/event/pairing";
+import EventExport from "./EventExport";
+import EventPairing from "./EventPairing";
 
 // Per-event page, deliberately minimal: just the QR (for events still taking people) and the
 // facts. For past events, the on-site recap. No "who this is for" / "how it works" framing.
@@ -58,9 +62,10 @@ export default async function EventBySlug({ params }: { params: Promise<{ slug: 
   const when = ev.time_info?.trim() || (closed ? "已举办" : "时间待定，定了通知你");
   const recap = parseRecap(ev.recap_json);
 
-  // WeChat entry: embed the worker's pairing page (event.ha7ch.com/apply) directly, so the QR
-  // shown here IS the live iLink pairing QR. One scan adds the bouncer bot in WeChat (no extra
-  // hop through a webpage). The worker owns getBotQrCode + status polling + activation.
+  // WeChat entry: render the worker's live iLink pairing QR as a top-level <img> (see
+  // EventPairing / lib/event/pairing) so WeChat 长按识别图中二维码 works. Falls back to embedding
+  // the worker's /apply page in an iframe if the worker can't be reached at render time.
+  const pairing = closed ? null : await fetchPairingSession();
 
   const info: { label: string; value: string }[] = [
     { label: "时间", value: when },
@@ -90,6 +95,7 @@ export default async function EventBySlug({ params }: { params: Promise<{ slug: 
       <article className="article">
         <div className="writing-topbar">
           <Link href="/" className="writing-back">HA7CH</Link>
+          {!closed && <EventExport slug={slug} cardCount={EVENT_CARD_COUNT} />}
         </div>
         <header>
           <h1 className="wechat-title">{ev.name}</h1>
@@ -98,14 +104,19 @@ export default async function EventBySlug({ params }: { params: Promise<{ slug: 
 
         {!closed ? (
           <div className="event-qr">
-            <iframe
-              src="https://event.ha7ch.com/apply?embed=1"
-              title="微信扫码报名"
-              loading="lazy"
-              scrolling="no"
-              className="event-qr-frame"
-            />
-            <p className="event-qr-note">微信扫码，进 bot 跟 bouncer 聊两句就能报名。</p>
+            {pairing ? (
+              <EventPairing session={pairing.session} initialQrUrl={pairing.qrUrl} />
+            ) : (
+              <>
+                <iframe
+                  src="https://event.ha7ch.com/apply?embed=1"
+                  title="微信扫码报名"
+                  loading="lazy"
+                  className="event-qr-frame"
+                />
+                <p className="event-qr-note">微信扫码，进 bot 跟 bouncer 聊两句就能报名。</p>
+              </>
+            )}
           </div>
         ) : null}
 
@@ -156,6 +167,17 @@ export default async function EventBySlug({ params }: { params: Promise<{ slug: 
           background: transparent; color-scheme: light; }
         .event-qr-note { margin-top: 0.9rem; font-size: 0.9rem; color: #555; }
         .event-qr .event-apply-cta { margin-top: 0.6rem; }
+        .event-pair-card { display: inline-block; padding: 0.9rem; background: #fff;
+          border: 1px solid #e6e6e2; border-radius: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+          transition: opacity 0.25s ease, filter 0.25s ease; }
+        .event-pair-card.dim { opacity: 0.28; filter: grayscale(1); }
+        .event-pair-qr { display: block; width: 216px; height: 216px; image-rendering: pixelated; }
+        .event-pair-hint { margin-top: 0.9rem; font-size: 0.9rem; color: #555; min-height: 1.3rem; }
+        .event-pair-hint.good { color: #111; font-weight: 500; }
+        .event-pair-hint.bad { color: #b04030; }
+        .event-pair-refresh { margin-top: 0.75rem; padding: 0.5rem 1.15rem; background: #111;
+          color: #fdfdfc; font-size: 0.85rem; font-weight: 500; border: none; border-radius: 2rem;
+          cursor: pointer; }
         .event-closed-note { color: #999; font-size: 0.95rem; margin-bottom: 0.5rem; }
         .recap-block { margin-top: 1.25rem; }
         .recap-sub { font-size: 0.95rem; font-weight: 600; color: #111; margin-bottom: 0.5rem; }
