@@ -226,16 +226,17 @@ async function handleScreening(store: Store, llm: LLMConfig, a: Applicant, text:
   const hardReject = d.decision === "reject" && scorecard.red_flags.some((f) => HARD_FLAGS.includes(f));
   // 触顶轮一律视为到达下限并定稿（不再追问、不再开口要号）。
   const reachedFloor = userTurns >= MIN_USER_TURNS || hardReject || atCap;
-  // 联系方式闸：该 accept、但还没拿到手机号 → 先开口要，stage 留在 screening，绝不在没号时通过。触顶时不再要号。
+  // 联系方式闸：该 accept、但还没拿到「手机号 + 称呼」任一项 → 先开口要，stage 留在 screening，绝不在缺联系方式时通过。触顶时不再追要。
   const knownPhone = scorecard.phone ?? a.phone;
-  const needContact = !atCap && reachedFloor && d.decision === "accept" && !knownPhone;
+  const knownName = scorecard.display_name ?? a.display_name;
+  const needContact = !atCap && reachedFloor && d.decision === "accept" && (!knownPhone || !knownName);
   const finalizing = reachedFloor && !needContact;
 
   // 触顶定稿：达 accept 但仍无手机号、或规则仍 pending → 落候补 + 人工复核，绝不丢、绝不无号自动通过。
   let finalDecision = d.decision;
   let finalReview = d.needsHumanReview;
   if (atCap && finalizing) {
-    if (finalDecision === "accept" && !knownPhone) {
+    if (finalDecision === "accept" && (!knownPhone || !knownName)) {
       finalDecision = "waitlist";
       finalReview = true;
     } else if (finalDecision === "pending") {
@@ -264,10 +265,11 @@ async function handleScreening(store: Store, llm: LLMConfig, a: Applicant, text:
   });
 
   if (needContact) {
-    const knownName = scorecard.display_name ?? a.display_name;
-    const ask = knownName
-      ? "聊得挺好。留个手机号给我吧，方便后面统一通知你时间地点。"
-      : "聊得挺好。报个称呼，再留个手机号给我，方便后面统一通知你时间地点。";
+    const ask = !knownPhone && !knownName
+      ? "聊得挺好。报个称呼，再留个手机号给我，方便后面统一通知你时间地点。"
+      : !knownPhone
+        ? "聊得挺好。留个手机号给我吧，方便后面统一通知你时间地点。"
+        : "对了，还没请教怎么称呼你？报个称呼，方便后面统一通知你时间地点。";
     await store.appendTranscript(a.event_id, a.user_id, "assistant", ask);
     out.push(ask);
     return out;
