@@ -149,9 +149,14 @@ async function routeByStage(
     case "checked_in":
       return handleAssistant(store, llm, a, text);
     case "waitlisted":
-    case "rejected":
+    case "rejected": {
       // 已定候补/婉拒：这一轮若补来了手机号/称呼（captureProfile 已入库），就好好收下，别用「不用催了」打发。
-      return [captured ? "好的，记下了，谢谢你补上。" : rejectedGreeting()];
+      const reply = captured ? "好的，记下了，谢谢你补上。" : rejectedGreeting();
+      // P7：把这条回流消息和回应也记进 transcript，避免「库里多了号/名却在聊天记录里查不到来源」。
+      await store.appendTranscript(a.event_id, a.user_id, "user", text);
+      await store.appendTranscript(a.event_id, a.user_id, "assistant", reply);
+      return [reply];
+    }
     default:
       return handleScreening(store, llm, a, text);
   }
