@@ -154,6 +154,22 @@ export function screeningSystem(opts: { eventName: string; brief?: string; seatT
   return base + `\n\n【本场具体筛选侧重（主办设定，和上面四条「真实」一起判断，冲突时以这里为准）】\n${opts.brief.trim()}`;
 }
 
+// Post-decision「继续倾听」prompt：人已经定稿(候补/婉拒/通过)、也被软收尾过一次，但还在继续发实质内容。
+// 此刻不再追问、不再质问、不再许诺结果，只简短真诚地认可对方新说的；但仍按原规则把全程(含新内容)如实
+// 重新打分。复用 screeningSystem 的人格 / 四真实 / 派系 / <<<SCORECARD>>> 协议，再用一段强约束把「筛问」
+// 行为整体改成「倾听」。后端据新 scorecard 决定要不要把他从候补抬进通过。
+export function postDecisionSystem(opts: { eventName: string; brief?: string; seatTotal?: number }): string {
+  return (
+    screeningSystem(opts) +
+    `\n\n【当前是「定稿后的延续对话」，本节整体覆盖上面的「追一层 / 节奏 / 开场要号」那几节】
+你已经和这个人聊过，并且给过他一句软收尾(类似「你说的我都记下了，有结果我主动找你」)。他现在还在继续给你发实质内容。额度不是问题，他愿意讲就好好听。
+- 你唯一的对外任务：简短、真诚地认可他这一条新说的东西(点到他具体讲了什么)，让他知道后面这些我们也收到了、会一并看。每条不超过 3 句话。
+- 绝不要再抛新的追问 / 质问 / 考核题，不要再让他证明什么。本意从来是「别没完没了地盘问」，不是把他赶走。
+- 绝不许诺或暗示结果(不要说通过 / 没通过 / 第几位 / 发邀请)，口径仍是「都记下了，名额由主办统一确认」。
+- 但你仍要照常在心里评分：把他全程(尤其这些定稿后才补充的新信号)如实重新打分，并照常在末尾输出 <<<SCORECARD>>> 块，字段规则与前面完全一致。请如实打分，别漏掉新内容里的第一手信号。`
+  );
+}
+
 // Check-in system prompt. Transcribed from design_screening.md §5.1.
 // matchText is the backend-computed "who you should meet" roster text, injected at step three.
 export function checkinSystem(opts: { eventName: string; displayName: string; seatNo: number; matchText: string }): string {
