@@ -53,10 +53,15 @@ function extractName(text: string): string | undefined {
   return undefined;
 }
 
-async function captureProfile(store: Store, userId: string, text: string): Promise<void> {
+// 返回本轮是否抓到新的手机号/称呼，供已定稿（候补/婉拒）阶段决定回话口径。
+async function captureProfile(store: Store, userId: string, text: string): Promise<boolean> {
   const phone = text.match(PHONE_RE)?.[1];
   const name = extractName(text);
-  if (phone || name) await store.updateProfile(userId, { display_name: name, phone });
+  if (phone || name) {
+    await store.updateProfile(userId, { display_name: name, phone });
+    return true;
+  }
+  return false;
 }
 
 function llmCall(
@@ -77,7 +82,7 @@ export async function handleTurn(
 ): Promise<string[]> {
   const user = await store.ensureUser(userId, channel);
   if (!text || !text.trim()) return [NON_TEXT];
-  await captureProfile(store, userId, text);
+  const captured = await captureProfile(store, userId, text);
 
   if (user.active_event_id == null) return runPicker(store, llm, userId, text);
   if (wantsSwitch(text)) {
@@ -97,7 +102,7 @@ export async function handleTurn(
     a = await store.getApplicant(event.event_id, userId);
   }
   if (!a) return [];
-  return routeByStage(store, llm, a, text);
+  return routeByStage(store, llm, a, text, captured);
 }
 
 async function runPicker(store: Store, llm: LLMConfig, userId: string, text: string): Promise<string[]> {
@@ -109,7 +114,7 @@ async function runPicker(store: Store, llm: LLMConfig, userId: string, text: str
     await store.setActiveEvent(userId, ev.event_id);
     const existing = await store.getApplicant(ev.event_id, userId);
     if (existing) return routeByStage(store, llm, existing, text);
-    await store.createApplication(ev.event_id, userId);
+    // 不在这里预建 application：没真正开聊的人不入库。等他答了开场问题，handleTurn 的 lazy-create 再建。
     return [`现在开放的就是「${ev.name}」，我们就按这场聊。`, OPENING_QUESTION];
   }
 
@@ -126,11 +131,17 @@ async function runPicker(store: Store, llm: LLMConfig, userId: string, text: str
   await store.setActiveEvent(userId, valid);
   const existing = await store.getApplicant(valid, userId);
   if (existing) return routeByStage(store, llm, existing, text);
-  await store.createApplication(valid, userId);
+  // 同上：不预建 application，等第一条真实回答时由 handleTurn 惰性创建，没开聊的人不入库。
   return [reply || `好，「${ev.name}」这场。`, OPENING_QUESTION];
 }
 
-async function routeByStage(store: Store, llm: LLMConfig, a: Applicant, text: string): Promise<string[]> {
+async function routeByStage(
+  store: Store,
+  llm: LLMConfig,
+  a: Applicant,
+  text: string,
+  captured = false,
+): Promise<string[]> {
   switch (a.stage) {
     case "screening":
       return handleScreening(store, llm, a, text);
@@ -138,38 +149,72 @@ async function routeByStage(store: Store, llm: LLMConfig, a: Applicant, text: st
     case "checked_in":
       return handleAssistant(store, llm, a, text);
     case "waitlisted":
-    case "rejected":
-      return [rejectedGreeting()];
+    case "rejected": {
+      // 已定候补/婉拒：这一轮若补来了手机号/称呼（captureProfile 已入库），就好好收下，别用「不用催了」打发。
+      const reply = captured ? "好的，记下了，谢谢你补上。" : rejectedGreeting();
+      // P7：把这条回流消息和回应也记进 transcript，避免「库里多了号/名却在聊天记录里查不到来源」。
+      await store.appendTranscript(a.event_id, a.user_id, "user", text);
+      await store.appendTranscript(a.event_id, a.user_id, "assistant", reply);
+      return [reply];
+    }
     default:
       return handleScreening(store, llm, a, text);
   }
 }
 
+// 固定收尾语（触顶时用，替代 LLM 当轮的追问回复）。
+const SCREENING_CLOSER =
+  "今天先聊到这。你说的我都记下了，我去和主办对一下，有结果我主动找你。先回去把那件事再往前推推。";
+
 async function handleScreening(store: Store, llm: LLMConfig, a: Applicant, text: string): Promise<string[]> {
   // 至少要给到能走满最小来回数的空间，避免某活动配了过小的 max_turns 和下限冲突成死区。
   const maxTurns = Math.max(a.event_max_turns > 0 ? a.event_max_turns : 8, MIN_USER_TURNS + 1);
   await store.appendTranscript(a.event_id, a.user_id, "user", text);
-
-  if (a.turn_count >= maxTurns) {
-    const closer =
-      "今天先聊到这。你说的我都记下了，我去和主办对一下，有结果我主动找你。先回去把那件事再往前推推。";
-    await store.appendTranscript(a.event_id, a.user_id, "assistant", closer);
-    return [closer];
-  }
+  // 触顶轮：这一轮必须给最终裁定并收尾，不再继续追问；但仍跑一次评分，绝不把人留在 screening 死角。
+  const atCap = a.turn_count >= maxTurns;
 
   const history = await store.loadTranscript(a.event_id, a.user_id, 20);
   const sys = screeningSystem({ eventName: a.event_name, brief: a.event_brief, seatTotal: a.event_seat_total });
-  const raw = await llmCall(llm, sys, history, 1024);
+  // max_tokens 给足，防止「长回复 + scorecard」把结尾的评分块截断 → 解析不到 → 漏打分。
+  const raw = await llmCall(llm, sys, history, 1536);
   const { reply, scorecard } = parseScreening(raw);
-  const replyText = reply || "嗯，继续说说。";
+  // 触顶轮发固定收尾，否则发 LLM 的回复。两种情况都保留这一轮解析到的 scorecard。
+  const replyText = atCap ? SCREENING_CLOSER : reply || "嗯，继续说说。";
   await store.appendTranscript(a.event_id, a.user_id, "assistant", replyText, {
-    raw,
+    raw: atCap ? undefined : raw,
     scorecardJson: scorecard ? JSON.stringify(scorecard) : undefined,
   });
 
   const out: string[] = [replyText];
 
   if (!scorecard) {
+    // 触顶却没解析到 scorecard：不能留 screening 死角，沿用已知分数/信息，强制候补 + 人工复核。
+    if (atCap) {
+      await store.updateScreeningResult(a.event_id, a.user_id, {
+        scores: {
+          project: a.score_project,
+          scene: a.score_scene,
+          resource: a.score_resource,
+          thinking: a.score_thinking,
+        },
+        faction: a.faction ?? "unknown",
+        faction_secondary: a.faction_secondary ?? "none",
+        confidence: a.confidence,
+        red_flags: [],
+        decision: "waitlist",
+        decision_reason: a.decision_reason || "聊满轮次上限仍未产出评分，转候补交人工复核。",
+        summary: a.summary,
+        scorecard_json: a.scorecard_json || "",
+        needs_human_review: true,
+        display_name: a.display_name,
+        phone: a.phone,
+        problem: a.today_problem,
+        wants_to_meet: a.wants_to_meet,
+        turn_count: a.turn_count + 1,
+      });
+      await store.setStage(a.event_id, a.user_id, "waitlisted");
+      return out;
+    }
     await store.setTurn(a.event_id, a.user_id, a.turn_count + 1);
     return out;
   }
@@ -179,11 +224,25 @@ async function handleScreening(store: Store, llm: LLMConfig, a: Applicant, text:
   // 硬红旗（小白/卖课/投资人）可以早判，免得在明显不合适的人身上耗满轮次；其余决策必须等满最小来回数。
   const HARD_FLAGS = ["newbie", "course_seller", "investor"];
   const hardReject = d.decision === "reject" && scorecard.red_flags.some((f) => HARD_FLAGS.includes(f));
-  const reachedFloor = userTurns >= MIN_USER_TURNS || hardReject;
-  // 联系方式闸：该 accept、但还没拿到手机号 → 先开口要，stage 留在 screening，绝不在没号时通过。
+  // 触顶轮一律视为到达下限并定稿（不再追问、不再开口要号）。
+  const reachedFloor = userTurns >= MIN_USER_TURNS || hardReject || atCap;
+  // 联系方式闸：该 accept、但还没拿到手机号 → 先开口要，stage 留在 screening，绝不在没号时通过。触顶时不再要号。
   const knownPhone = scorecard.phone ?? a.phone;
-  const needContact = reachedFloor && d.decision === "accept" && !knownPhone;
+  const needContact = !atCap && reachedFloor && d.decision === "accept" && !knownPhone;
   const finalizing = reachedFloor && !needContact;
+
+  // 触顶定稿：达 accept 但仍无手机号、或规则仍 pending → 落候补 + 人工复核，绝不丢、绝不无号自动通过。
+  let finalDecision = d.decision;
+  let finalReview = d.needsHumanReview;
+  if (atCap && finalizing) {
+    if (finalDecision === "accept" && !knownPhone) {
+      finalDecision = "waitlist";
+      finalReview = true;
+    } else if (finalDecision === "pending") {
+      finalDecision = "waitlist";
+      finalReview = true;
+    }
+  }
 
   await store.updateScreeningResult(a.event_id, a.user_id, {
     scores: scorecard.scores,
@@ -192,11 +251,11 @@ async function handleScreening(store: Store, llm: LLMConfig, a: Applicant, text:
     confidence: scorecard.confidence,
     red_flags: scorecard.red_flags,
     // 没到下限 / 还在要号：先挂 pending，别让后台看到早熟结论。
-    decision: finalizing ? d.decision : "pending",
+    decision: finalizing ? finalDecision : "pending",
     decision_reason: scorecard.reason_internal,
     summary: scorecard.summary,
     scorecard_json: JSON.stringify(scorecard),
-    needs_human_review: finalizing ? d.needsHumanReview : false,
+    needs_human_review: finalizing ? finalReview : false,
     display_name: scorecard.display_name,
     phone: scorecard.phone,
     problem: scorecard.problem,
@@ -217,13 +276,13 @@ async function handleScreening(store: Store, llm: LLMConfig, a: Applicant, text:
   // 没到最小来回数：无论 LLM/规则想不想定稿，都继续留在 screening 追问。
   if (!finalizing) return out;
 
-  if (d.decision === "accept") {
+  if (finalDecision === "accept") {
     await store.claimSeat(a.event_id, a.user_id);
     await store.setStage(a.event_id, a.user_id, "accepted");
     // 不再硬塞一条收尾：LLM 这一轮的回复已经是收尾（prompt 约束了口径），硬塞会变成连发两条、且那条不入库。
-  } else if (d.decision === "waitlist") {
+  } else if (finalDecision === "waitlist") {
     await store.setStage(a.event_id, a.user_id, "waitlisted");
-  } else if (d.decision === "reject") {
+  } else if (finalDecision === "reject") {
     await store.setStage(a.event_id, a.user_id, "rejected");
   }
   return out;
