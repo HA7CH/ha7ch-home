@@ -135,14 +135,12 @@ export function SquarePanel({ data, logoUrl }: { data: EventOgData; logoUrl: str
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={logoUrl} alt="HA7CH" width={logoW} height={logoH(logoW)} />
       </div>
-      <div style={{ display: "flex", flex: 0.42 }} />
-      <div style={{ display: "flex", fontSize: 32, fontWeight: 400, color: "rgba(0,0,0,0.45)", letterSpacing: "0.01em" }}>{data.metaLine}</div>
-      <div style={{ display: "flex", flexDirection: "column", marginTop: 24 }}>
+      <div style={{ display: "flex", flex: 1, flexDirection: "column", justifyContent: "center" }}>
         {lines.map((line, k) => (
           <div key={k} style={{ display: "flex", fontSize: titleSize, fontWeight: 600, color: "#111111", letterSpacing: "-0.03em", lineHeight: 1.04 }}>{line}</div>
         ))}
       </div>
-      <div style={{ display: "flex", flex: 1 }} />
+      <div style={{ display: "flex", fontSize: 32, fontWeight: 400, color: "rgba(0,0,0,0.45)", letterSpacing: "0.01em" }}>{data.metaLine}</div>
     </div>
   );
 }
