@@ -114,7 +114,7 @@ async function runPicker(store: Store, llm: LLMConfig, userId: string, text: str
     await store.setActiveEvent(userId, ev.event_id);
     const existing = await store.getApplicant(ev.event_id, userId);
     if (existing) return routeByStage(store, llm, existing, text);
-    await store.createApplication(ev.event_id, userId);
+    // 不在这里预建 application：没真正开聊的人不入库。等他答了开场问题，handleTurn 的 lazy-create 再建。
     return [`现在开放的就是「${ev.name}」，我们就按这场聊。`, OPENING_QUESTION];
   }
 
@@ -131,7 +131,7 @@ async function runPicker(store: Store, llm: LLMConfig, userId: string, text: str
   await store.setActiveEvent(userId, valid);
   const existing = await store.getApplicant(valid, userId);
   if (existing) return routeByStage(store, llm, existing, text);
-  await store.createApplication(valid, userId);
+  // 同上：不预建 application，等第一条真实回答时由 handleTurn 惰性创建，没开聊的人不入库。
   return [reply || `好，「${ev.name}」这场。`, OPENING_QUESTION];
 }
 
