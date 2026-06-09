@@ -1,7 +1,8 @@
 // Shared building blocks for an event's OG cards, mirroring the writing OG family
 // (opengraph-image / og-235 / og-11 / og-combined) but driven by the Supabase event row
-// instead of an article. Events have no long body, so the faint background is the event
-// brief and the anchor is the name + a meta line (city · time · seats).
+// instead of an article. Events have no long body, so each card is just the event name +
+// a meta line (city · time): the wide cards anchor it bottom-left, the 1:1 blows the name
+// up into a poster headline that fills the square.
 //
 // _og.tsx is not a route (Next only routes page/route/layout/etc.), it's imported by the
 // four OG routes so the layout stays in one place — combined re-uses these exact panels.
@@ -97,19 +98,51 @@ export function WidePanel({ data, logoUrl, cfg }: { data: EventOgData; logoUrl: 
   );
 }
 
-// 1:1 (1080×1080): logo top-right, name + meta as the bottom strip.
+// Break the event name into headline lines: split on the ｜ / | separator, then peel a leading
+// "Ha7ch" onto its own line, so "Ha7ch Shanghai #002｜FDE Meetup" becomes three big lines.
+function splitTitle(name: string): string[] {
+  const segments = name.split(/[｜|]/).map((s) => s.trim()).filter(Boolean);
+  const lines: string[] = [];
+  segments.forEach((seg, idx) => {
+    const brand = idx === 0 ? seg.match(/^(ha7ch)\s+(.+)$/i) : null;
+    if (brand) lines.push(brand[1], brand[2]);
+    else lines.push(seg);
+  });
+  return lines.length ? lines : [name.trim()];
+}
+
+const isCJK = (ch: string) => /[　-〿㐀-鿿豈-﫿＀-￯]/.test(ch);
+
+// Largest font size that keeps the longest line within contentW and the whole block within maxH.
+// CJK glyphs count as ~1em wide, Latin as ~0.56em — enough to size confidently without measuring.
+function fitBigTitle(lines: string[], contentW: number, maxH: number, maxSize: number, minSize: number): number {
+  const eff = (s: string) => [...s].reduce((n, c) => n + (isCJK(c) ? 1 : 0.56), 0);
+  const longest = Math.max(1, ...lines.map(eff));
+  const byWidth = contentW / longest;
+  const byHeight = maxH / (lines.length * 1.08);
+  return Math.max(minSize, Math.floor(Math.min(maxSize, byWidth, byHeight)));
+}
+
+// 1:1 (1080×1080): logo top-left, then the name as a huge poster headline, meta above it.
 export function SquarePanel({ data, logoUrl }: { data: EventOgData; logoUrl: string }) {
-  const logoW = 160;
+  const PAD = 80;
+  const logoW = 150;
+  const lines = splitTitle(data.title);
+  const titleSize = fitBigTitle(lines, 1080 - PAD * 2, 760, 168, 64);
   return (
-    <div style={{ width: "100%", height: "100%", background: "#ffffff", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden", fontFamily: FONT_FAMILY }}>
-      <div style={{ position: "absolute", top: 56, right: 56, display: "flex" }}>
+    <div style={{ width: "100%", height: "100%", background: "#ffffff", display: "flex", flexDirection: "column", overflow: "hidden", fontFamily: FONT_FAMILY, padding: PAD }}>
+      <div style={{ display: "flex" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={logoUrl} alt="HA7CH" width={logoW} height={logoH(logoW)} />
       </div>
-      <div style={{ position: "absolute", bottom: 72, left: 64, right: 64, display: "flex", flexDirection: "column" }}>
-        <div style={{ display: "flex", fontSize: 30, fontWeight: 400, color: "rgba(0,0,0,0.45)", letterSpacing: "0.01em" }}>{data.metaLine}</div>
-        <div style={{ display: "flex", marginTop: 16, fontSize: 76, fontWeight: 600, color: "#111111", letterSpacing: "-0.02em", lineHeight: 1.06 }}>{data.title}</div>
+      <div style={{ display: "flex", flex: 0.42 }} />
+      <div style={{ display: "flex", fontSize: 32, fontWeight: 400, color: "rgba(0,0,0,0.45)", letterSpacing: "0.01em" }}>{data.metaLine}</div>
+      <div style={{ display: "flex", flexDirection: "column", marginTop: 24 }}>
+        {lines.map((line, k) => (
+          <div key={k} style={{ display: "flex", fontSize: titleSize, fontWeight: 600, color: "#111111", letterSpacing: "-0.03em", lineHeight: 1.04 }}>{line}</div>
+        ))}
       </div>
+      <div style={{ display: "flex", flex: 1 }} />
     </div>
   );
 }
