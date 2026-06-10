@@ -12,6 +12,7 @@ import {
   rejectedGreeting,
   assistantSystem,
   postDecisionSystem,
+  type Scorecard,
 } from "./llm";
 import { type Store, type Applicant, type UserRow } from "./store";
 
@@ -371,6 +372,99 @@ async function handlePostDecision(store: Store, llm: LLMConfig, a: Applicant, te
     await store.setStage(a.event_id, a.user_id, "accepted");
   }
   return [replyText];
+}
+
+// ── 闲置自动收尾（auto-finalize）────────────────────────────────────────────────
+// 引擎是被动的：只有对方再发消息才推进状态。没满 MIN_USER_TURNS 又不再说话的人，会永远卡在
+// screening（后台显示「正在聊」）。这里给「正在聊」且长时间没有新消息的人一个终态：用已经逐轮
+// 算好的分数跑 deriveDecision，强制落到 通过/候补/婉拒 之一（绕过最小轮次下限），事后可人工改判。
+const STALE_FINALIZE_MS = 12 * 60 * 60 * 1000; // 12 小时无新消息即视为「这一轮聊完了」
+
+// 用库里已存的评分字段拼一个 Scorecard 交给 deriveDecision。stage/decision 用非 pending 值，
+// 关掉 earlyMidStream 的「早期给 pending 翻盘」分支，保证只会得到 accept/waitlist/reject、不返回 pending。
+function scorecardFromApplicant(a: Applicant): Scorecard {
+  let probe: Scorecard["probe_result"] = "n/a";
+  try {
+    const j = JSON.parse(a.scorecard_json || "{}");
+    if (["n/a", "held", "collapsed", "partial"].includes(j?.probe_result)) probe = j.probe_result;
+  } catch {
+    /* 解析不到就用默认 n/a */
+  }
+  return {
+    stage: "deciding",
+    turn: a.turn_count,
+    claimed_real: [],
+    probe_result: probe,
+    scores: {
+      project: a.score_project,
+      scene: a.score_scene,
+      resource: a.score_resource,
+      thinking: a.score_thinking,
+    },
+    faction_primary: a.faction ?? "unknown",
+    faction_secondary: a.faction_secondary ?? "none",
+    red_flags: parseRedFlags(a.red_flags),
+    confidence: a.confidence,
+    decision: "waitlist", // 任意非 pending 值即可，仅用于关闭 earlyMidStream
+    reason_internal: "",
+    summary: a.summary,
+    display_name: a.display_name,
+    phone: a.phone,
+    problem: a.today_problem,
+    wants_to_meet: a.wants_to_meet,
+  };
+}
+
+// 扫描所有开放活动里「正在聊」且超过 idleMs 没有新消息的人，逐个强制定稿，返回定稿人数。
+// 每个人定稿后 stage 就不再是 screening，下一次扫描不会再扫到他，所以对每个人只写一次。
+// 幂等：claimSeat / setStage 都是幂等的，并发重复调用最多重复写同样的终态。
+export async function finalizeStaleScreening(store: Store, idleMs: number = STALE_FINALIZE_MS): Promise<number> {
+  const stale = await store.listStaleScreening(Date.now() - idleMs);
+  let finalized = 0;
+  for (const a of stale) {
+    const d = deriveDecision(scorecardFromApplicant(a));
+    let decision: "accept" | "waitlist" | "reject" = d.decision === "pending" ? "waitlist" : d.decision;
+    let review = d.needsHumanReview || d.decision === "pending";
+    // 缺手机号或称呼时不发函：该 accept 也落候补人工复核（与 handleScreening 触顶定稿同口径）。
+    if (decision === "accept" && (!a.phone || !a.display_name)) {
+      decision = "waitlist";
+      review = true;
+    }
+    await store.updateScreeningResult(a.event_id, a.user_id, {
+      scores: {
+        project: a.score_project,
+        scene: a.score_scene,
+        resource: a.score_resource,
+        thinking: a.score_thinking,
+      },
+      faction: a.faction ?? "unknown",
+      faction_secondary: a.faction_secondary ?? "none",
+      confidence: a.confidence,
+      red_flags: parseRedFlags(a.red_flags),
+      decision,
+      decision_reason:
+        "对话超过 12 小时无新消息，系统按已有评分自动定稿（可人工改判）。" +
+        (a.decision_reason ? " 评分理由：" + a.decision_reason : ""),
+      summary: a.summary,
+      scorecard_json: a.scorecard_json || "",
+      needs_human_review: review,
+      display_name: a.display_name,
+      phone: a.phone,
+      problem: a.today_problem,
+      wants_to_meet: a.wants_to_meet,
+      turn_count: a.turn_count,
+    });
+    if (decision === "accept") {
+      await store.claimSeat(a.event_id, a.user_id);
+      await store.setStage(a.event_id, a.user_id, "accepted");
+    } else if (decision === "waitlist") {
+      await store.setStage(a.event_id, a.user_id, "waitlisted");
+    } else {
+      await store.setStage(a.event_id, a.user_id, "rejected");
+    }
+    finalized += 1;
+  }
+  return finalized;
 }
 
 async function handleAssistant(store: Store, llm: LLMConfig, a: Applicant, text: string): Promise<string[]> {

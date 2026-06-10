@@ -30,7 +30,7 @@ type EventInfo = { event_id: string; name: string; status: string; seat_total: n
 type Turn = { role: "user" | "assistant"; content: string; raw: string | null; scorecard_json: string | null; created_at: number };
 
 const STAGE_LABEL: Record<string, string> = {
-  screening: "筛选中",
+  screening: "正在聊",
   accepted: "已通过",
   checked_in: "已签到",
   waitlisted: "候补",
@@ -190,7 +190,7 @@ export default function EventAdminPage() {
         <span><b>{counts.people}</b> 人</span>
         <span><b>{counts.apps}</b> 条报名</span>
         <span className="ok"><b>{counts.by.accepted ?? 0}</b> 通过</span>
-        <span><b>{counts.by.screening ?? 0}</b> 筛选中</span>
+        <span><b>{counts.by.screening ?? 0}</b> 正在聊</span>
         <span className="warn"><b>{counts.by.waitlisted ?? 0}</b> 候补</span>
         <span className="mute"><b>{counts.by.rejected ?? 0}</b> 婉拒</span>
       </div>
