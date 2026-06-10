@@ -190,6 +190,41 @@ export class Store {
     });
   }
 
+  // Screening rows in OPEN events whose last update is older than beforeMs (epoch ms). Used by the
+  // auto-finalizer: the engine is reactive, so someone who went quiet mid-conversation before hitting
+  // the MIN_USER_TURNS floor would sit in "正在聊" forever. This surfaces them so they can get a verdict.
+  async listStaleScreening(beforeMs: number): Promise<Applicant[]> {
+    const [apps, users, events] = await Promise.all([
+      this.sb.from("event_applications").select("*").eq("stage", "screening").lt("updated_at", beforeMs),
+      this.sb.from("event_users").select("user_id, display_name, phone, channel"),
+      this.sb.from("event_events").select("*").eq("status", "open"),
+    ]);
+    if (apps.error) throw new Error(`Supabase 读 stale screening 失败：${apps.error.message}`);
+    const userMap = new Map((users.data ?? []).map((u: any) => [u.user_id, u]));
+    const eventMap = new Map((events.data ?? []).map((e: any) => [e.event_id, e as EventRow]));
+    return ((apps.data as ApplicationRow[]) ?? []).flatMap((app) => {
+      const ev = eventMap.get(app.event_id);
+      if (!ev) return []; // 活动非 open（或已不存在）→ 不动
+      const u = userMap.get(app.user_id);
+      return [
+        {
+          ...app,
+          display_name: u?.display_name ?? null,
+          phone: u?.phone ?? null,
+          channel: (u?.channel ?? "web") as "web" | "wechat",
+          event_name: ev.name,
+          event_brief: ev.brief,
+          event_address: ev.address,
+          event_time_info: ev.time_info,
+          event_start_at: ev.start_at,
+          event_seat_total: ev.seat_total,
+          event_max_turns: ev.max_turns,
+          event_status: ev.status,
+        } as Applicant,
+      ];
+    });
+  }
+
   // Full conversation for one person in one event (admin viewer): every turn in order,
   // including the assistant's raw output + scorecard so the operator can see the bot's reasoning.
   async loadFullTranscript(
