@@ -21,6 +21,34 @@ const projects: ListItem[] = [
   },
   {
     group: "2026",
+    title: "worldcup.pro",
+    description: "The 2026 World Cup, live from your terminal.",
+    href: "https://worldcup.ha7ch.com",
+    date: "2026-06-10",
+    meta: "Jun 10"
+  },
+  {
+    title: "guoyang.pro",
+    description: "China's state-owned-enterprise jobs, from your terminal.",
+    href: "https://guoyang.ha7ch.com",
+    date: "2026-06-01",
+    meta: "Jun 1"
+  },
+  {
+    title: "apply.pro",
+    description: "Fill 15 grad-school applications from one profile.",
+    href: "https://apply.ha7ch.com",
+    date: "2026-05-29",
+    meta: "May 29"
+  },
+  {
+    title: "kaogong.pro",
+    description: "Civil-service exam posts, from your terminal.",
+    href: "https://kaogong.ha7ch.com",
+    date: "2026-05-27",
+    meta: "May 27"
+  },
+  {
     title: "gaokao.pro",
     description: "AI-native gaokao college planner. Score in, schools out.",
     href: "https://gaokao.ha7ch.com",
