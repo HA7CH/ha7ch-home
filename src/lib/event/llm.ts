@@ -62,7 +62,7 @@ function screeningBase(eventName: string, seatTotal?: number): string {
 一个人只要在以下四种「真实」里至少占一条，并且经得起你追问一层，就够格。职业不重要，销售、学生、运营都可能够格，挂大厂 title 但一追就空的不够格：
 1. 真实项目 project：说得出具体技术栈、卡点、数字、踩过的坑。
 2. 真实场景 scene：有真实用户、客户、上线链接，且说得出用得怎么样。
-3. 真实资源 resource：有公司、客户、订单、数据、能讲清组织里真实的痛点在哪一层。
+3. 真实资源 resource：下面两类占一即可，按较高的一类算分：(a) 有公司、客户、订单、数据，能讲清组织里真实的痛点在哪一层；(b) 人脉/连接广，认识对的人、手握能拉来的资源、能在这桌给别人牵线介绍（行业关系、决策人通道、上下游、社群渠道）。注意：罗列大牌客户或名人但说不清关系实质、一追就虚的，不算硬资源，顶多算一点。
 4. 真实思考 thinking：对 AI 落地有自己的判断，和新闻通稿不一样。
 
 你还要给对方贴一个派系标签，因为这桌人要四派平衡：
@@ -437,9 +437,9 @@ function normalizeCheckin(p: Partial<Checkin>): Checkin {
 //   total = sum of the four dimensions (0-16), peak = max of the four dimensions.
 //   Gate 1 (hard red flags): any of newbie / course_seller / investor → reject.
 //                            here_to_learn AND no single dimension >= 3 → reject.
-//   Gate 2 (scores):         hardPeak >= 4 OR total >= 8 OR (probe held AND hardPeak >= 3) → accept.
-//                            total 6-7 (no hard red flag) → waitlist + needsHumanReview.
-//                            total <= 5, OR probe collapsed and nothing held → reject.
+//   Gate 2 (scores):         total >= 9 → accept（本场通过线收紧到严格大于 8，不再有单维满分/窄而深捷径）.
+//                            total 6-8 (no hard red flag) → waitlist + needsHumanReview.
+//                            total <= 5, OR probe collapsed and hardPeak < 3 → reject.
 //   Gate 3 (confidence):     confidence < 0.5 AND turn >= 4 → force waitlist (don't reject blind).
 //
 // Returns pending only when the scorecard itself is still pending and no gate has fired
@@ -453,8 +453,8 @@ export function deriveDecision(sc: Scorecard): {
   const { project, scene, resource, thinking } = sc.scores;
   const total = project + scene + resource + thinking;
   const peak = Math.max(project, scene, resource, thinking);
-  // 思考维最容易被宏大叙事/反共识话术拉高、最难被第一手细节证伪，所以单维「思考=4」不允许走
-  // peak 捷径自动入场；只有 project/scene/resource 这类可验证的硬维度能凭单维 4 直接 accept。
+  // hardPeak = 可验证硬维度（project/scene/resource）里的最高分，思考维易被宏大叙事拉高故不计入。
+  // 现仅用于「追问坍塌且硬维度都不硬」这条拒判，不再做单维满分自动入场。
   const hardPeak = Math.max(project, scene, resource);
   const flags = new Set(sc.red_flags);
   const earlyMidStream =
@@ -474,14 +474,11 @@ export function deriveDecision(sc: Scorecard): {
   const shaky = (sc.probe_result === "collapsed" || flags.has("evasive")) && sc.confidence < 0.5;
   const lowConfidenceLate = sc.confidence < 0.5 && sc.turn >= 4;
 
-  // Gate 2: scores（硬维度单维满分、综合够硬、或窄而深且追问立得住）。shaky 时不许走捷径。
-  // depthAccept：probe held 且任一可验证硬维度（project/scene/resource）>= 3 → 救「窄而深」的真 builder。
-  // solo / 早期的人 resource、scene 天然偏低，total 常落在 7-8，原来的广度门槛 total>=9 会把他们误杀进候补。
-  // evasive 时不走这条捷径，叠一层防伪（背词者闪烁其词也别放进来）。
-  const held = sc.probe_result === "held";
-  const depthAccept = held && hardPeak >= 3 && !flags.has("evasive");
-  if ((hardPeak >= 4 || total >= 8 || depthAccept) && !shaky) {
-    // 晚期仍低置信，即使分数看着够也降级到候补交人工复核，别盲目自动发函。
+  // Gate 2: scores。本场通过线收紧到 total>=9（严格大于 8），且不再保留「单维满分 / 窄而深」自动入场捷径，
+  // 一律以四维综合 total 为准（resource 维已扩展为「业务资源 或 人脉连接」取高，见 screeningBase）。
+  // shaky（一追就塌/闪烁且低置信）时不许自动通过。
+  if (total >= 9 && !shaky) {
+    // 晚期仍低置信，即使分数够也降级到候补交人工复核，别盲目自动发函。
     if (lowConfidenceLate) return { decision: "waitlist", needsHumanReview: true, total, peak };
     return { decision: "accept", needsHumanReview: false, total, peak };
   }
@@ -497,8 +494,8 @@ export function deriveDecision(sc: Scorecard): {
     return { decision: "waitlist", needsHumanReview: true, total, peak };
   }
 
-  // 中间带：交人工拍板（配局平衡也在这层人工决定）。total===8 已归入 accept（除非 shaky），所以收到 6-7。
-  if (total >= 6 && total <= 7) {
+  // 中间带 6-8：交人工拍板（配局平衡也在这层人工决定）。total>=9 才自动通过，所以 8 分也落候补。
+  if (total >= 6 && total <= 8) {
     return { decision: "waitlist", needsHumanReview: true, total, peak };
   }
 
