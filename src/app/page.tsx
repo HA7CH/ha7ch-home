@@ -129,14 +129,14 @@ const events: ListItem[] = [
     group: "2026",
     title: "Shanghai #002 · FDE Meetup",
     description: "6/13 下午. 扫码和 bouncer 聊两句就能报名.",
-    href: "/event/shanghai-fde-2026",
+    href: "https://mee7.ha7ch.com/e/shanghai-fde-2026",
     date: "2026-06-09",
     meta: "Jun 13"
   },
   {
     title: "Shenzhen #001 · FDE Meetup",
     description: "已办. 31 位 builder 到场.",
-    href: "/event/shenzhen-2026",
+    href: "https://mee7.ha7ch.com/e/shenzhen-2026",
     date: "2026-06-04",
     meta: "Done"
   }
@@ -289,7 +289,7 @@ const eventsItemList = {
     .map((e, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `https://ha7ch.com${e.href}`,
+      url: e.href!.startsWith("http") ? e.href : `https://ha7ch.com${e.href}`,
       name: e.title
     }))
 };
