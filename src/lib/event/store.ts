@@ -32,7 +32,7 @@ export interface UserRow {
 export interface ApplicationRow {
   event_id: string;
   user_id: string;
-  stage: "screening" | "accepted" | "checked_in" | "waitlisted" | "rejected";
+  stage: "screening" | "accepted" | "invited" | "confirmed" | "checked_in" | "waitlisted" | "rejected";
   decision: string | null;
   score_project: number;
   score_scene: number;
