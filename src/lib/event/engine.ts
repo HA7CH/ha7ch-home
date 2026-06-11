@@ -152,6 +152,8 @@ async function routeByStage(
     case "screening":
       return handleScreening(store, llm, a, text);
     case "accepted":
+    case "invited":   // 已发邀请（iMessage/短信），等回复确认
+    case "confirmed": // 已回复确认出席
     case "checked_in":
       return handleAssistant(store, llm, a, text);
     case "waitlisted":

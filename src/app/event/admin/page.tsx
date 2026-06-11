@@ -32,11 +32,13 @@ type Turn = { role: "user" | "assistant"; content: string; raw: string | null; s
 const STAGE_LABEL: Record<string, string> = {
   screening: "正在聊",
   accepted: "已通过",
+  invited: "已邀请",
+  confirmed: "确认出席",
   checked_in: "已签到",
   waitlisted: "候补",
   rejected: "婉拒",
 };
-const STAGE_ORDER = ["accepted", "checked_in", "waitlisted", "screening", "rejected"];
+const STAGE_ORDER = ["confirmed", "invited", "accepted", "checked_in", "waitlisted", "screening", "rejected"];
 const FACTION_LABEL: Record<string, string> = {
   // 派系真实取值（评分卡里的 faction_primary）
   tech: "技术",
@@ -144,7 +146,7 @@ export default function EventAdminPage() {
       )
       .sort((a, b) => {
         const s = STAGE_ORDER.indexOf(a.stage) - STAGE_ORDER.indexOf(b.stage);
-        return s !== 0 ? s : (a.seat_no ?? 999) - (b.seat_no ?? 999);
+        return s !== 0 ? s : (a.display_name ?? "").localeCompare(b.display_name ?? "");
       });
   }, [rows, fEvent, fStage, q]);
 
@@ -189,6 +191,8 @@ export default function EventAdminPage() {
       <div className="ad-stat">
         <span><b>{counts.people}</b> 人</span>
         <span><b>{counts.apps}</b> 条报名</span>
+        <span className="ok"><b>{counts.by.confirmed ?? 0}</b> 确认出席</span>
+        <span className="ok"><b>{counts.by.invited ?? 0}</b> 已邀请</span>
         <span className="ok"><b>{counts.by.accepted ?? 0}</b> 通过</span>
         <span><b>{counts.by.screening ?? 0}</b> 正在聊</span>
         <span className="warn"><b>{counts.by.waitlisted ?? 0}</b> 候补</span>
@@ -226,7 +230,6 @@ export default function EventAdminPage() {
           <div className="c-stage">状态</div>
           <div className="c-fac">派</div>
           <div className="c-score">四维 P/S/R/T</div>
-          <div className="c-seat">座</div>
           <div className="c-act">人工改判</div>
         </div>
         {filtered.map((r) => {
@@ -254,7 +257,6 @@ export default function EventAdminPage() {
                 </span>
                 <span className="total">共 {total}</span>
               </div>
-              <div className="c-seat">{r.seat_no ?? "—"}</div>
               <div className="c-act">
                 <button className="b-ok" onClick={() => override(r, "accept")} disabled={r.stage === "accepted"}>
                   通过
@@ -273,7 +275,7 @@ export default function EventAdminPage() {
       </div>
 
       <p className="ad-note">
-        提示：点代称可看完整对话。通过只分配座位、不发地址。地址由你们之后通过统一通知发出（微信桥接上线后这里会加「群发通知」）。
+        提示：点代称可看完整对话。状态流：已通过 → 已邀请（发出 iMessage/短信邀请）→ 确认出席（对方回 Y）。地址由你们之后统一通知发出。
       </p>
 
       {viewing && (
@@ -357,7 +359,7 @@ const boardCss = `
     font: inherit; font-size: 0.85rem; background: #fff; }
   .ad-filters input { flex: 1; min-width: 12rem; }
   .ad-table { font-size: 0.85rem; }
-  .ad-tr { display: grid; grid-template-columns: 7rem 1.7fr 6.5rem 8rem 5.5rem 3.2rem 7rem 2.2rem 9rem;
+  .ad-tr { display: grid; grid-template-columns: 7rem 1.7fr 6.5rem 8rem 6rem 3.2rem 7rem 9rem;
     gap: 0.5rem; align-items: center; padding: 0.6rem 0.4rem; border-bottom: 1px solid #f0f0ec; }
   .c-sum { font-size: 0.78rem; color: #555; line-height: 1.45; overflow: hidden;
     display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; cursor: help; }
@@ -370,13 +372,13 @@ const boardCss = `
   .c-event { color: #555; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .pill { padding: 0.12rem 0.5rem; border-radius: 1rem; font-size: 0.72rem; }
   .st-accepted { background: #e3f4ea; color: #1a7f4b; } .st-checked_in { background: #dbeafe; color: #1763b8; }
+  .st-invited { background: #ede9fe; color: #6d4fc4; } .st-confirmed { background: #d9f2e2; color: #0f7a3d; font-weight: 600; }
   .st-waitlisted { background: #fbf0db; color: #b07820; } .st-screening { background: #eee; color: #777; }
   .st-rejected { background: #f3f3f3; color: #aaa; }
   .byhand, .needrev { font-size: 0.62rem; margin-left: 0.25rem; color: #999; border: 1px solid #ddd;
     border-radius: 0.3rem; padding: 0 0.2rem; }
   .needrev { color: #b07820; border-color: #e8d4a8; }
   .c-score .nums { font-variant-numeric: tabular-nums; } .c-score .total { color: #999; margin-left: 0.4rem; font-size: 0.75rem; }
-  .c-seat { text-align: center; font-variant-numeric: tabular-nums; color: #444; }
   .c-act { display: flex; gap: 0.3rem; }
   .c-act button { font-size: 0.72rem; border: 1px solid #ddd; border-radius: 0.4rem; padding: 0.2rem 0.45rem;
     background: #fff; cursor: pointer; color: #555; }
