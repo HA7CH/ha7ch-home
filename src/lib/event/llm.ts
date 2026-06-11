@@ -98,7 +98,7 @@ function screeningBase(eventName: string, seatTotal?: number): string {
 对话很早就把称呼和手机号拿到手，别等到准备通过时才问，因为没拿到手机号我们之后就联系不上人。做法：第 1 到 2 轮，暖场、接完对方第一段自述之后，就自然地把它带过去，像同行先互相认识，不是填表。例如：聊之前先互相认识下，怎么称呼你？方便的话留个手机号，后面有结果好统一通知你。
 - 这是对每个人都要做的，无论你后面倾向收还是不收：哪怕这人多半不合适，也要尽量把称呼和手机号拿到。
 - 对方一旦在任何一条消息里给出名字/称呼，你必须立刻把它填进 display_name，并在之后每一轮都保持住、绝不要又填回 null。名字形式不限：中文名、英文名（如 Valerie、Tony）、「我叫X」「我是X」「叫我X」「喊我X」「就叫我X」、或「名字 手机号」写在同一条里，你都要认出来填进 display_name。
-- 对方一旦给出 11 位手机号，立刻填进 phone（字符串），之后每一轮也保持住。
+- 对方一旦给出 11 位手机号，立刻填进 phone（字符串），之后每一轮也保持住。注意核对位数：国内手机号必须正好 11 位且以 1 开头，对方给的号少一位或多一位时绝不要填进 phone，而是温和指出「这个号好像位数不对，方便再核对一下吗」请对方重发；海外号请对方带上国家区号（加号开头）再填。
 - 称呼和手机号两样都没拿到之前绝不标 accept：stage 停在 deciding、decision 保持 pending 继续自然地要。
 - 顺带把「今天最想解决的一个问题」填进 problem、「最想认识哪一类人」填进 wants_to_meet，这两条没问全不阻塞通过。
 - 通过的收尾口径：你不是当场拍板录取。结束语只说「你说的我都记下了，名额最后由主办统一确认，合适会第一时间联系你」这个意思。绝不要说「你过了 / 恭喜 / 你是第几位 / 发你邀请函 / 把地址发你 / 你确定能来 / 欢迎来局」这类暗示当场确定入选或马上给地址的话。
@@ -371,6 +371,19 @@ export function parseCheckin(raw: string): { reply: string; checkin: Checkin | n
   }
 }
 
+// 手机号清洗校验：去掉空格/横线/括号后，只接受 (a) 国内手机 1[3-9] 开头整 11 位、
+// (b) 0086/86 前缀的国内号（归一成 11 位）、(c) 带国家码的国际号 +8~15 位。
+// 位数不对（如少一位的 10 位号）一律返回 null：宁可让联系方式闸继续要号，
+// 也不要带着联系不上的残号自动通过（修复：曾有 10 位残号经 LLM 评分卡原样入库并自动通过）。
+export function normalizePhone(raw: unknown): string | null {
+  if (typeof raw !== "string") return null;
+  const s = raw.replace(/[\s\-()]/g, "");
+  if (/^1[3-9]\d{9}$/.test(s)) return s;
+  if (/^(?:0086|86)1[3-9]\d{9}$/.test(s)) return s.slice(-11);
+  if (/^\+\d{8,15}$/.test(s)) return s;
+  return null;
+}
+
 // Coerce a parsed object into a well-formed Scorecard, filling defaults for missing/bad fields
 // so downstream code (deriveDecision, db writes) never sees undefined.
 function normalizeScorecard(p: Partial<Scorecard>): Scorecard {
@@ -410,7 +423,7 @@ function normalizeScorecard(p: Partial<Scorecard>): Scorecard {
     reason_internal: typeof p.reason_internal === "string" ? p.reason_internal : "",
     summary: typeof p.summary === "string" && p.summary.trim() !== "" ? p.summary : null,
     display_name: typeof p.display_name === "string" && p.display_name.trim() !== "" ? p.display_name : null,
-    phone: typeof p.phone === "string" && p.phone.trim() !== "" ? p.phone : null,
+    phone: normalizePhone(p.phone),
     problem: typeof p.problem === "string" && p.problem.trim() !== "" ? p.problem : null,
     wants_to_meet: typeof p.wants_to_meet === "string" && p.wants_to_meet.trim() !== "" ? p.wants_to_meet : null,
   };

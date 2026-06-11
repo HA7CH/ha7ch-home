@@ -12,6 +12,7 @@ import {
   rejectedGreeting,
   assistantSystem,
   postDecisionSystem,
+  normalizePhone,
   type Scorecard,
 } from "./llm";
 import { type Store, type Applicant, type UserRow } from "./store";
@@ -233,7 +234,8 @@ async function handleScreening(store: Store, llm: LLMConfig, a: Applicant, text:
   // 触顶轮一律视为到达下限并定稿（不再追问、不再开口要号）。
   const reachedFloor = userTurns >= MIN_USER_TURNS || hardReject || atCap;
   // 联系方式闸：该 accept、但还没拿到「手机号 + 称呼」任一项 → 先开口要，stage 留在 screening，绝不在缺联系方式时通过。触顶时不再追要。
-  const knownPhone = scorecard.phone ?? a.phone;
+  // scorecard.phone 已在 normalizeScorecard 里校验过；库里的旧号也要再验一遍，残号(位数不对)当没号。
+  const knownPhone = scorecard.phone ?? normalizePhone(a.phone);
   const knownName = scorecard.display_name ?? a.display_name;
   const needContact = !atCap && reachedFloor && d.decision === "accept" && (!knownPhone || !knownName);
   const finalizing = reachedFloor && !needContact;
@@ -346,7 +348,8 @@ async function handlePostDecision(store: Store, llm: LLMConfig, a: Applicant, te
 
   // 复评：分数/小结照常刷新并标人工复核；新信号过线且有联系方式 → 自动抬进通过并占座。
   const d = deriveDecision(scorecard);
-  const knownPhone = scorecard.phone ?? a.phone;
+  // scorecard.phone 已在 normalizeScorecard 里校验过；库里的旧号也要再验一遍，残号(位数不对)当没号。
+  const knownPhone = scorecard.phone ?? normalizePhone(a.phone);
   const knownName = scorecard.display_name ?? a.display_name;
   const upgradeToAccept = d.decision === "accept" && !!knownPhone && !!knownName && a.stage !== "accepted";
 
@@ -428,7 +431,7 @@ export async function finalizeStaleScreening(store: Store, idleMs: number = STAL
     let decision: "accept" | "waitlist" | "reject" = d.decision === "pending" ? "waitlist" : d.decision;
     let review = d.needsHumanReview || d.decision === "pending";
     // 缺手机号或称呼时不发函：该 accept 也落候补人工复核（与 handleScreening 触顶定稿同口径）。
-    if (decision === "accept" && (!a.phone || !a.display_name)) {
+    if (decision === "accept" && (!normalizePhone(a.phone) || !a.display_name)) {
       decision = "waitlist";
       review = true;
     }
