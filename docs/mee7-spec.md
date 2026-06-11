@@ -10,7 +10,7 @@
 
 ## 0. 一句话
 
-mee7 是 AI 门房：Luma 让任何人都能办活动，mee7 让任何主办都请得起一个懂行的门卫。报名不是填表，而是和门房对话，说服它你够格坐上这张桌子。
+mee7 是 AI bouncer：Luma 让任何人都能办活动，mee7 让任何主办都请得起一个懂行的门卫。报名不是填表，而是和 bouncer 对话，说服它你够格坐上这张桌子。
 
 ---
 
@@ -44,7 +44,7 @@ mee7 做的是「规模化品味」：把闭门社群那种昂贵的判断力，
 ### 1.3 核心立场（全文反复出现，先立在这）
 
 1. mee7 卖的不是「AI 审表单」，是「把主办的品味做成可复用的门规」。一切设计向 ScreeningProfile（门规）收敛：数值封死，叙事开放，人工永远握最终改判权。
-2. mee7 是 agent-first 的，AI 贯穿两端：guest 端的门房是 AI，主办端的操作台是主办自己的 agent。主办方把自己的 Claude Code 经 MCP 接上 mee7，建活动、调门规、看报名、改判、发函、写复盘全在自己的 agent 里完成；web 后台只是看板。Luma 给主办一个 dashboard，mee7 给主办的 agent 一套工具。
+2. mee7 是 agent-first 的，AI 贯穿两端：guest 端的 bouncer 是 AI，主办端的操作台是主办自己的 agent。主办方把自己的 Claude Code 经 MCP 接上 mee7，建活动、调门规、看报名、改判、发函、写复盘全在自己的 agent 里完成；web 后台只是看板。Luma 给主办一个 dashboard，mee7 给主办的 agent 一套工具。
 3. 注册的不对称是刻意的：主办方注册，参会者永远零注册。guest 的身份就是微信，扫码即入口，没有账号没有密码没有 App。
 
 ---
@@ -136,7 +136,7 @@ Guest (报名者, 按渠道身份标识, PII 落在 Application 级)
 3. **红旗开关**：预置清单（newbie / here_to_learn / course_seller / investor / evasive）勾选启停。investor 必拒默认关，那是 HA7CH 特例。
 4. **严格度单旋钮**：宽 / 标准 / 严三档，映射为阈值整体偏移。这是唯一的数值入口，且只暴露三档。
 
-另有两个非筛选配置：配桌标签（主办自定义 2 到 5 个标签，替代硬编码四派系，只供人工配桌参考，绝不进 deriveDecision）和 bot 人格模板（内行门房 / 热情主理人 / 严肃评审三选，解决「被 bot 盘问劝退大佬」的人格适配）。
+另有两个非筛选配置：配桌标签（主办自定义 2 到 5 个标签，替代硬编码四派系，只供人工配桌参考，绝不进 deriveDecision）和 bot 人格模板（内行 bouncer / 热情主理人 / 严肃评审三选，解决「被 bot 盘问劝退大佬」的人格适配）。
 
 HA7CH 的「四种真实 + 内行 bouncer + 五红旗」整套作为第一个内置模板。模板库四个起步：闭门 builder 局、demo night、行业晚宴、社群招新。
 
@@ -153,9 +153,9 @@ HA7CH 的「四种真实 + 内行 bouncer + 五红旗」整套作为第一个内
 ### 5.1 Organizer：你的 Claude Code 就是活动运营台
 
 1. **注册**：mee7 自有账号，邮箱 + 密码注册（MVP 不做微信扫码登录），建 org，设置页生成 MCP 接入 token。任何人都可以注册，这是 SaaS，不是邀请制工具；底层用 Supabase Auth 实现，但主办方全程只见 mee7，不需要注册任何第三方。这是整个产品里唯一需要注册的角色。
-2. **连接 Claude Code**：`claude mcp add mee7 ...` 一行接入。从这一刻起，建活动、调门规、看报名、改判、发函、写复盘，全部在主办自己的 agent 里完成。HA7CH 过去两场活动的运营本来就是这么跑的，mee7 把这套已验证的工作流原样产品化。
+2. **连接 Claude Code**：`npx @ha7ch/mee7 login <token>` 一行接入。从这一刻起，建活动、调门规、看报名、改判、发函、写复盘，全部在主办自己的 agent 里完成（agent 直接 Bash 调 CLI）。HA7CH 过去两场活动的运营本来就是这么跑的，mee7 把这套已验证的工作流原样产品化。
 3. **建活动**：对自己的 Claude 说「帮我办一场 30 人的闭门局，最怕混进来卖课的」，agent 经 MCP 追问出门规草稿（侧重什么、怕混进谁、词典、红旗、严格度），正是 mee7 自己的筛选哲学反过来用在主办身上。没有 Claude Code 的主办走 web 向导（和 mee7 的 bot 聊五分钟），是同一套工具的薄壳。
-4. **试聊预览（强制）**：发布前必须用 `test_screening` 跑三轮（agent 里跑，或 web 测试台），亲眼看门房怎么问、评分卡怎么打。现成的 `/event/chat` 测试台就是这个功能的雏形。确认才能发布。
+4. **试聊预览（强制）**：发布前必须用 `test_screening` 跑三轮（agent 里跑，或 web 测试台），亲眼看 bouncer 怎么问、评分卡怎么打。现成的 `/event/chat` 测试台就是这个功能的雏形。确认才能发布。
 5. **分享**：拿到 `mee7.ha7ch.com/e/{slug}` 落地页 + OG 卡 + 3:4 导出卡（发朋友圈/群）。
 6. **运营**：web 看板看全景（七态计数、四维分、人物速写、复核队列、完整对话流和逐轮评分卡、三键改判）；批量和模糊操作交给 agent：「把复核队列里做硬件的挨个看一遍捞进来」「给 confirmed 但没回话的人再提醒一轮」，这类一句话操作在看板上是无数次点击，在 agent 里是一个回合。
 7. **发函**：判定与触达解耦保持，通过者由主办经微信统一发函（现有 `/admin/send` 链路多租户化：查 D1 token 直发 + Supabase 留痕），地址只在此刻透露。
@@ -166,7 +166,7 @@ HA7CH 的「四种真实 + 内行 bouncer + 五红旗」整套作为第一个内
 ### 5.2 Guest：链接到入场
 
 1. **看到链接**：落地页保留现有极简信息架构（标题、时间城市、信息表、brief），地址保密策略保留：「确认后由主办统一通知到场的人」。
-2. **进对话**：扫码配对进微信 bot（现有 EventPairing UX 原样复用：落地页内嵌顶层 QR 图、微信内长按识别、2.5 秒轮询激活态、过期自动换码），回微信和门房开聊。
+2. **进对话**：扫码配对进微信 bot（现有 EventPairing UX 原样复用：落地页内嵌顶层 QR 图、微信内长按识别、2.5 秒轮询激活态、过期自动换码），回微信和 bouncer 开聊。
 3. **被筛**：多轮对话，bot 追问一层，第 1-2 轮要称呼和联系方式。全程不暴露规则、不当场宣判。
 4. **收函**：通过者收到主办统一发的邀请函与地址。
 5. **签到与牵线（V2）**：到场发条消息即签到（不扫码），bot 采集「今天想解决的问题 / 想认识谁」，告诉你去认识谁。筛选时学到的 problem / wants_to_meet 在门口变成三个该认识的人。竞品报告确认这个「审核 + 签到 + 现场牵线」的数据闭环没有任何人做，这是 mee7 真正的护城河。
@@ -191,19 +191,20 @@ mee7 是一个单独的项目，不是 ha7ch-home 的子模块：
 
 平台持 DeepSeek key（env 可换 model/baseUrl，按 org 可覆盖型号）。算账：630 轮对话筛了 47 人，单申请约 13 轮，DeepSeek 下单申请成本不到 5 分钱。按场定价毛利 95% 以上，BYOK 的 key 管理复杂度完全不值得引入。加一张 usage 表按 org 记 token 与申请数，配限额防滥用。
 
-### 6.3 mee7 MCP：主办方的 Claude Code 是第一操作台
+### 6.3 mee7 CLI：主办方的 Claude Code 是第一操作台
 
-mee7 对主办方是 agent-first 的：web 后台只是看板，完整操作面是一个远程 MCP server。主办方把自己的 Claude Code（或任何 MCP 客户端）接上来，活动运营的全部动作都由自己的 agent 执行。工具清单不是凭空设计的，就是把 HA7CH 两场活动在 Claude Code 里实际执行过的运营动作逐一工具化。
+mee7 对主办方是 agent-first 的：web 后台只是看板，完整操作面是 **CLI**（`npx @ha7ch/mee7`），与 HA7CH 的 .pro 系列（cv-pro、apply-pro）同一形态。主办方的 Claude Code 直接 Bash 调它，人也能直接敲。MCP 接入对主办方太重（要懂 MCP、要 `claude mcp add`），CLI 是零配置的：`npx @ha7ch/mee7 login <token>` 一次，之后所有命令即用。
 
-- 端点：`mee7.ha7ch.com/mcp`（Streamable HTTP，跑在 Next.js route 里，与引擎和数据同进程，不引入新部署面）
-- 鉴权：org 设置页生成 API token，token 即租户 scope，所有工具天然按 org 隔离
-- 工具集 v1：
+- CLI：npm 包 `@ha7ch/mee7`，零依赖单文件（Node >= 18 内置 fetch），token 存 `~/.mee7/config.json`
+- 传输层：服务端 `/api/mcp` JSON-RPC 端点（每条命令一次 tools/call）。这个端点同时天然兼容 MCP Streamable HTTP 协议，想用 `claude mcp add` 接 MCP 的人也能直接连，零额外维护成本
+- 鉴权：后台「接入 Claude Code」生成 API token（sha256 落库，明文只显示一次），token 即租户 scope，所有命令天然按 org 隔离
+- 工具清单不是凭空设计的，就是把 HA7CH 两场活动在 Claude Code 里实际执行过的运营动作逐一工具化：
 
 | 工具 | 对应现有动作 |
 |---|---|
 | `create_event` / `update_event` | 建活动、改时间地址座位数、open/close |
 | `update_screening_profile` | 调门规：brief、词典、红旗开关、严格度、人格模板 |
-| `test_screening` | 试聊预览：模拟 guest 跑一轮，返回门房回复 + 评分卡 |
+| `test_screening` | 试聊预览：模拟 guest 跑一轮，返回 bouncer 回复 + 评分卡 |
 | `list_applications` | 报名全景：按 stage / 复核队列 / 关键词筛 |
 | `get_transcript` | 单人完整对话 + 逐轮评分卡 |
 | `override_decision` | 改判 accept/waitlist/reject，写 human_decided |
@@ -263,7 +264,7 @@ event_transcripts   不动
 
 mee7 不做 web 对外报名。微信就是报名渠道本身，理由有三：
 
-- 「在微信里说服 bouncer」的仪式感是产品体验的本体，不是可替换的传输层。落地页扫码、回微信和门房聊、邀请函图片、到场发条消息签到，整条旅程长在微信里才成立。
+- 「在微信里说服 bouncer」的仪式感是产品体验的本体，不是可替换的传输层。落地页扫码、回微信和 bouncer 聊、邀请函图片、到场发条消息签到，整条旅程长在微信里才成立。
 - 第一圈客群（中文 AI/创投圈闭门局）的主办和 guest 百分之百活在微信里。给他们一个 web 聊天框是降级，不是兜底。
 - 桥已经跑通了。配对 UX、token 生命周期、并发锁、统一发函链路全部是验证过的资产，复用成本接近零，重做 web 渠道反而是新增工作量。
 
@@ -370,7 +371,7 @@ LLM 成本不是风险（单场不到 ¥10），不列。真正的四个：
 |---|---|---|
 | 参会者账号 | 需要（邮箱注册） | 零注册，微信即身份 |
 | 主办操作台 | web dashboard | 自己的 Claude Code（MCP）+ web 看板 |
-| 报名 | 表单（可自定义问题） | 对话（门房追问一层） |
+| 报名 | 表单（可自定义问题） | 对话（bouncer 追问一层） |
 | 审批 | 人工逐个看表单，approve/decline | AI 评分 + 三道闸自动定稿，边界态人工复核，三键改判 |
 | 审批依据 | 主办肉眼 | 四维评分卡逐轮留痕，可审计 |
 | 通知 | 邮件模板 | 判定与触达解耦，主办经微信统一发函，地址过闸才透露 |
@@ -383,7 +384,7 @@ LLM 成本不是风险（单场不到 ¥10），不列。真正的四个：
 
 | 词 | 含义 |
 |---|---|
-| 门房 / bouncer | 与 guest 对话的筛选 bot 人格 |
+| bouncer / bouncer | 与 guest 对话的筛选 bot 人格 |
 | 门规 / ScreeningProfile | 主办可配置的筛选叙事层：brief、词典、红旗开关、严格度、配桌标签、人格模板 |
 | 四种真实 | project / scene / resource / thinking 四维评分骨架（平台锁死） |
 | 三道闸 | deriveDecision 的硬红旗、分数梯度、置信度保护 |
