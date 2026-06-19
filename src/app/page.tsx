@@ -128,17 +128,17 @@ const events: ListItem[] = [
   {
     group: "2026",
     title: "Hangzhou #003 · FDE Meetup",
-    description: "先报名锁位置. 扫码和 bouncer 聊两句就能报名.",
+    description: "6/27 下午. 扫码和 bouncer 聊两句就能报名.",
     href: "https://mee7.ha7ch.com/e/hangzhou-fde-2026",
     date: "2026-06-19",
-    meta: "Open"
+    meta: "Jun 27"
   },
   {
     title: "Shanghai #002 · FDE Meetup",
-    description: "6/13 下午. 扫码和 bouncer 聊两句就能报名.",
+    description: "已办. 31 位 builder 到场.",
     href: "https://mee7.ha7ch.com/e/shanghai-fde-2026",
     date: "2026-06-09",
-    meta: "Jun 13"
+    meta: "Done"
   },
   {
     title: "Shenzhen #001 · FDE Meetup",
