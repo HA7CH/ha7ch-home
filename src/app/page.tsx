@@ -21,6 +21,13 @@ const projects: ListItem[] = [
   },
   {
     group: "2026",
+    title: "mee7",
+    description: "AI-native Luma — vets the guest, not the RSVP.",
+    href: "https://mee7.ha7ch.com",
+    date: "2026-06-21",
+    meta: "Jun 21"
+  },
+  {
     title: "worldcup.pro",
     description: "The 2026 World Cup, live from your terminal.",
     href: "https://worldcup.ha7ch.com",

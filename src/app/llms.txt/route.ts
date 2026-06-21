@@ -4,6 +4,11 @@ const BASE_URL = "https://ha7ch.com";
 
 const projects: { name: string; url: string; description: string }[] = [
   {
+    name: "mee7",
+    url: "https://mee7.ha7ch.com",
+    description: "AI-native Luma — guests are vetted by a bouncer bot in conversation, not by filling out a form."
+  },
+  {
     name: "AI Native Rank",
     url: "https://rank.ha7ch.com",
     description: "What's your AI Native Rank? S, A, B, C, or D? A CLI test that scores how AI-native a developer is."
