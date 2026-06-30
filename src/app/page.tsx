@@ -134,6 +134,13 @@ const projects: ListItem[] = [
 const events: ListItem[] = [
   {
     group: "2026",
+    title: "48H FDE Sprint · 26W29",
+    description: "飞进真实企业现场，48 小时做出有人真用的 AI MVP. 扫码报名.",
+    href: "https://mee7.ha7ch.com/e/fde-sprint",
+    date: "2026-06-30",
+    meta: "Jul 13–17"
+  },
+  {
     title: "Beijing #004 · FDE Meetup",
     description: "7/4 下午. 扫码和 bouncer 聊两句就能报名.",
     href: "https://mee7.ha7ch.com/e/beijing-fde-2026",
