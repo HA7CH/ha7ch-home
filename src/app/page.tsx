@@ -134,11 +134,18 @@ const projects: ListItem[] = [
 const events: ListItem[] = [
   {
     group: "2026",
+    title: "Beijing #004 · FDE Meetup",
+    description: "7/4 下午. 扫码和 bouncer 聊两句就能报名.",
+    href: "https://mee7.ha7ch.com/e/beijing-fde-2026",
+    date: "2026-06-30",
+    meta: "Jul 4"
+  },
+  {
     title: "Hangzhou #003 · FDE Meetup",
-    description: "6/27 下午. 扫码和 bouncer 聊两句就能报名.",
+    description: "已办. 32 位 builder 到场.",
     href: "https://mee7.ha7ch.com/e/hangzhou-fde-2026",
     date: "2026-06-19",
-    meta: "Jun 27"
+    meta: "Done"
   },
   {
     title: "Shanghai #002 · FDE Meetup",
