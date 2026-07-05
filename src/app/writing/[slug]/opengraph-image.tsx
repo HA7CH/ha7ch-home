@@ -136,7 +136,6 @@ export default async function Image({ params }: { params: Params }) {
             alignItems: "center",
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={dataUrl} alt="HA7CH" width={logoWidth} height={logoHeight} />
         </div>
       </div>

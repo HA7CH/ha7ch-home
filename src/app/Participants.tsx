@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 
-type Participant = { name: string; src: string; job: string };
+type Participant = { name: string; src: string; job: string; rotate: number };
 
 const PARTICIPANTS: Participant[] = [
   { name: "lawted", src: "/avatars/lawted.png", job: "Shenzhen" },
@@ -15,7 +15,10 @@ const PARTICIPANTS: Participant[] = [
   { name: "Claude", src: "/avatars/claude.png", job: "Anthropic" },
   { name: "ChatGPT", src: "/avatars/chatgpt.png", job: "OpenAI" },
   { name: "Gemini", src: "/avatars/gemini.png", job: "Google" }
-];
+].map((p, i) => ({
+  ...p,
+  rotate: ((i * 7) % 13) - 6
+}));
 
 export default function Participants() {
   const [hovered, setHovered] = useState<string | null>(null);
@@ -61,7 +64,7 @@ export default function Participants() {
                   animate={{
                     y: 18,
                     opacity: 1,
-                    rotate: Math.random() * 12 - 6
+                    rotate: p.rotate
                   }}
                   exit={{ y: 6, opacity: 0, rotate: 0 }}
                   transition={{

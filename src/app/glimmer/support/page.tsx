@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+
 
 export const metadata: Metadata = {
   title: "Glimmer Support — HA7CH",
@@ -93,9 +95,10 @@ const faqZh: Array<{ q: string; a: string }> = [
 export default function GlimmerSupport() {
   return (
     <main className="writing-page">
-      <a href="/" className="writing-back">
+      <Link href="/" className="writing-back">
         HA7CH
-      </a>
+      </Link>
+
       <article className="writing-article">
         <header className="writing-header">
           <h1 className="writing-title">Glimmer Support</h1>

@@ -28,6 +28,7 @@ export default function OGPreview() {
               {RATIOS.map(({ label, path, w, h }) => (
                 <div key={path}>
                   <a href={`/writing/${slug}/${path}`} target="_blank" style={{ display: "block" }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={`/writing/${slug}/${path}`}
                       alt={label}

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+
 
 export const metadata: Metadata = {
   title: "Glimmer Privacy Policy — HA7CH",
@@ -101,9 +103,10 @@ const zh: Array<{ heading?: string; body: string }> = [
 export default function GlimmerPrivacy() {
   return (
     <main className="writing-page">
-      <a href="/" className="writing-back">
+      <Link href="/" className="writing-back">
         HA7CH
-      </a>
+      </Link>
+
       <article className="writing-article">
         <header className="writing-header">
           <h1 className="writing-title">Glimmer Privacy Policy</h1>
