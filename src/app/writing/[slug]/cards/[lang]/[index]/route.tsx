@@ -1,28 +1,20 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { getArticle, getAllSlugs } from "@/content/writing";
+import { getArticle } from "@/content/writing";
 import { paginateForCards, type Lang } from "@/content/writing/cards";
+
+// 卡片图按需渲染,不在 build 时预烤。曾用 generateStaticParams 把每篇文章 ×
+// zh/en × 每张卡片全部预渲染成 PNG(数百张),Vercel 构建机只有 1 个 worker
+// 串行跑 satori 排版 + 光栅化,每张还从 CDN 拉一遍中文字库,单次部署因此要 ~10 分钟,
+// 且随文章增多线性恶化。改为运行时首访渲染,结果由下方 immutable 缓存头交给 CDN 长期缓存
+// (对固定 slug/lang/index 内容稳定不变),build 里不再有这数百张 PNG。
+export const dynamic = "force-dynamic";
 
 export const size = { width: 1242, height: 1656 };
 export const contentType = "image/png";
 
 type Params = Promise<{ slug: string; lang: string; index: string }>;
-
-export async function generateStaticParams() {
-  const out: { slug: string; lang: string; index: string }[] = [];
-  for (const slug of getAllSlugs()) {
-    const a = getArticle(slug);
-    if (!a) continue;
-    for (const lang of ["zh", "en"] as const) {
-      const cards = paginateForCards(a[lang], lang);
-      for (let i = 0; i < cards.length; i++) {
-        out.push({ slug, lang, index: String(i) });
-      }
-    }
-  }
-  return out;
-}
 
 export async function GET(_req: Request, { params }: { params: Params }) {
   const { slug, lang: langStr, index } = await params;
@@ -227,6 +219,12 @@ export async function GET(_req: Request, { params }: { params: Params }) {
         </div>
       </div>
     ),
-    { ...size, fonts }
+    {
+      ...size,
+      fonts,
+      headers: {
+        "Cache-Control": "public, immutable, no-transform, max-age=31536000",
+      },
+    }
   );
 }
