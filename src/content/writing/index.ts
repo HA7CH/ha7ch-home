@@ -22,10 +22,11 @@ import resumeMaterialFrom700Conversations from "./resume-material-from-700-conve
 import databricksAiProductExperience from "./databricks-ai-product-experience";
 import scissorsInTheGap from "./scissors-in-the-gap";
 import thirteenQuestionsOnFde from "./thirteen-questions-on-fde";
+import fourCitiesFdeReport from "./four-cities-fde-report";
 
 export type { Article };
 
-export const articles: Article[] = [thirteenQuestionsOnFde, scissorsInTheGap, databricksAiProductExperience, resumeMaterialFrom700Conversations, whyYouShouldComeToHatch, threeHundredStrangers, theIgnoredContinent, harvardIsNotHarvard, stopSayingJiushi, baseballAndTheBlameGame, claudeCodeForEverything, questionEveryInstinct, theFrogInTheWell, walkOnTwoLegs, ha7chIsAFdeAccelerator, fdeIsTheFuture, codeAgentAndTokenEfficiency, attentionIsAllYouNeed, poetryAndThePlaza, mvpAsResearch, powerballEffect, zeroTokenDesign, soWtfIsHa7ch];
+export const articles: Article[] = [fourCitiesFdeReport, thirteenQuestionsOnFde, scissorsInTheGap, databricksAiProductExperience, resumeMaterialFrom700Conversations, whyYouShouldComeToHatch, threeHundredStrangers, theIgnoredContinent, harvardIsNotHarvard, stopSayingJiushi, baseballAndTheBlameGame, claudeCodeForEverything, questionEveryInstinct, theFrogInTheWell, walkOnTwoLegs, ha7chIsAFdeAccelerator, fdeIsTheFuture, codeAgentAndTokenEfficiency, attentionIsAllYouNeed, poetryAndThePlaza, mvpAsResearch, powerballEffect, zeroTokenDesign, soWtfIsHa7ch];
 
 export function getArticle(slug: string): Article | undefined {
   return articles.find((a) => a.slug === slug);
