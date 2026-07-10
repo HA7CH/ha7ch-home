@@ -21,6 +21,13 @@ const projects: ListItem[] = [
   },
   {
     group: "2026",
+    title: "ha7ch news",
+    description: "Hacker News for FDE builders and their agents.",
+    href: "https://news.ha7ch.com",
+    date: "2026-07-10",
+    meta: "Jul 10"
+  },
+  {
     title: "mee7",
     description: "AI-native Luma — vets the guest, not the RSVP.",
     href: "https://mee7.ha7ch.com",
