@@ -141,6 +141,13 @@ const projects: ListItem[] = [
 const events: ListItem[] = [
   {
     group: "2026",
+    title: "San Francisco #005 · AI Native Builder Meetup",
+    description: "与 intent.app 联合主办, 地点在 Palo Alto 附近. 扫码报名，聊两句留个邮箱就行.",
+    href: "https://mee7.ha7ch.com/e/sf-fde-2026",
+    date: "2026-07-12",
+    meta: "Jul 18"
+  },
+  {
     title: "48H FDE Sprint · 26W29",
     description: "飞进真实企业现场，48 小时做出有人真用的 AI MVP. 扫码报名.",
     href: "https://mee7.ha7ch.com/e/fde-sprint",
