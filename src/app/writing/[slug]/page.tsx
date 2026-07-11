@@ -9,6 +9,7 @@ import {
   getKeywords,
   getLanguageAlternates,
   getWritingUrls,
+  OG_SHARE_SIZE,
 } from "./seo";
 
 type Params = Promise<{ slug: string }>;
@@ -49,7 +50,7 @@ export async function generateMetadata({
       authors: ["https://x.com/lawted2"],
       locale: "en_US",
       alternateLocale: ["zh_CN"],
-      images: [urls.ogImage],
+      images: [{ url: urls.ogShareEn, ...OG_SHARE_SIZE, alt: article.titleEn }],
       tags: keywords,
     },
     twitter: {
@@ -58,7 +59,7 @@ export async function generateMetadata({
       description,
       site: "@lawted2",
       creator: "@lawted2",
-      images: [urls.ogImage],
+      images: [urls.ogShareEn],
     },
   };
 }
