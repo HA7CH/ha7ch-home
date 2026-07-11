@@ -22,9 +22,17 @@ export function getWritingUrls(article: Article) {
     en,
     zh: `${en}/zh`,
     md: `${en}/md`,
-    ogImage: `${en}/opengraph-image`
+    // 1200×630 single image — kept for JSON-LD (search-friendly aspect ratio).
+    ogImage: `${en}/opengraph-image`,
+    // Bilingual combined share images (1:1 + 2.35:1 stitched) used as og:image /
+    // twitter:image so link previews match the article's language.
+    ogShareEn: `${en}/en/og-combined`,
+    ogShareZh: `${en}/zh/og-combined`
   };
 }
+
+// Combined OG dimensions (1:1 panel + 2.35:1 panel side by side, height 600).
+export const OG_SHARE_SIZE = { width: 2033, height: 600 };
 
 export function getLanguageAlternates(article: Article) {
   const urls = getWritingUrls(article);
