@@ -1,4 +1,5 @@
 import type { Article } from "./types";
+import sixCellAiCollaboration from "./six-cell-ai-collaboration";
 import zeroTokenAfterChatgptWork from "./zero-token-after-chatgpt-work";
 import zeroTokenDesign from "./zero-token-design";
 import powerballEffect from "./powerball-effect";
@@ -27,7 +28,7 @@ import fourCitiesFdeReport from "./four-cities-fde-report";
 
 export type { Article };
 
-export const articles: Article[] = [zeroTokenAfterChatgptWork, fourCitiesFdeReport, thirteenQuestionsOnFde, scissorsInTheGap, databricksAiProductExperience, resumeMaterialFrom700Conversations, whyYouShouldComeToHatch, threeHundredStrangers, theIgnoredContinent, harvardIsNotHarvard, stopSayingJiushi, baseballAndTheBlameGame, claudeCodeForEverything, questionEveryInstinct, theFrogInTheWell, walkOnTwoLegs, ha7chIsAFdeAccelerator, fdeIsTheFuture, codeAgentAndTokenEfficiency, attentionIsAllYouNeed, poetryAndThePlaza, mvpAsResearch, powerballEffect, zeroTokenDesign, soWtfIsHa7ch];
+export const articles: Article[] = [sixCellAiCollaboration, zeroTokenAfterChatgptWork, fourCitiesFdeReport, thirteenQuestionsOnFde, scissorsInTheGap, databricksAiProductExperience, resumeMaterialFrom700Conversations, whyYouShouldComeToHatch, threeHundredStrangers, theIgnoredContinent, harvardIsNotHarvard, stopSayingJiushi, baseballAndTheBlameGame, claudeCodeForEverything, questionEveryInstinct, theFrogInTheWell, walkOnTwoLegs, ha7chIsAFdeAccelerator, fdeIsTheFuture, codeAgentAndTokenEfficiency, attentionIsAllYouNeed, poetryAndThePlaza, mvpAsResearch, powerballEffect, zeroTokenDesign, soWtfIsHa7ch];
 
 export function getArticle(slug: string): Article | undefined {
   return articles.find((a) => a.slug === slug);
