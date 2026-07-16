@@ -111,13 +111,84 @@ export default function ArticleContent({
           </div>
         </header>
         <div className="writing-body" data-lang={lang}>
-          {content.map((para, i) =>
-            para === "---" ? <hr key={i} className="writing-divider" /> : <p key={i}>{para}</p>
-          )}
+          {renderContent(content)}
         </div>
       </article>
     </main>
   );
+}
+
+function renderContent(content: string[]) {
+  const blocks = [];
+
+  for (let i = 0; i < content.length; i += 1) {
+    const para = content[i];
+
+    if (para === "---") {
+      blocks.push(<hr key={i} className="writing-divider" />);
+      continue;
+    }
+
+    if (para.startsWith("|")) {
+      const rows = [];
+      let j = i;
+      while (j < content.length && content[j].startsWith("|")) {
+        const cells = parseTableRow(content[j]);
+        if (!cells.every((cell) => /^:?-{3,}:?$/.test(cell))) {
+          rows.push(cells);
+        }
+        j += 1;
+      }
+
+      const [head, ...body] = rows;
+      if (head && body.length > 0) {
+        blocks.push(
+          <div key={i} className="writing-table-wrap">
+            <table className="writing-table">
+              <thead>
+                <tr>
+                  {head.map((cell, cellIndex) => (
+                    <th key={cellIndex} scope="col">
+                      {cell}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {body.map((row, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {row.map((cell, cellIndex) =>
+                      cellIndex === 0 ? (
+                        <th key={cellIndex} scope="row">
+                          {cell}
+                        </th>
+                      ) : (
+                        <td key={cellIndex}>{cell}</td>
+                      ),
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>,
+        );
+        i = j - 1;
+        continue;
+      }
+    }
+
+    blocks.push(<p key={i}>{para}</p>);
+  }
+
+  return blocks;
+}
+
+function parseTableRow(row: string): string[] {
+  return row
+    .replace(/^\|/, "")
+    .replace(/\|$/, "")
+    .split("|")
+    .map((cell) => cell.trim());
 }
 
 function triggerDownload(blob: Blob, name: string) {

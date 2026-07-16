@@ -715,6 +715,48 @@ ul {
   margin-top: 1.125rem;
 }
 
+.writing-table-wrap {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.writing-table {
+  width: 100%;
+  min-width: 42rem;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  font-weight: 440;
+  line-height: 1.55;
+  color: #222;
+}
+
+.writing-table th,
+.writing-table td {
+  padding: 0.75rem 0.8rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+.writing-table thead th {
+  background: rgba(0, 0, 0, 0.025);
+  color: #111;
+  font-weight: 560;
+}
+
+.writing-table tbody th {
+  color: #111;
+  font-weight: 540;
+  white-space: nowrap;
+}
+
+.writing-table tr:last-child th,
+.writing-table tr:last-child td {
+  border-bottom: none;
+}
+
 .writing-divider {
   border: none;
   border-top: 1px solid var(--rule);
