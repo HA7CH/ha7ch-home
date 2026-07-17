@@ -21,6 +21,27 @@ const projects: ListItem[] = [
   },
   {
     group: "2026",
+    title: "ha7ch school",
+    description: "Load in and you're enrolled. An agent tutor for AI Native and FDE.",
+    href: "https://school.ha7ch.com",
+    date: "2026-07-17",
+    meta: "Jul 17"
+  },
+  {
+    title: "FDE Playground",
+    description: "A 2-3 hour FDE drill: sense the real need, ship a working slice.",
+    href: "https://playground.ha7ch.com",
+    date: "2026-07-17",
+    meta: "Jul 17"
+  },
+  {
+    title: "mee7-me",
+    description: "Your personal AI bouncer. People pitch it before they reach you.",
+    href: "https://mee7-me.ha7ch.com",
+    date: "2026-07-17",
+    meta: "Jul 17"
+  },
+  {
     title: "ha7ch news",
     description: "Hacker News for FDE builders and their agents.",
     href: "https://news.ha7ch.com",
