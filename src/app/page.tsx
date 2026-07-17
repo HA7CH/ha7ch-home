@@ -141,6 +141,13 @@ const projects: ListItem[] = [
 const events: ListItem[] = [
   {
     group: "2026",
+    title: "FDE PRO S26 · 全国 FDE 专家研讨",
+    description: "面向全国一线 FDE 专家的跨行业研讨, 这场落在大湾区. 8/2 下午席位有限, 扫码报名.",
+    href: "https://mee7.ha7ch.com/e/fde-pro-s26",
+    date: "2026-07-17",
+    meta: "Aug 2"
+  },
+  {
     title: "San Francisco #005 · AI Native Builder Meetup",
     description: "与 intent.app 联合主办, 地点在 Palo Alto 附近. 扫码报名，聊两句留个邮箱就行.",
     href: "https://mee7.ha7ch.com/e/sf-fde-2026",
@@ -219,7 +226,6 @@ const contacts = [
   { label: "Discord", href: "https://discord.gg/DqGBKNANZj" },
   { label: "Reddit", href: "https://www.reddit.com/r/ha7ch/" },
   { label: "Email", href: "mailto:lawtedwu@gmail.com" },
-  { label: "WeChat", href: "/wechat" },
   { label: "RedNote", href: "/rednote" }
 ];
 
