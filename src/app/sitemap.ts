@@ -26,12 +26,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6
     },
     {
-      url: `${BASE_URL}/wechat`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.4
-    },
-    {
       url: `${BASE_URL}/rednote`,
       lastModified: now,
       changeFrequency: "monthly",

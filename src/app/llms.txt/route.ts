@@ -84,7 +84,6 @@ ${writingLinks}
 - Discord: https://discord.gg/DqGBKNANZj
 - Reddit: https://www.reddit.com/r/ha7ch/
 - Email: lawtedwu@gmail.com
-- WeChat: ${BASE_URL}/wechat
 - RedNote (小红书): ${BASE_URL}/rednote
 `;
 
