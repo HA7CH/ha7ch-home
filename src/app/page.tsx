@@ -162,52 +162,51 @@ const projects: ListItem[] = [
 const events: ListItem[] = [
   {
     group: "2026",
-    title: "FDE PRO S26 · 全国 FDE 专家研讨",
-    description: "面向全国一线 FDE 专家的跨行业研讨, 这场落在大湾区. 8/2 下午席位有限, 扫码报名.",
+    title: "Dongguan #006 · FDE PRO S26",
+    description: "已办. 77 位 builder 到场. 全国 FDE 专家研讨, 第一场 Pro 场, 改访谈制.",
     href: "https://mee7.ha7ch.com/e/fde-pro-s26",
-    date: "2026-07-17",
-    meta: "Aug 2"
+    date: "2026-08-05",
+    meta: "Done"
   },
   {
     title: "San Francisco #005 · AI Native Builder Meetup",
-    description: "与 intent.app 联合主办, 地点在 Palo Alto 附近. 扫码报名，聊两句留个邮箱就行.",
+    description: "已办. 17 位 builder 到场. 与 intent.app 联合主办, 地点在 Palo Alto 附近.",
     href: "https://mee7.ha7ch.com/e/sf-fde-2026",
-    date: "2026-07-12",
-    meta: "Jul 18"
+    date: "2026-07-18",
+    meta: "Done"
   },
   {
-    title: "48H FDE Sprint · 26W29",
-    description: "飞进真实企业现场，48 小时做出有人真用的 AI MVP. 扫码报名.",
+    title: "48H FDE Sprint",
+    description: "飞进真实企业现场，48 小时做出有人真用的 AI MVP. 常年滚动开放，扫码报名.",
     href: "https://mee7.ha7ch.com/e/fde-sprint",
-    date: "2026-06-30",
-    meta: "Jul 13–17"
+    meta: "Rolling"
   },
   {
     title: "Beijing #004 · FDE Meetup",
-    description: "7/4 下午. 扫码和 bouncer 聊两句就能报名.",
+    description: "已办. 35 位 builder 到场.",
     href: "https://mee7.ha7ch.com/e/beijing-fde-2026",
-    date: "2026-06-30",
-    meta: "Jul 4"
+    date: "2026-07-04",
+    meta: "Done"
   },
   {
     title: "Hangzhou #003 · FDE Meetup",
     description: "已办. 32 位 builder 到场.",
     href: "https://mee7.ha7ch.com/e/hangzhou-fde-2026",
-    date: "2026-06-19",
+    date: "2026-06-27",
     meta: "Done"
   },
   {
     title: "Shanghai #002 · FDE Meetup",
     description: "已办. 31 位 builder 到场.",
     href: "https://mee7.ha7ch.com/e/shanghai-fde-2026",
-    date: "2026-06-09",
+    date: "2026-06-13",
     meta: "Done"
   },
   {
     title: "Shenzhen #001 · FDE Meetup",
     description: "已办. 31 位 builder 到场.",
     href: "https://mee7.ha7ch.com/e/shenzhen-2026",
-    date: "2026-06-04",
+    date: "2026-06-06",
     meta: "Done"
   }
 ];
