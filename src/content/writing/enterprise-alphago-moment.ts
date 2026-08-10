@@ -169,7 +169,7 @@ const article: Article = {
     "4. A record of successes, failures, and human corrections;",
     "5. One clearly defined question for the next stage.",
     "Evaluation cannot look only at accuracy.",
-    "We also record the original task time, AI task time, field usability, task completion, human correction items, traceability, and whether failure is explicitly visible.",
+    "We also record the original task time, AI task time, usable-field rate, task completion, human correction items, traceability, and whether failure is explicitly visible.",
     "The test set must include normal, boundary, and exceptional cases.",
     "Normal cases validate the main path. Boundary cases test missing fields, ambiguous inputs, and oversized material. Exceptional cases test conflicting sources, permission violations, prompt injection, and tool failure.",
     "If every test case was preselected to succeed, the demo proves only that the team can perform—not that the system can enter the company.",
