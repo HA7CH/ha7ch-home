@@ -1,4 +1,5 @@
 import type { Article } from "./types";
+import enterpriseAlphagoMoment from "./enterprise-alphago-moment";
 import zeroMiddleManagement from "./zero-middle-management";
 import sixCellAiCollaboration from "./six-cell-ai-collaboration";
 import zeroTokenAfterChatgptWork from "./zero-token-after-chatgpt-work";
@@ -29,7 +30,7 @@ import fourCitiesFdeReport from "./four-cities-fde-report";
 
 export type { Article };
 
-export const articles: Article[] = [zeroMiddleManagement, sixCellAiCollaboration, zeroTokenAfterChatgptWork, fourCitiesFdeReport, thirteenQuestionsOnFde, scissorsInTheGap, databricksAiProductExperience, resumeMaterialFrom700Conversations, whyYouShouldComeToHatch, threeHundredStrangers, theIgnoredContinent, harvardIsNotHarvard, stopSayingJiushi, baseballAndTheBlameGame, claudeCodeForEverything, questionEveryInstinct, theFrogInTheWell, walkOnTwoLegs, ha7chIsAFdeAccelerator, fdeIsTheFuture, codeAgentAndTokenEfficiency, attentionIsAllYouNeed, poetryAndThePlaza, mvpAsResearch, powerballEffect, zeroTokenDesign, soWtfIsHa7ch];
+export const articles: Article[] = [enterpriseAlphagoMoment, zeroMiddleManagement, sixCellAiCollaboration, zeroTokenAfterChatgptWork, fourCitiesFdeReport, thirteenQuestionsOnFde, scissorsInTheGap, databricksAiProductExperience, resumeMaterialFrom700Conversations, whyYouShouldComeToHatch, threeHundredStrangers, theIgnoredContinent, harvardIsNotHarvard, stopSayingJiushi, baseballAndTheBlameGame, claudeCodeForEverything, questionEveryInstinct, theFrogInTheWell, walkOnTwoLegs, ha7chIsAFdeAccelerator, fdeIsTheFuture, codeAgentAndTokenEfficiency, attentionIsAllYouNeed, poetryAndThePlaza, mvpAsResearch, powerballEffect, zeroTokenDesign, soWtfIsHa7ch];
 
 export function getArticle(slug: string): Article | undefined {
   return articles.find((a) => a.slug === slug);
