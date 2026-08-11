@@ -162,7 +162,13 @@ const projects: ListItem[] = [
 const events: ListItem[] = [
   {
     group: "2026",
-    title: "Dongguan #006 · FDE PRO S26",
+    title: "48Hours FDE Sprint",
+    description: "飞进真实企业现场，48 小时做出有人真用的 AI MVP. 常年滚动开放，扫码报名.",
+    href: "https://mee7.ha7ch.com/e/fde-sprint",
+    meta: "Rolling"
+  },
+  {
+    title: "FDE PRO S26 #001",
     description: "已办. 77 位 builder 到场. 全国 FDE 专家研讨, 第一场 Pro 场, 改访谈制.",
     href: "https://mee7.ha7ch.com/e/fde-pro-s26",
     date: "2026-08-05",
@@ -174,12 +180,6 @@ const events: ListItem[] = [
     href: "https://mee7.ha7ch.com/e/sf-fde-2026",
     date: "2026-07-18",
     meta: "Done"
-  },
-  {
-    title: "48H FDE Sprint",
-    description: "飞进真实企业现场，48 小时做出有人真用的 AI MVP. 常年滚动开放，扫码报名.",
-    href: "https://mee7.ha7ch.com/e/fde-sprint",
-    meta: "Rolling"
   },
   {
     title: "Beijing #004 · FDE Meetup",
@@ -209,7 +209,11 @@ const events: ListItem[] = [
     date: "2026-06-06",
     meta: "Done"
   }
-];
+].sort((a, b) => {
+  if (a.title === "48Hours FDE Sprint") return -1;
+  if (b.title === "48Hours FDE Sprint") return 1;
+  return Number(a.meta === "Done") - Number(b.meta === "Done");
+});
 
 const writing: ListItem[] = articles.map((article, index, all) => {
   const year = article.date.slice(0, 4);
