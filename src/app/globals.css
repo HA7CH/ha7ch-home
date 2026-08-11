@@ -1,15 +1,43 @@
 :root {
   --body-bg: #fdfdfc;
   --body-color: #111;
+  --ink: #111;
+  --ink-soft: #222;
   --muted: rgba(0, 0, 0, 0.4);
   --rule: #f2f2f2;
   --link-rule: #d9d9d9;
+  --link-hover: #666;
   --focus-color: rgba(0, 122, 255, 0.5);
   --selection-bg: #ededed;
+  --surface: #fff;
+  --surface-muted: rgba(0, 0, 0, 0.025);
+  --surface-2: #ececea;
+  --strike: rgba(0, 0, 0, 0.35);
+  --fade-rgb: 255, 255, 255;
   --font-primary:
     Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body-bg: #101010;
+    --body-color: #f4f3f0;
+    --ink: #f4f3f0;
+    --ink-soft: rgba(255, 255, 255, 0.68);
+    --muted: rgba(255, 255, 255, 0.46);
+    --rule: #232320;
+    --link-rule: #3a3a35;
+    --link-hover: #8f8e86;
+    --focus-color: rgba(76, 157, 255, 0.55);
+    --selection-bg: #2e2e2a;
+    --surface: #191918;
+    --surface-muted: #1f1f1d;
+    --surface-2: #1f1f1d;
+    --strike: rgba(255, 255, 255, 0.35);
+    --fade-rgb: 16, 16, 16;
+  }
 }
 
 *,
@@ -26,6 +54,7 @@ html {
   min-height: 100%;
   background: var(--body-bg);
   color: var(--body-color);
+  color-scheme: light dark;
   scroll-behavior: smooth;
   scroll-padding-top: 5.25rem;
   overflow-anchor: none;
@@ -33,6 +62,8 @@ html {
 
 body {
   min-height: 100%;
+  background: var(--body-bg);
+  color: var(--body-color);
   overflow-y: scroll;
   font-family: var(--font-primary);
   font-size: 16px;
@@ -52,24 +83,24 @@ body::before {
   content: "";
   background: linear-gradient(
     180deg,
-    #fff 0%,
-    rgba(255, 255, 255, 0.738) 19%,
-    rgba(255, 255, 255, 0.541) 34%,
-    rgba(255, 255, 255, 0.382) 47%,
-    rgba(255, 255, 255, 0.278) 56.5%,
-    rgba(255, 255, 255, 0.194) 65%,
-    rgba(255, 255, 255, 0.126) 73%,
-    rgba(255, 255, 255, 0.075) 80.2%,
-    rgba(255, 255, 255, 0.042) 86.1%,
-    rgba(255, 255, 255, 0.021) 91%,
-    rgba(255, 255, 255, 0.008) 95.2%,
-    rgba(255, 255, 255, 0.002) 98.2%,
-    rgba(255, 255, 255, 0) 100%
+    rgb(var(--fade-rgb)) 0%,
+    rgba(var(--fade-rgb), 0.738) 19%,
+    rgba(var(--fade-rgb), 0.541) 34%,
+    rgba(var(--fade-rgb), 0.382) 47%,
+    rgba(var(--fade-rgb), 0.278) 56.5%,
+    rgba(var(--fade-rgb), 0.194) 65%,
+    rgba(var(--fade-rgb), 0.126) 73%,
+    rgba(var(--fade-rgb), 0.075) 80.2%,
+    rgba(var(--fade-rgb), 0.042) 86.1%,
+    rgba(var(--fade-rgb), 0.021) 91%,
+    rgba(var(--fade-rgb), 0.008) 95.2%,
+    rgba(var(--fade-rgb), 0.002) 98.2%,
+    rgba(var(--fade-rgb), 0) 100%
   );
 }
 
 ::selection {
-  color: #111;
+  color: var(--body-color);
   background: var(--selection-bg);
 }
 
@@ -167,6 +198,12 @@ ul {
   filter: brightness(0);
 }
 
+@media (prefers-color-scheme: dark) {
+  .brand-logo {
+    filter: brightness(0) invert(1);
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -222,7 +259,7 @@ ul {
 }
 
 .basic-link:hover::before {
-  background: #666;
+  background: var(--link-hover);
 }
 
 .basic-link:focus-visible,
@@ -259,7 +296,7 @@ ul {
   height: 1.75rem;
   border-radius: 50%;
   object-fit: cover;
-  background: #fff;
+  background: var(--surface);
   border: 1.5px solid var(--body-bg);
   box-shadow: 0 0 0 0.5px var(--rule);
   display: block;
@@ -281,7 +318,7 @@ ul {
 .tooltip-name {
   font-size: 0.75rem;
   font-weight: 540;
-  color: #111;
+  color: var(--ink);
   line-height: 1.2;
   letter-spacing: -0.01em;
 }
@@ -324,7 +361,7 @@ ul {
     height: 1.75rem;
     border-radius: 50%;
     object-fit: cover;
-    background: #fff;
+    background: var(--surface);
     box-shadow: 0 0 0 0.5px var(--rule);
     display: block;
   }
@@ -332,7 +369,7 @@ ul {
   .participant-mobile-name {
     font-size: 0.75rem;
     font-weight: 540;
-    color: #111;
+    color: var(--ink);
     line-height: 1.2;
     letter-spacing: -0.01em;
   }
@@ -435,7 +472,7 @@ ul {
   display: inline-flex;
   width: fit-content;
   align-items: center;
-  color: #111;
+  color: var(--ink);
   font-size: 0.875rem;
   font-weight: 460;
   line-height: 1.25rem;
@@ -473,7 +510,7 @@ ul {
   color: var(--muted);
   text-decoration: line-through;
   text-decoration-thickness: 1px;
-  text-decoration-color: rgba(0, 0, 0, 0.35);
+  text-decoration-color: var(--strike);
 }
 
 .post-list time {
@@ -703,7 +740,7 @@ ul {
   font-weight: 440;
   line-height: 1.7;
   letter-spacing: -0.005em;
-  color: #222;
+  color: var(--ink-soft);
   text-wrap: pretty;
 }
 
@@ -729,7 +766,7 @@ ul {
   font-size: 0.875rem;
   font-weight: 440;
   line-height: 1.55;
-  color: #222;
+  color: var(--ink-soft);
 }
 
 .writing-table th,
@@ -741,13 +778,13 @@ ul {
 }
 
 .writing-table thead th {
-  background: rgba(0, 0, 0, 0.025);
-  color: #111;
+  background: var(--surface-muted);
+  color: var(--ink);
   font-weight: 560;
 }
 
 .writing-table tbody th {
-  color: #111;
+  color: var(--ink);
   font-weight: 540;
   white-space: nowrap;
 }
@@ -773,7 +810,7 @@ ul {
   font-size: 0.9375rem;
   font-weight: 540;
   letter-spacing: -0.01em;
-  color: #111;
+  color: var(--ink);
 }
 
 .legal-body section > h2 {
@@ -785,7 +822,7 @@ ul {
   font-size: 0.9375rem;
   font-weight: 500;
   letter-spacing: -0.005em;
-  color: #111;
+  color: var(--ink);
 }
 
 .legal-body .legal-rule {
@@ -875,7 +912,7 @@ ul {
   font-weight: 460;
   line-height: 1.25rem;
   letter-spacing: -0.00563rem;
-  color: #111;
+  color: var(--ink);
 }
 
 /* Apply CTA block — editorial notch, no fill, reuses post-list arrow on hover */
@@ -908,7 +945,7 @@ ul {
   font-size: 0.9375rem;
   font-weight: 540;
   letter-spacing: -0.01em;
-  color: #111;
+  color: var(--ink);
   transition: transform 0.14s ease;
 }
 
@@ -993,7 +1030,7 @@ ul {
 .faction-name {
   font-size: 0.8125rem;
   font-weight: 540;
-  color: #111;
+  color: var(--ink);
 }
 
 .faction-count {
@@ -1010,7 +1047,7 @@ ul {
 .faction-fill > span {
   display: block;
   height: 100%;
-  background: #111;
+  background: var(--ink);
 }
 
 .event-footer {
@@ -1024,7 +1061,7 @@ ul {
 
 /* Roster: anonymized neutral dots (no real avatars leaked for a closed-door) */
 .event-roster-dot {
-  background: #ececea;
+  background: var(--surface-2);
   border: 1.5px solid var(--body-bg);
   box-shadow: 0 0 0 0.5px var(--rule);
 }
