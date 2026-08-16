@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import type { Article } from "@/content/writing";
 import { paginateForCards } from "@/content/writing/cards";
@@ -177,10 +177,53 @@ function renderContent(content: string[]) {
       }
     }
 
-    blocks.push(<p key={i}>{para}</p>);
+    if (isSectionHeading(para)) {
+      blocks.push(
+        <h2 key={i} className="writing-section-title">
+          {renderInlineMarkdown(para)}
+        </h2>,
+      );
+      continue;
+    }
+
+    if (para.startsWith("> ")) {
+      blocks.push(
+        <blockquote key={i} className="writing-quote">
+          {renderInlineMarkdown(para.slice(2))}
+        </blockquote>,
+      );
+      continue;
+    }
+
+    blocks.push(<p key={i}>{renderInlineMarkdown(para)}</p>);
   }
 
   return blocks;
+}
+
+function isSectionHeading(text: string): boolean {
+  return /^[一二三四五六七八九十百]+、/.test(text) || /^\d+\.\s/.test(text);
+}
+
+function renderInlineMarkdown(text: string): ReactNode[] {
+  const nodes: ReactNode[] = [];
+  const boldPattern = /\*\*(.+?)\*\*/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = boldPattern.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      nodes.push(text.slice(lastIndex, match.index));
+    }
+    nodes.push(<strong key={match.index}>{match[1]}</strong>);
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < text.length) {
+    nodes.push(text.slice(lastIndex));
+  }
+
+  return nodes;
 }
 
 function parseTableRow(row: string): string[] {

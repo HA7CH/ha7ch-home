@@ -735,6 +735,33 @@ ul {
   user-select: none;
 }
 
+.writing-section-title {
+  margin: 2.25rem 0 0.75rem;
+  font-size: 1.0625rem;
+  font-weight: 580;
+  line-height: 1.45;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.writing-quote {
+  margin: 1.5rem 0;
+  padding: 0.2rem 0 0.2rem 1rem;
+  border-left: 2px solid var(--ink);
+  font-size: 1rem;
+  font-weight: 480;
+  line-height: 1.65;
+  letter-spacing: -0.008em;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.writing-body strong {
+  font-weight: 620;
+  color: var(--ink);
+}
+
 .writing-body p {
   font-size: 0.9375rem;
   font-weight: 440;
