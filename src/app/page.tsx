@@ -8,6 +8,7 @@ type ListItem = {
   description?: string;
   href?: string;
   date?: string;
+  updatedAt?: string;
   meta: string;
   dead?: boolean;
   kind?: "event";
@@ -168,6 +169,14 @@ const events: ListItem[] = [
     meta: "Rolling"
   },
   {
+    title: "FDE PRO S26 · Beijing",
+    description: "9 月 5 日，北京. 分享候选与专业旁听双通道，审核通过后邮件发送地点.",
+    href: "https://mee7.ha7ch.com/e/beijing-fde-pro",
+    date: "2026-09-05",
+    updatedAt: "2026-08-22",
+    meta: "Open"
+  },
+  {
     title: "FDE PRO S26 #001",
     description: "已办. 77 位 builder 到场. 全国 FDE 专家研讨, 第一场 Pro 场, 改访谈制.",
     href: "https://mee7.ha7ch.com/e/fde-pro-s26",
@@ -239,7 +248,7 @@ function formatUpdated(iso: string): string {
 }
 
 const latestUpdate = [...events, ...projects, ...writing]
-  .map((item) => item.date)
+  .map((item) => item.updatedAt ?? item.date)
   .filter((d): d is string => Boolean(d))
   .sort()
   .at(-1)!;
