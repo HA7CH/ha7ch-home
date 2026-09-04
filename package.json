@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "sync:catalog": "node scripts/sync-catalog.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

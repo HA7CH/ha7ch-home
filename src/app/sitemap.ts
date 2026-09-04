@@ -66,5 +66,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ];
   });
 
-  return [...staticRoutes, ...articleRoutes];
+  const departmentRoutes: MetadataRoute.Sitemap = ["academy", "academy/executive-ai-camp", "hcn", "hdc", "hdc/diagnosis", "anc-fund", "wechat"].map((slug) => ({
+    url: `${BASE_URL}/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.8
+  }));
+  return [...staticRoutes, ...departmentRoutes, ...articleRoutes];
 }

@@ -1,0 +1,401 @@
+{
+  "syncedAt": "2026-09-04T20:50:24.917Z",
+  "source": "GitHub public repository contributors",
+  "repositories": [
+    ".github",
+    "ai-native-company",
+    "ainative-rank-leaderboard",
+    "anc-fde-camp",
+    "anc-transcribe-audio",
+    "cv-pro",
+    "fde-playground",
+    "fde-pro",
+    "gaokao-pro",
+    "geng-pro",
+    "guoyang-pro",
+    "ha7ch-home",
+    "ha7ch-school",
+    "ha7ch-stanford",
+    "job-pro",
+    "kaogong-pro",
+    "wechat-world-claw",
+    "worldcup-pro"
+  ],
+  "participants": [
+    {
+      "id": 56634309,
+      "login": "LAWTED",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/56634309?v=4",
+      "href": "https://github.com/LAWTED",
+      "contributions": 630,
+      "projects": [
+        {
+          "name": "job-pro",
+          "href": "https://github.com/HA7CH/job-pro",
+          "contributions": 200
+        },
+        {
+          "name": "ha7ch-home",
+          "href": "https://github.com/HA7CH/ha7ch-home",
+          "contributions": 150
+        },
+        {
+          "name": "cv-pro",
+          "href": "https://github.com/HA7CH/cv-pro",
+          "contributions": 108
+        },
+        {
+          "name": "fde-playground",
+          "href": "https://github.com/HA7CH/fde-playground",
+          "contributions": 38
+        },
+        {
+          "name": "ha7ch-school",
+          "href": "https://github.com/HA7CH/ha7ch-school",
+          "contributions": 30
+        },
+        {
+          "name": "kaogong-pro",
+          "href": "https://github.com/HA7CH/kaogong-pro",
+          "contributions": 26
+        },
+        {
+          "name": "gaokao-pro",
+          "href": "https://github.com/HA7CH/gaokao-pro",
+          "contributions": 23
+        },
+        {
+          "name": "wechat-world-claw",
+          "href": "https://github.com/HA7CH/wechat-world-claw",
+          "contributions": 15
+        },
+        {
+          "name": "fde-pro",
+          "href": "https://github.com/HA7CH/fde-pro",
+          "contributions": 14
+        },
+        {
+          "name": "ainative-rank-leaderboard",
+          "href": "https://github.com/HA7CH/ainative-rank-leaderboard",
+          "contributions": 6
+        },
+        {
+          "name": "anc-transcribe-audio",
+          "href": "https://github.com/HA7CH/anc-transcribe-audio",
+          "contributions": 5
+        },
+        {
+          "name": "ai-native-company",
+          "href": "https://github.com/HA7CH/ai-native-company",
+          "contributions": 4
+        },
+        {
+          "name": "guoyang-pro",
+          "href": "https://github.com/HA7CH/guoyang-pro",
+          "contributions": 4
+        },
+        {
+          "name": "anc-fde-camp",
+          "href": "https://github.com/HA7CH/anc-fde-camp",
+          "contributions": 2
+        },
+        {
+          "name": "ha7ch-stanford",
+          "href": "https://github.com/HA7CH/ha7ch-stanford",
+          "contributions": 2
+        },
+        {
+          "name": "worldcup-pro",
+          "href": "https://github.com/HA7CH/worldcup-pro",
+          "contributions": 2
+        },
+        {
+          "name": "geng-pro",
+          "href": "https://github.com/HA7CH/geng-pro",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 101102544,
+      "login": "MWDZ",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/101102544?v=4",
+      "href": "https://github.com/MWDZ",
+      "contributions": 136,
+      "projects": [
+        {
+          "name": "gaokao-pro",
+          "href": "https://github.com/HA7CH/gaokao-pro",
+          "contributions": 115
+        },
+        {
+          "name": "ha7ch-home",
+          "href": "https://github.com/HA7CH/ha7ch-home",
+          "contributions": 19
+        },
+        {
+          "name": "cv-pro",
+          "href": "https://github.com/HA7CH/cv-pro",
+          "contributions": 2
+        }
+      ]
+    },
+    {
+      "id": 104079745,
+      "login": "dxh2723192626",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/104079745?v=4",
+      "href": "https://github.com/dxh2723192626",
+      "contributions": 8,
+      "projects": [
+        {
+          "name": "job-pro",
+          "href": "https://github.com/HA7CH/job-pro",
+          "contributions": 8
+        }
+      ]
+    },
+    {
+      "id": 89597293,
+      "login": "mapuchuu",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/89597293?v=4",
+      "href": "https://github.com/mapuchuu",
+      "contributions": 7,
+      "projects": [
+        {
+          "name": "ha7ch-home",
+          "href": "https://github.com/HA7CH/ha7ch-home",
+          "contributions": 7
+        }
+      ]
+    },
+    {
+      "id": 152198402,
+      "login": "fatmmouse",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/152198402?v=4",
+      "href": "https://github.com/fatmmouse",
+      "contributions": 3,
+      "projects": [
+        {
+          "name": "ha7ch-home",
+          "href": "https://github.com/HA7CH/ha7ch-home",
+          "contributions": 2
+        },
+        {
+          "name": "job-pro",
+          "href": "https://github.com/HA7CH/job-pro",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 64707666,
+      "login": "wanjeans33",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/64707666?v=4",
+      "href": "https://github.com/wanjeans33",
+      "contributions": 3,
+      "projects": [
+        {
+          "name": "ha7ch-home",
+          "href": "https://github.com/HA7CH/ha7ch-home",
+          "contributions": 3
+        }
+      ]
+    },
+    {
+      "id": 287625134,
+      "login": "3270467459jh-arch",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/287625134?v=4",
+      "href": "https://github.com/3270467459jh-arch",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "ha7ch-school",
+          "href": "https://github.com/HA7CH/ha7ch-school",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 321057656,
+      "login": "alwayszhou2861",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/321057656?v=4",
+      "href": "https://github.com/alwayszhou2861",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "ha7ch-school",
+          "href": "https://github.com/HA7CH/ha7ch-school",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 279233397,
+      "login": "austingongh86",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/279233397?v=4",
+      "href": "https://github.com/austingongh86",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "ha7ch-school",
+          "href": "https://github.com/HA7CH/ha7ch-school",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 316787389,
+      "login": "chenyexing1-create",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/316787389?v=4",
+      "href": "https://github.com/chenyexing1-create",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "ha7ch-school",
+          "href": "https://github.com/HA7CH/ha7ch-school",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 146274524,
+      "login": "ebrahimeolakey",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/146274524?v=4",
+      "href": "https://github.com/ebrahimeolakey",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "fde-playground",
+          "href": "https://github.com/HA7CH/fde-playground",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 254608185,
+      "login": "jazzleg66",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/254608185?v=4",
+      "href": "https://github.com/jazzleg66",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "fde-playground",
+          "href": "https://github.com/HA7CH/fde-playground",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 35419343,
+      "login": "leostudiooo",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/35419343?v=4",
+      "href": "https://github.com/leostudiooo",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "cv-pro",
+          "href": "https://github.com/HA7CH/cv-pro",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 245874505,
+      "login": "ming1753413330-web",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/245874505?v=4",
+      "href": "https://github.com/ming1753413330-web",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "ha7ch-school",
+          "href": "https://github.com/HA7CH/ha7ch-school",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 118288793,
+      "login": "RockdaC239",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/118288793?v=4",
+      "href": "https://github.com/RockdaC239",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "ha7ch-school",
+          "href": "https://github.com/HA7CH/ha7ch-school",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 310404840,
+      "login": "RRRRRRRickk",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/310404840?v=4",
+      "href": "https://github.com/RRRRRRRickk",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "ha7ch-school",
+          "href": "https://github.com/HA7CH/ha7ch-school",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 160816690,
+      "login": "snowcatsmoking",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/160816690?v=4",
+      "href": "https://github.com/snowcatsmoking",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "ha7ch-home",
+          "href": "https://github.com/HA7CH/ha7ch-home",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 251143073,
+      "login": "wanghaonan3333-web",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/251143073?v=4",
+      "href": "https://github.com/wanghaonan3333-web",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "ha7ch-school",
+          "href": "https://github.com/HA7CH/ha7ch-school",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 207052713,
+      "login": "XiangluTANG111",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/207052713?v=4",
+      "href": "https://github.com/XiangluTANG111",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "ha7ch-home",
+          "href": "https://github.com/HA7CH/ha7ch-home",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 192711457,
+      "login": "zym7678",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/192711457?v=4",
+      "href": "https://github.com/zym7678",
+      "contributions": 1,
+      "projects": [
+        {
+          "name": "fde-playground",
+          "href": "https://github.com/HA7CH/fde-playground",
+          "contributions": 1
+        }
+      ]
+    }
+  ]
+}

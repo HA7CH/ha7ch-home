@@ -1,4 +1,5 @@
 import { articles } from "@/content/writing";
+import { company, companyMarkdown } from "@/content/company";
 
 const BASE_URL = "https://ha7ch.com";
 
@@ -9,7 +10,9 @@ function toMarkdown(paragraphs: string[]): string {
 export function GET() {
   const header = `# HA7CH — Full Corpus
 
-> HA7CH is an AI-native Builder Lab born at Stanford, the world's first FDE Accelerator. Founded by lawted (https://x.com/lawted2). This file bundles every essay published at ${BASE_URL}/writing for LLM ingestion. Each essay is also available individually at /writing/{slug}/md.
+> ${company.description} This file includes our company overview and every essay published at ${BASE_URL}/writing. Each essay is also available individually at /writing/{slug}/md.
+
+${companyMarkdown()}
 
 `;
 

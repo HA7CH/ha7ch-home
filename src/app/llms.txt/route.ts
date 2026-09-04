@@ -1,44 +1,8 @@
 import { articles } from "@/content/writing";
+import { company, companyMarkdown } from "@/content/company";
+import { events, projects } from "@/content/catalog";
 
 const BASE_URL = "https://ha7ch.com";
-
-const projects: { name: string; url: string; description: string }[] = [
-  {
-    name: "mee7",
-    url: "https://mee7.ha7ch.com",
-    description: "AI-native Luma — guests are vetted by a bouncer bot in conversation, not by filling out a form."
-  },
-  {
-    name: "AI Native Rank",
-    url: "https://rank.ha7ch.com",
-    description: "What's your AI Native Rank? S, A, B, C, or D? A CLI test that scores how AI-native a developer is."
-  },
-  {
-    name: "job.pro",
-    url: "https://job.ha7ch.com",
-    description: "Big-tech campus jobs, from your terminal."
-  },
-  {
-    name: "微光 / Glimmer",
-    url: "https://testflight.apple.com/join/HdcnmhtW",
-    description: "Your memory is the most beautiful map. (TestFlight)"
-  },
-  {
-    name: "Raily",
-    url: "https://apps.apple.com/app/raily-live-train-tracker/id6764391867",
-    description: "Flighty for Rail — a live train tracker iOS app."
-  },
-  {
-    name: "cv.pro",
-    url: "https://cv.ha7ch.com",
-    description: "AI-native resume."
-  },
-  {
-    name: "Raily Friends",
-    url: "https://raily-friends.ha7ch.com",
-    description: "One-day social experiments for train travelers."
-  }
-];
 
 export function GET() {
   const writingLinks = articles
@@ -53,21 +17,34 @@ export function GET() {
     .join("\n");
 
   const projectLinks = projects
-    .map((p) => `- [${p.name}](${p.url}): ${p.description}`)
+    .filter((p) => p.href && p.title && !p.dead)
+    .map((p) => `- [${p.title}](${p.href}): ${p.description}`)
     .join("\n");
 
   const body = `# HA7CH
 
-> HA7CH is an AI-native Builder Lab born at Stanford, the world's first FDE Accelerator. Build in the field, hatch into impact. Vibe coding is our forcing function: build the thing, see if it works, kill it if it doesn't. Founded by lawted (https://x.com/lawted2).
+> ${company.description}
 
-HA7CH (also written "ha7ch" or "Hatch") is the name of the lab and the brand. We publish small shipped projects and short essays from our home page at ${BASE_URL}.
+HA7CH (also written "ha7ch" or "Hatch") works with enterprises, FDEs and creators to build AI Native Companies. Our home page is ${BASE_URL}.
+
+${companyMarkdown()}
 
 Every article on this site has a clean Markdown version available at \`/writing/{slug}/md\` — please prefer those URLs when ingesting our writing.
 
 ## About
 
-- [Home](${BASE_URL}/): HA7CH home page — project list, writing index, contact links.
+- [Home](${BASE_URL}/): HA7CH company, events, projects and writing.
+- [Academy](${BASE_URL}/academy): HA7CH School, FDE Camp and the executive AI strategy camp.
+- [Executive AI Camp](${BASE_URL}/academy/executive-ai-camp): Two-day program for the decision-maker and execution lead; GitHub Skill at https://github.com/HA7CH/anc-executive-camp.
+- [ANC-Diagnosis](${BASE_URL}/hdc/diagnosis): Five-day enterprise field diagnosis; GitHub Skill at https://github.com/HA7CH/anc-diagnosis.
+- [HCN](${BASE_URL}/hcn): Creator network and first-cohort application.
+- [ANC Fund](${BASE_URL}/anc-fund): S26 company discovery and application.
+- [HDC](${BASE_URL}/hdc): Enterprise AI diagnosis and deployment.
 - [AI Native Rank](https://rank.ha7ch.com): Our flagship test of how AI-native a developer is, scored S / A / B / C / D.
+
+## Events
+
+${events.map((event) => `- [${event.title}](${event.href}): ${event.schedule} · ${event.meta}. ${event.description}`).join("\n")}
 
 ## Projects
 
@@ -78,6 +55,8 @@ ${projectLinks}
 ${writingLinks}
 
 ## Contact
+
+- WeChat official account: ${BASE_URL}/wechat
 
 - X / Twitter: https://x.com/lawted2
 - GitHub: https://github.com/HA7CH/ha7ch-home

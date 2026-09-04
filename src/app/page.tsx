@@ -1,228 +1,9 @@
 import Image from "next/image";
 import Participants from "./Participants";
 import { articles } from "@/content/writing";
-
-type ListItem = {
-  group?: string;
-  title?: string;
-  description?: string;
-  href?: string;
-  date?: string;
-  updatedAt?: string;
-  meta: string;
-  dead?: boolean;
-  kind?: "event";
-};
-
-const projects: ListItem[] = [
-  {
-    group: "Next",
-    description: "Small tools, fast experiments, strange ideas.",
-    meta: "Soon"
-  },
-  {
-    group: "2026",
-    title: "ha7ch school",
-    description: "Load in and you're enrolled. An agent tutor for AI Native and FDE.",
-    href: "https://school.ha7ch.com",
-    date: "2026-07-17",
-    meta: "Jul 17"
-  },
-  {
-    title: "FDE Playground",
-    description: "A 2-3 hour FDE drill: sense the real need, ship a working slice.",
-    href: "https://playground.ha7ch.com",
-    date: "2026-07-17",
-    meta: "Jul 17"
-  },
-  {
-    title: "mee7-me",
-    description: "Your personal AI bouncer. People pitch it before they reach you.",
-    href: "https://mee7-me.ha7ch.com",
-    date: "2026-07-17",
-    meta: "Jul 17"
-  },
-  {
-    title: "ha7ch news",
-    description: "Hacker News for FDE builders and their agents.",
-    href: "https://news.ha7ch.com",
-    date: "2026-07-10",
-    meta: "Jul 10"
-  },
-  {
-    title: "mee7",
-    description: "AI-native Luma — vets the guest, not the RSVP.",
-    href: "https://mee7.ha7ch.com",
-    date: "2026-06-21",
-    meta: "Jun 21"
-  },
-  {
-    title: "worldcup.pro",
-    description: "The 2026 World Cup, live from your terminal.",
-    href: "https://worldcup.ha7ch.com",
-    date: "2026-06-10",
-    meta: "Jun 10"
-  },
-  {
-    title: "guoyang.pro",
-    description: "China's state-owned-enterprise jobs, from your terminal.",
-    href: "https://guoyang.ha7ch.com",
-    date: "2026-06-01",
-    meta: "Jun 1"
-  },
-  {
-    title: "apply.pro",
-    description: "Fill 15 grad-school applications from one profile.",
-    href: "https://apply.ha7ch.com",
-    date: "2026-05-29",
-    meta: "May 29"
-  },
-  {
-    title: "kaogong.pro",
-    description: "Civil-service exam posts, from your terminal.",
-    href: "https://kaogong.ha7ch.com",
-    date: "2026-05-27",
-    meta: "May 27"
-  },
-  {
-    title: "gaokao.pro",
-    description: "AI-native gaokao college planner. Score in, schools out.",
-    href: "https://gaokao.ha7ch.com",
-    date: "2026-05-25",
-    meta: "May 25"
-  },
-  {
-    title: "AI Native Rank",
-    description: "What's your AI Native Rank? S, A, B, C, or D?",
-    href: "https://rank.ha7ch.com",
-    date: "2026-05-17",
-    meta: "May 17"
-  },
-  {
-    title: "job.pro",
-    description: "Big-tech campus jobs, from your terminal.",
-    href: "https://job.ha7ch.com",
-    date: "2026-05-14",
-    meta: "May 14"
-  },
-  {
-    title: "微光-Glimmer",
-    description: "Your memory is the most beautiful map.",
-    href: "https://testflight.apple.com/join/HdcnmhtW",
-    date: "2026-05-13",
-    meta: "May 13"
-  },
-  {
-    title: "Raily",
-    description: "Flighty for Rail.",
-    href: "https://apps.apple.com/app/raily-live-train-tracker/id6764391867",
-    date: "2026-05-12",
-    meta: "May 12"
-  },
-  {
-    title: "cv.pro",
-    description: "AI-native resume.",
-    href: "https://cv.ha7ch.com",
-    date: "2026-04-30",
-    meta: "Apr 30"
-  },
-  {
-    title: "Raily Friends",
-    description: "One-day social experiments for train travelers.",
-    href: "https://raily-friends.ha7ch.com",
-    date: "2026-04-29",
-    meta: "Apr 29"
-  },
-  {
-    title: "中登BOT",
-    description: "A WeChat Bot for reading the global pulse.",
-    href: "https://wwc.ha7ch.com",
-    date: "2026-05-13",
-    meta: "RIP",
-    dead: true
-  },
-  {
-    group: "2025",
-    title: "Lia browser",
-    description: "Liquid-glass Chromium with Arc-style sidebar.",
-    href: "https://liabrowser.com",
-    date: "2025-08-01",
-    meta: "RIP",
-    dead: true
-  },
-  {
-    title: "aipeep.me",
-    description: "Your AI photo roast master.",
-    href: "https://aipeep.me",
-    date: "2025-06-01",
-    meta: "RIP",
-    dead: true
-  }
-];
-
-const events: ListItem[] = [
-  {
-    group: "2026",
-    title: "48Hours FDE Sprint",
-    description: "飞进真实企业现场，48 小时做出有人真用的 AI MVP. 常年滚动开放，扫码报名.",
-    href: "https://mee7.ha7ch.com/e/fde-sprint",
-    meta: "Rolling"
-  },
-  {
-    title: "FDE PRO S26 · Beijing",
-    description: "9 月 5 日，北京. 分享候选与专业旁听双通道，审核通过后邮件发送地点.",
-    href: "https://mee7.ha7ch.com/e/beijing-fde-pro",
-    date: "2026-09-05",
-    updatedAt: "2026-08-22",
-    meta: "Open"
-  },
-  {
-    title: "FDE PRO S26 #001",
-    description: "已办. 77 位 builder 到场. 全国 FDE 专家研讨, 第一场 Pro 场, 改访谈制.",
-    href: "https://mee7.ha7ch.com/e/fde-pro-s26",
-    date: "2026-08-05",
-    meta: "Done"
-  },
-  {
-    title: "San Francisco #005 · AI Native Builder Meetup",
-    description: "已办. 17 位 builder 到场. 与 intent.app 联合主办, 地点在 Palo Alto 附近.",
-    href: "https://mee7.ha7ch.com/e/sf-fde-2026",
-    date: "2026-07-18",
-    meta: "Done"
-  },
-  {
-    title: "Beijing #004 · FDE Meetup",
-    description: "已办. 35 位 builder 到场.",
-    href: "https://mee7.ha7ch.com/e/beijing-fde-2026",
-    date: "2026-07-04",
-    meta: "Done"
-  },
-  {
-    title: "Hangzhou #003 · FDE Meetup",
-    description: "已办. 32 位 builder 到场.",
-    href: "https://mee7.ha7ch.com/e/hangzhou-fde-2026",
-    date: "2026-06-27",
-    meta: "Done"
-  },
-  {
-    title: "Shanghai #002 · FDE Meetup",
-    description: "已办. 31 位 builder 到场.",
-    href: "https://mee7.ha7ch.com/e/shanghai-fde-2026",
-    date: "2026-06-13",
-    meta: "Done"
-  },
-  {
-    title: "Shenzhen #001 · FDE Meetup",
-    description: "已办. 31 位 builder 到场.",
-    href: "https://mee7.ha7ch.com/e/shenzhen-2026",
-    date: "2026-06-06",
-    meta: "Done"
-  }
-].sort((a, b) => {
-  if (a.title === "48Hours FDE Sprint") return -1;
-  if (b.title === "48Hours FDE Sprint") return 1;
-  return Number(a.meta === "Done") - Number(b.meta === "Done");
-});
+import { company, departments, offerings } from "@/content/company";
+import { BasicLink, PostList, type ListItem } from "@/components/PostList";
+import { events, projects } from "@/content/catalog";
 
 const writing: ListItem[] = articles.map((article, index, all) => {
   const year = article.date.slice(0, 4);
@@ -250,10 +31,12 @@ function formatUpdated(iso: string): string {
 const latestUpdate = [...events, ...projects, ...writing]
   .map((item) => item.updatedAt ?? item.date)
   .filter((d): d is string => Boolean(d))
+  .concat(company.updatedAt)
   .sort()
   .at(-1)!;
 
 const contacts = [
+  { label: "公众号", href: "/wechat" },
   { label: "X", href: "https://x.com/lawted2" },
   { label: "GitHub", href: "https://github.com/HA7CH/ha7ch-home" },
   { label: "Discord", href: "https://discord.gg/DqGBKNANZj" },
@@ -261,72 +44,6 @@ const contacts = [
   { label: "Email", href: "mailto:lawtedwu@gmail.com" },
   { label: "RedNote", href: "/rednote" }
 ];
-
-function BasicLink({
-  href,
-  children
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
-  const external = href.startsWith("http");
-
-  return (
-    <a
-      className="basic-link"
-      href={href}
-      rel={external ? "noopener noreferrer" : undefined}
-      target={external ? "_blank" : undefined}
-    >
-      {children}
-    </a>
-  );
-}
-
-function PostList({ title, items }: { title: string; items: ListItem[] }) {
-  const id = title.toLowerCase();
-  return (
-    <section id={id} className="post-list" aria-labelledby={`${id}-title`}>
-      <h2 id={`${id}-title`} className="section-title">
-        {title}
-      </h2>
-      <ul>
-        <li>
-          <ul>
-            {items.map((item) => {
-              const inner = (
-                <>
-                  {item.group ? <span className="group-label">{item.group}</span> : null}
-                  <span className="item-copy">
-                    {item.title ? (
-                      <span className={`item-title${item.dead ? " is-dead" : ""}`}>{item.title}</span>
-                    ) : null}
-                    {item.description ? (
-                      <span className="item-description">{item.description}</span>
-                    ) : null}
-                  </span>
-                  <time dateTime={item.date}>{item.meta}</time>
-                </>
-              );
-
-              return (
-                <li key={item.href ?? item.title ?? item.description ?? item.meta}>
-                  {item.href ? (
-                    <a href={item.href}>{inner}</a>
-                  ) : (
-                    <div className="post-list-row" aria-disabled="true">
-                      {inner}
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </li>
-      </ul>
-    </section>
-  );
-}
 
 const liveProjects = projects.filter(
   (p) => !p.dead && !p.kind && p.href && p.title && p.description
@@ -349,12 +66,7 @@ const projectsItemList = {
       datePublished: p.date,
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web, iOS, macOS",
-      creator: { "@id": "https://ha7ch.com/#organization" },
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD"
-      }
+      creator: { "@id": "https://ha7ch.com/#organization" }
     }
   }))
 };
@@ -402,8 +114,12 @@ const jsonLd = {
       alternateName: ["ha7ch", "Hatch", "HA7CH Lab"],
       url: "https://ha7ch.com",
       logo: "https://ha7ch.com/ha7ch-avatar.png",
-      description:
-        "HA7CH is an AI-native Builder Lab born at Stanford. The world's first FDE Accelerator. Build in the field, hatch into impact.",
+      description: company.description,
+      department: departments.map((department) => ({
+        "@type": "Organization",
+        name: department.title,
+        description: department.description
+      })),
       founder: {
         "@type": "Person",
         name: "lawted",
@@ -421,8 +137,7 @@ const jsonLd = {
       "@id": "https://ha7ch.com/#website",
       url: "https://ha7ch.com",
       name: "HA7CH",
-      description:
-        "HA7CH is an AI-native Builder Lab born at Stanford. The world's first FDE Accelerator. Build in the field, hatch into impact.",
+      description: company.description,
       publisher: { "@id": "https://ha7ch.com/#organization" },
       inLanguage: ["en", "zh-CN"]
     },
@@ -437,7 +152,7 @@ export default function Home() {
     <main className="homepage">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
       <article className="article">
         <header>
@@ -452,29 +167,33 @@ export default function Home() {
               aria-hidden="true"
             />
             <span className="sr-only">
-              HA7CH: AI-native Builder Lab born at Stanford, the world&apos;s first FDE Accelerator
+              {company.title}
             </span>
           </h1>
           <time dateTime={latestUpdate}>Updated {formatUpdated(latestUpdate)}</time>
         </header>
 
-        <p>HA7CH is an AI-native Builder Lab born at Stanford.</p>
+        <p lang="zh-CN">{company.tagline}</p>
 
-        <p>It is the world&apos;s first FDE Accelerator.</p>
-
-        <p>Build in the field. Hatch into impact.</p>
-
-        <p>
-          You can find us on{" "}
+        <p className="home-contacts">
+          <span className="contact-label">You can find us on</span>{" "}
+          <span className="contact-links">
           {contacts.map((contact, index) => (
-            <span key={contact.label}>
+            <span className="contact-link-group" key={contact.label}>
               <BasicLink href={contact.href}>{contact.label}</BasicLink>
-              {index === contacts.length - 2 ? ", or " : index < contacts.length - 1 ? ", " : "."}
+              <span className="contact-separator">{index === contacts.length - 2 ? ", or " : index < contacts.length - 1 ? ", " : "."}</span>
             </span>
           ))}
+          </span>
         </p>
       </article>
 
+      <PostList title="Departments" items={departments} />
+      <PostList title="Services" items={offerings} />
+      <p className="service-contact" lang="zh-CN">
+        企业诊断、课程与合作，<BasicLink href="mailto:lawtedwu@gmail.com">联系 Lawted</BasicLink>。
+        创作者可了解 <BasicLink href="https://mee7.ha7ch.com/e/hcn-creator-pilot-01">HCN Creator 计划</BasicLink>。
+      </p>
       <PostList title="Events" items={events} />
       <PostList title="Projects" items={projects} />
       <PostList title="Writing" items={writing} />

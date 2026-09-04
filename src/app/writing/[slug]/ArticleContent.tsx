@@ -57,7 +57,7 @@ export default function ArticleContent({
   }
 
   return (
-    <main className="writing-page">
+    <main className="writing-page" lang={lang === "zh" ? "zh-CN" : "en"}>
       <div className="writing-topbar">
         <Link href="/" className="writing-back">
           HA7CH
@@ -143,7 +143,7 @@ function renderContent(content: string[]) {
       const [head, ...body] = rows;
       if (head && body.length > 0) {
         blocks.push(
-          <div key={i} className="writing-table-wrap">
+          <div key={i} className="writing-table-wrap" tabIndex={0} role="region" aria-label="Comparison table · 可横向滑动的对照表">
             <table className="writing-table">
               <thead>
                 <tr>

@@ -1,0 +1,195 @@
+{
+  "syncedAt": "2026-09-04T20:18:07.485Z",
+  "events": [
+    {
+      "id": "shanghai-fde-2026",
+      "title": "Ha7ch Shanghai #002｜FDE Meetup",
+      "description": "聊聊 FDE 落地，聊聊 AI native 思维。",
+      "time": "6 月 13 日 周六 14:00–17:00",
+      "date": "2026-06-13",
+      "status": "closed",
+      "href": "https://mee7.ha7ch.com/e/shanghai-fde-2026"
+    },
+    {
+      "id": "shenzhen-2026",
+      "title": "Ha7ch Shenzhen #001｜FDE Meetup",
+      "description": "HA7CH 闭门 builder 交流会。",
+      "time": "已办 · 31 位 builder 到场",
+      "date": null,
+      "status": "closed",
+      "href": "https://mee7.ha7ch.com/e/shenzhen-2026"
+    },
+    {
+      "id": "hangzhou-fde-2026",
+      "title": "Ha7ch Hangzhou #003｜FDE Meetup",
+      "description": "聊聊 FDE 落地，聊聊 AI native 思维。",
+      "time": "6月27日 下午，地点确定后单独通知",
+      "date": null,
+      "status": "closed",
+      "href": "https://mee7.ha7ch.com/e/hangzhou-fde-2026"
+    },
+    {
+      "id": "fde-sprint",
+      "title": "Ha7ch 48H FDE Sprint",
+      "description": "长期滚动招募：申请一次进入候选池，每当新的企业现场确认，再单独邀请并确认档期。第一场已于 7 月 13 日在芜湖举办成功，下一场 7 月 27 日在榆林，之后计划前往温州与苏州。进真实企业现场的 AI 实战 Sprint：入选者直接飞往企业所在城市（按每场对接的企业定），用连续两个完整工作日，访谈负责人和一线员工、梳理一段真实业务流程、找到一个适合 AI 介入的具体问题、做出可现场演示验证的 MVP，再按企业真实反馈快速调整。参与者各自推进、相互比拼，不是组队互补。每场名额待定、宁缺毋滥，欢迎四类背景：商务沟通型、业务产品型、技术构建型、行业经验型。重点看：① 至少一个方向足够突出；② 做过能真正跑通的真实项目而非概念 Demo 或 PPT，最好能给出 GitHub、作品或项目链接、在线简历等能证明实力的东西；③ 既要问到相关的沟通经验，也要看技术能力强不强；④ 能在陌生行业、模糊需求、有限时间里主动把问题推到可被验证；⑤ 可靠、扛得住同台比拼、能完整飞到现场参与。结束时每人交付一个 GitHub 仓库（用 Claude Code/Codex 把访谈记录、脑爆、流程梳理、资料等工作过程都丢进去）和一个能震撼老板的可演示 MVP。学校、专业、职位不重要，做过真事、能在没有标准答案时推进最重要。",
+      "time": "长期滚动招募 · 每场单独确认档期",
+      "date": null,
+      "status": "open",
+      "href": "https://mee7.ha7ch.com/e/fde-sprint"
+    },
+    {
+      "id": "beijing-fde-2026",
+      "title": "Ha7ch Beijing #004｜FDE Meetup",
+      "description": "Ha7ch Beijing #004 是一场以 FDE（Forward Deployed Engineer，前向部署工程师）为主题的线下闭门 Meetup。FDE 是带着工程能力直接进客户现场、访谈一线、把模糊的业务问题拆清楚，并亲手做出能落地跑通的东西的人。这场想聚到一桌的，是真动手做过事、能在不确定里自己把一个问题推到「能被验证」的人——无论你来自工程、产品还是业务，关键是做过真东西、讲得出具体的事。投资人、想找合作的也欢迎，同样聊聊你真正关心和做过的事。",
+      "time": "7 月 4 日 14:00–17:00（周六下午），地点确定后单独通知",
+      "date": null,
+      "status": "closed",
+      "href": "https://mee7.ha7ch.com/e/beijing-fde-2026"
+    },
+    {
+      "id": "guild-up-001",
+      "title": "Ha7ch Guildup #001｜Beijing Shanghai Hangzhou Shenzhen",
+      "description": "老朋友回归聚餐。北京、上海、杭州、深圳四场 Ha7ch FDE Meetup 上认识的朋友，7 月 4 日（周六）晚重新聚回饭桌，四城同一晚各自开饭，20:00 到 20:30 四地线上连线碰个杯。AA dinner，晚餐费用现场按实际人均分摊、不预收。报名只留名字和手机号，方便拉群和通知。都是老朋友，人人欢迎。",
+      "time": "7 月 4 日（周六）晚 · 20:00–20:30 四地线上连线",
+      "date": null,
+      "status": "closed",
+      "href": "https://mee7.ha7ch.com/e/guild-up-001"
+    },
+    {
+      "id": "sf-fde-2026",
+      "title": "Ha7ch San Francisco #005｜AI Native Builder Meetup",
+      "description": "Ha7ch San Francisco #005，这一场是 AI Native Builder Meetup，与 intent.app 联合主办（cohost）—— 一屋子在旧金山湾区做 AI 产品、Agent、交付落地的人，线下围坐一圈、交换一线经验。报名很简单：留个名字和邮箱就行，不盘问、不打分。7 月 18 日周六 15:00–17:00，地点在 Palo Alto 附近，约 21 位。",
+      "time": "7 月 18 日 15:00–17:00（周六下午），地点确定后单独通知",
+      "date": null,
+      "status": "closed",
+      "href": "https://mee7.ha7ch.com/e/sf-fde-2026"
+    },
+    {
+      "id": "fde-pro-s26",
+      "title": "Ha7ch FDE PRO S26｜全国 FDE 专家交流大会",
+      "description": "8 月 5 日 14:00–18:00 · 国家人工智能应用中试基地。HA7CH 与 Sagenic Tech（深根宁极）联合举办，聚焦 FDE 与企业 AI 落地的线下交流。真实案例可申请受邀分享，也欢迎报名专业旁听。",
+      "time": "2026 年 8 月 5 日（周三）14:00–18:00",
+      "date": "2026-08-05",
+      "status": "closed",
+      "href": "https://mee7.ha7ch.com/e/fde-pro-s26"
+    },
+    {
+      "id": "beijing-fde-pro",
+      "title": "Ha7ch FDE PRO S26｜北京站",
+      "description": "全国 FDE 与企业 AI 真实交付交流大会，同时开放受邀案例分享与专业旁听；通过对话判断更适合的参与方式，最终由主办确认。",
+      "time": "2026 年 9 月 5 日（周六）14:00–18:00",
+      "date": null,
+      "status": "open",
+      "href": "https://mee7.ha7ch.com/e/beijing-fde-pro"
+    },
+    {
+      "id": "anc-fund-s26",
+      "title": "HA7CH ANC Fund S26｜企业发现",
+      "description": "面向 startup Founder 与正在服务企业的 FDE。先识别路径：Founder 简介公司并上传原始 BP，由 bot 阅读材料后少量追问；FDE 介绍企业改造、验证结果与投资价值，并可提交企业材料。",
+      "time": "S26 首期滚动招募",
+      "date": null,
+      "status": "open",
+      "href": "https://mee7.ha7ch.com/e/anc-fund-s26"
+    },
+    {
+      "id": "hcn-creator-pilot-01",
+      "title": "HCN Creator 计划｜首期 10 人",
+      "description": "如果你平时会把 AI 工具、真实案例和自己的实践讲给别人看，HCN Creator 计划就是在找你。HA7CH 每天整理值得关注的 AI 信息和企业落地案例，你用自己的判断和表达，把真正有用的部分做成文章、视频、直播或帖子。首期邀请 10 人，一起连续创作 30 天。",
+      "time": "首期 30 天共创 · 申请后 3 天内回复",
+      "date": null,
+      "status": "open",
+      "href": "https://mee7.ha7ch.com/e/hcn-creator-pilot-01"
+    },
+    {
+      "id": "shanghai-fde-night-2026",
+      "title": "HA7CH × PROPELLER｜Shanghai FDE Night",
+      "description": "HA7CH × PROPELLER 联合呈现的上海 FDE Night，面向正在做企业 AI、FDE 与现场交付的人。参与者免费并包含餐饮，由 Alibaba 千问办公赞助支持。",
+      "time": "2026 年 9 月 10 日（周四）18:00–21:00",
+      "date": null,
+      "status": "open",
+      "href": "https://mee7.ha7ch.com/e/shanghai-fde-night-2026"
+    }
+  ],
+  "projects": [
+    {
+      "id": "cv-pro",
+      "title": "cv-pro",
+      "description": "cv — turn a PDF resume into a living personal site. Multi-tenant resume hosting with a Claude Code / Codex plugin.",
+      "href": "https://github.com/HA7CH/cv-pro",
+      "website": "https://cv.ha7ch.com",
+      "updatedAt": "2026-07-13"
+    },
+    {
+      "id": "geng-pro",
+      "title": "geng-pro",
+      "description": "论文补充数据完整性筛查 CLI · 耿同学式法证统计，判断补充材料里的数字是自然测量还是人工篡改 · 零依赖直连 · HA7CH PRO 系列",
+      "href": "https://github.com/HA7CH/geng-pro",
+      "website": null,
+      "updatedAt": "2026-06-28"
+    },
+    {
+      "id": "fde-playground",
+      "title": "fde-playground",
+      "description": "HATCH FDE 货代实战擂台 · 摸需求像素办公室前门",
+      "href": "https://github.com/HA7CH/fde-playground",
+      "website": "https://fde-playground.vercel.app",
+      "updatedAt": "2026-07-15"
+    },
+    {
+      "id": "ha7ch-school",
+      "title": "ha7ch-school",
+      "description": "HA7CH AI Native School — 加载即入学的带学 skill；内容托管 school.ha7ch.com(site/)，SkillHub 上是薄加载器(publish/loader/)",
+      "href": "https://github.com/HA7CH/ha7ch-school",
+      "website": "https://ha7ch-school.vercel.app",
+      "updatedAt": "2026-09-03"
+    },
+    {
+      "id": "ha7ch-stanford",
+      "title": "ha7ch-stanford",
+      "description": "HA7CH × Stanford —— 把 Stanford 真实的王牌课(CS229/CS231n/CS224n)做成可以带学的 Agent 课堂",
+      "href": "https://github.com/HA7CH/ha7ch-stanford",
+      "website": null,
+      "updatedAt": "2026-07-19"
+    },
+    {
+      "id": "ai-native-company",
+      "title": "ai-native-company",
+      "description": "把你的团队变成 AI native company:一台 Mac mini,一人一个 bot,公司知识全在 markdown 里。One Mac mini, one bot per person, all company knowledge in markdown.",
+      "href": "https://github.com/HA7CH/ai-native-company",
+      "website": null,
+      "updatedAt": "2026-07-28"
+    },
+    {
+      "id": "anc-transcribe-audio",
+      "title": "anc-transcribe-audio",
+      "description": "Open Codex Skill for faithful local audio transcription with codex-asr",
+      "href": "https://github.com/HA7CH/anc-transcribe-audio",
+      "website": null,
+      "updatedAt": "2026-09-01"
+    },
+    {
+      "id": "anc-fde-camp",
+      "title": "anc-fde-camp",
+      "description": "Open Agent Skill for HA7CH FDE Camp, ANC methodology, certification, and project matching",
+      "href": "https://github.com/HA7CH/anc-fde-camp",
+      "website": null,
+      "updatedAt": "2026-09-02"
+    },
+    {
+      "id": "anc-diagnosis",
+      "title": "anc-diagnosis",
+      "description": "ANC-Diagnosis · HDC 企业 AI 现场诊断服务 Skill",
+      "href": "https://github.com/HA7CH/anc-diagnosis",
+      "website": null,
+      "updatedAt": "2026-09-04"
+    },
+    {
+      "id": "anc-executive-camp",
+      "title": "anc-executive-camp",
+      "description": "老板 AI 战略营 · HA7CH Academy 企业决策人与执行负责人的课程 Skill",
+      "href": "https://github.com/HA7CH/anc-executive-camp",
+      "website": null,
+      "updatedAt": "2026-09-04"
+    }
+  ]
+}

@@ -11,7 +11,7 @@ export default function OGPreview() {
   const slugs = getAllSlugs();
 
   return (
-    <main style={{ padding: "40px", background: "#f5f5f5", minHeight: "100vh" }}>
+    <main style={{ padding: "clamp(20px, 4vw, 40px)", background: "#f5f5f5", color: "#111", minHeight: "100dvh", overflowWrap: "anywhere" }}>
       <h1 style={{ fontFamily: "monospace", marginBottom: "8px" }}>OG Preview</h1>
       <p style={{ fontFamily: "monospace", fontSize: "13px", color: "#666", marginBottom: "40px" }}>
         Click any card to open the raw image.
@@ -26,12 +26,13 @@ export default function OGPreview() {
             </p>
             <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
               {RATIOS.map(({ label, path, w, h }) => (
-                <div key={path}>
+                <div key={path} style={{ width: w, maxWidth: "100%", minWidth: 0 }}>
                   <a href={`/writing/${slug}/${path}`} target="_blank" style={{ display: "block" }}>
                     <img
                       src={`/writing/${slug}/${path}`}
                       alt={label}
-                      style={{ width: `${w}px`, height: `${h}px`, objectFit: "cover", border: "1px solid #ddd", display: "block" }}
+                      loading="lazy"
+                      style={{ width: "100%", height: "auto", aspectRatio: `${w} / ${h}`, objectFit: "cover", border: "1px solid #ddd", display: "block" }}
                     />
                   </a>
                   <p style={{ fontFamily: "monospace", fontSize: "11px", color: "#999", marginTop: "4px" }}>

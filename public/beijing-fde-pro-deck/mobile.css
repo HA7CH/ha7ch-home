@@ -1,0 +1,53 @@
+/* Host-level touch fixes; keep the exported deck bundle intact. */
+@media (max-width: 768px), (pointer: coarse) {
+  button {
+    touch-action: manipulation;
+  }
+
+  button[aria-label^="切换到"] {
+    width: 44px;
+    height: 44px;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+  }
+
+  [aria-label="幻灯片页码"] {
+    gap: 0;
+  }
+
+  main > div:has(> [aria-label="幻灯片页码"]) {
+    align-items: center;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: max(12px, env(safe-area-inset-left));
+    right: max(12px, env(safe-area-inset-right));
+  }
+
+  [aria-label="幻灯片页码"] button {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    background: transparent;
+  }
+
+  [aria-label="幻灯片页码"] button::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 1px;
+    content: "";
+    transform: translate(-50%, -50%);
+    background: var(--progress);
+  }
+
+  [aria-label="幻灯片页码"] button[aria-current="page"]::before {
+    width: 32px;
+    background: var(--ink);
+  }
+
+  button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+}

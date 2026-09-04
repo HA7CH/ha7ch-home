@@ -1,20 +1,27 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import { company } from "@/content/company";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ha7ch.com"),
   title: {
-    default: "HA7CH: AI-native Builder Lab born at Stanford, the world's first FDE Accelerator",
+    default: company.title,
     template: "%s · HA7CH"
   },
-  description:
-    "HA7CH is an AI-native Builder Lab born at Stanford. The world's first FDE Accelerator. Build in the field, hatch into impact.",
+  description: company.description,
   applicationName: "HA7CH",
   keywords: [
     "HA7CH",
     "ha7ch",
     "Hatch",
+    "AI Native Company",
+    "ANC",
+    "HCN",
+    "HDC",
+    "HA7CH Academy",
+    "ANC Fund",
+    "企业 AI 转型",
     "AI-native Builder Lab",
     "Builder Lab",
     "FDE Accelerator",
@@ -38,19 +45,17 @@ export const metadata: Metadata = {
     canonical: "/"
   },
   openGraph: {
-    title: "HA7CH: AI-native Builder Lab born at Stanford, the world's first FDE Accelerator",
-    description:
-      "HA7CH is an AI-native Builder Lab born at Stanford. The world's first FDE Accelerator. Build in the field, hatch into impact.",
+    title: company.title,
+    description: company.description,
     url: "https://ha7ch.com",
     siteName: "HA7CH",
     type: "website",
-    locale: "en_US"
+    locale: "zh_CN"
   },
   twitter: {
     card: "summary_large_image",
-    title: "HA7CH: AI-native Builder Lab born at Stanford, the world's first FDE Accelerator",
-    description:
-      "AI-native Builder Lab born at Stanford. World's first FDE Accelerator. Build in the field, hatch into impact.",
+    title: company.title,
+    description: company.description,
     site: "@lawted2",
     creator: "@lawted2"
   },
@@ -69,6 +74,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#fdfdfc" },
     { media: "(prefers-color-scheme: dark)", color: "#101010" }
