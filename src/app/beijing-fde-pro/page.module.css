@@ -1,0 +1,17 @@
+.deckShell {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: #10100f;
+}
+
+.deck {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  color-scheme: light dark;
+}
