@@ -6,7 +6,7 @@ import { legacyProjects } from "./projects-legacy";
 const eventCopy: Record<string, { title?: string; description: string; date?: string }> = {
   "shanghai-fde-night-2026": { title: "Shanghai FDE Night · HA7CH × PROPELLER", description: "面向正在做企业 AI、FDE 与现场交付的人。与 PROPELLER 联合呈现，由 Alibaba 千问办公支持，参与免费并含餐饮。" },
   "beijing-fde-pro": { title: "FDE PRO S26 · Beijing", description: "已举办，311 人到场。围绕个人如何成为 FDE、组织为什么需要 FDE 交流；现场纪要与 PPT 见活动详情。", date: "2026-09-05" },
-  "fde-sprint": { title: "48H FDE Sprint", description: "进入真实企业，访谈一线、梳理工作流，在两个完整工作日里做出可演示、可验证的 AI MVP。申请后进入候选池，每场单独确认档期。" },
+  "fde-sprint": { title: "48H FDE Sprint", description: "进入真实企业，访谈一线、梳理工作流，在两个完整工作日里做出可演示、可验证的 AI MVP。" },
   "hcn-creator-pilot-01": { description: "首期邀请 10 位长期分享 AI 的创作者，连续共创 30 天。把一手信息、真实案例与自己的实践，做成有用的文章、视频、直播或帖子。" },
   "anc-fund-s26": { description: "面向创业者与正在服务企业的 FDE。带着公司、BP 或企业改造案例来，介绍真实业务、验证结果和希望获得的支持。" },
   "fde-pro-s26": { title: "FDE PRO S26 · 全国 FDE 专家交流大会", description: "在国家人工智能应用中试基地举办，聚焦 FDE 与企业 AI 落地。通过真实案例分享和现场交流，讨论从业务问题到交付的实践。" },
@@ -41,7 +41,7 @@ function eventItem(event: typeof snapshot.events[number]): ListItem {
     title: editorial?.title ?? event.title,
     description: editorial?.description ?? event.description,
     // Completed entries show a stable date, not an old invitation or location notice.
-    schedule: eventStatus(event) === "closed" && date ? date.replaceAll("-", ".") : event.time,
+    schedule: eventStatus(event) === "closed" ? (date ? date.replaceAll("-", ".") : "报名已关闭") : event.time,
     href: eventArchives[event.id]?.href ?? event.href,
     date,
     updatedAt: eventArchives[event.id]?.updatedAt ?? snapshot.syncedAt.slice(0, 10),
