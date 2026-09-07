@@ -5,7 +5,7 @@ import { legacyProjects } from "./projects-legacy";
 // Editorial summaries are deliberately separate from upstream facts and registration state.
 const eventCopy: Record<string, { title?: string; description: string; date?: string }> = {
   "shanghai-fde-night-2026": { title: "Shanghai FDE Night · HA7CH × PROPELLER", description: "面向正在做企业 AI、FDE 与现场交付的人。与 PROPELLER 联合呈现，由 Alibaba 千问办公支持，参与免费并含餐饮。" },
-  "beijing-fde-pro": { title: "FDE PRO S26 · Beijing", description: "北京场已结束。保留现场 PPT，回看个人如何成为 FDE、组织为什么需要 FDE。", date: "2026-09-05" },
+  "beijing-fde-pro": { title: "FDE PRO S26 · Beijing", description: "已举办，311 人到场。围绕个人如何成为 FDE、组织为什么需要 FDE 交流；现场纪要与 PPT 见活动详情。", date: "2026-09-05" },
   "fde-sprint": { title: "48H FDE Sprint", description: "进入真实企业，访谈一线、梳理工作流，在两个完整工作日里做出可演示、可验证的 AI MVP。申请后进入候选池，每场单独确认档期。" },
   "hcn-creator-pilot-01": { description: "首期邀请 10 位长期分享 AI 的创作者，连续共创 30 天。把一手信息、真实案例与自己的实践，做成有用的文章、视频、直播或帖子。" },
   "anc-fund-s26": { description: "面向创业者与正在服务企业的 FDE。带着公司、BP 或企业改造案例来，介绍真实业务、验证结果和希望获得的支持。" },
@@ -20,7 +20,7 @@ const eventCopy: Record<string, { title?: string; description: string; date?: st
 
 // Confirmed website archives survive upstream catalog refreshes without changing mee7.
 const eventArchives: Record<string, { href: string; updatedAt: string }> = {
-  "beijing-fde-pro": { href: "/beijing-fde-pro", updatedAt: "2026-09-07" }
+  "beijing-fde-pro": { href: "https://mee7.ha7ch.com/e/beijing-fde-pro", updatedAt: "2026-09-07" }
 };
 
 function eventStatus(event: typeof snapshot.events[number]) {
@@ -45,7 +45,7 @@ function eventItem(event: typeof snapshot.events[number]): ListItem {
     href: eventArchives[event.id]?.href ?? event.href,
     date,
     updatedAt: eventArchives[event.id]?.updatedAt ?? snapshot.syncedAt.slice(0, 10),
-    meta: eventArchives[event.id] ? "已结束 · 查看 PPT" : event.status === "open" ? "报名中" : "已结束",
+    meta: eventStatus(event) === "open" ? "报名中" : "已结束",
     kind: "event"
   };
 }
