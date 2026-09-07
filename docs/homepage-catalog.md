@@ -17,7 +17,7 @@
 
 ## 页面路径
 
-- 北京场 `beijing-fde-pro` 已于 2026-09-05 结束（2026-09-07 用户确认）。`catalog.ts` 的 `eventArchives` 将其固定放在 Past，标注“已结束 · 查看 PPT”，并链接 `/beijing-fde-pro`。原演示页面及静态资源保持不变；后续刷新上游快照不应恢复报名入口。此覆盖仅影响官网，不修改 mee7 状态。
+- 北京场 `beijing-fde-pro` 已于 2026-09-05 结束（2026-09-07 用户确认）。`catalog.ts` 的 `eventArchives` 将其固定放在 Past，标注“已结束”，仍链接 mee7 活动详情。PPT 入口放在该详情页的“现场纪要”中，指向官网 `/beijing-fde-pro`；原演示页面及静态资源保持不变。后续刷新上游快照不应恢复报名状态。
 
 - `/academy` → School、FDE Camp 与老板 AI 战略营。
 - `/academy/executive-ai-camp` → 老板课两天课程、双席位、六项成果、后续支持与 `HA7CH/anc-executive-camp` Skill。
