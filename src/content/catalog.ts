@@ -5,7 +5,7 @@ import { legacyProjects } from "./projects-legacy";
 // Editorial summaries are deliberately separate from upstream facts and registration state.
 const eventCopy: Record<string, { title?: string; description: string; date?: string }> = {
   "shanghai-fde-night-2026": { title: "Shanghai FDE Night · HA7CH × PROPELLER", description: "面向正在做企业 AI、FDE 与现场交付的人。与 PROPELLER 联合呈现，由 Alibaba 千问办公支持，参与免费并含餐饮。" },
-  "beijing-fde-pro": { title: "FDE PRO S26 · Beijing", description: "围绕企业 AI 的真实交付交流，开放案例分享与专业旁听。带着做过的项目、现场经验和具体问题来。" },
+  "beijing-fde-pro": { title: "FDE PRO S26 · Beijing", description: "北京场已结束。保留现场 PPT，回看个人如何成为 FDE、组织为什么需要 FDE。", date: "2026-09-05" },
   "fde-sprint": { title: "48H FDE Sprint", description: "进入真实企业，访谈一线、梳理工作流，在两个完整工作日里做出可演示、可验证的 AI MVP。申请后进入候选池，每场单独确认档期。" },
   "hcn-creator-pilot-01": { description: "首期邀请 10 位长期分享 AI 的创作者，连续共创 30 天。把一手信息、真实案例与自己的实践，做成有用的文章、视频、直播或帖子。" },
   "anc-fund-s26": { description: "面向创业者与正在服务企业的 FDE。带着公司、BP 或企业改造案例来，介绍真实业务、验证结果和希望获得的支持。" },
@@ -17,6 +17,15 @@ const eventCopy: Record<string, { title?: string; description: string; date?: st
   "shanghai-fde-2026": { title: "Shanghai #002 · FDE Meetup", description: "聊 FDE 如何落地，也聊 AI Native 如何改变工作。让做产品与做业务的人在现场交换具体经验。" },
   "shenzhen-2026": { title: "Shenzhen #001 · FDE Meetup", description: "HA7CH 首场 FDE Meetup。Builder 们线下相聚，分享正在做的项目，建立下一次交流与合作的连接。", date: "2026-06-06" }
 };
+
+// Confirmed website archives survive upstream catalog refreshes without changing mee7.
+const eventArchives: Record<string, { href: string; updatedAt: string }> = {
+  "beijing-fde-pro": { href: "/beijing-fde-pro", updatedAt: "2026-09-07" }
+};
+
+function eventStatus(event: typeof snapshot.events[number]) {
+  return eventArchives[event.id] ? "closed" : event.status;
+}
 
 function eventDate(event: typeof snapshot.events[number]) {
   if (event.date) return event.date;
@@ -32,20 +41,20 @@ function eventItem(event: typeof snapshot.events[number]): ListItem {
     title: editorial?.title ?? event.title,
     description: editorial?.description ?? event.description,
     // Completed entries show a stable date, not an old invitation or location notice.
-    schedule: event.status === "closed" && date ? date.replaceAll("-", ".") : event.time,
-    href: event.href,
+    schedule: eventStatus(event) === "closed" && date ? date.replaceAll("-", ".") : event.time,
+    href: eventArchives[event.id]?.href ?? event.href,
     date,
-    updatedAt: snapshot.syncedAt.slice(0, 10),
-    meta: event.status === "open" ? "报名中" : "已结束",
+    updatedAt: eventArchives[event.id]?.updatedAt ?? snapshot.syncedAt.slice(0, 10),
+    meta: eventArchives[event.id] ? "已结束 · 查看 PPT" : event.status === "open" ? "报名中" : "已结束",
     kind: "event"
   };
 }
 
 export const events: ListItem[] = [...snapshot.events]
   .sort((a, b) => {
-    if (a.status !== b.status) return a.status === "open" ? -1 : 1;
+    if (eventStatus(a) !== eventStatus(b)) return eventStatus(a) === "open" ? -1 : 1;
     const ad = eventDate(a), bd = eventDate(b);
-    if (a.status === "open") {
+    if (eventStatus(a) === "open") {
       if (!ad || !bd) return Number(!ad) - Number(!bd);
       return ad.localeCompare(bd);
     }
@@ -53,7 +62,7 @@ export const events: ListItem[] = [...snapshot.events]
   })
   .map((event, index, all) => ({
     ...eventItem(event),
-    group: index === 0 || all[index - 1].status !== event.status ? (event.status === "open" ? "Now" : "Past") : undefined
+    group: index === 0 || eventStatus(all[index - 1]) !== eventStatus(event) ? (eventStatus(event) === "open" ? "Now" : "Past") : undefined
   }));
 
 export function registrationItem(id: string): ListItem {
