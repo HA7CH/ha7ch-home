@@ -90,6 +90,8 @@ export default function Board() {
   const viewport = window.visualViewport;
   const sync = () => setViewportStyle({
    '--canvas-width': `${viewport?.width ?? window.innerWidth}px`,
+   '--board-width': `${Math.max(600, Math.min(viewport?.width ?? window.innerWidth, (viewport?.height ?? window.innerHeight) * 9 / 16))}px`,
+   '--board-scale': Math.min(1, Math.min(viewport?.width ?? window.innerWidth, (viewport?.height ?? window.innerHeight) * 9 / 16) / 600),
    '--canvas-height': `${viewport?.height ?? window.innerHeight}px`,
    '--canvas-top': `${viewport?.offsetTop ?? 0}px`,
    '--canvas-left': `${viewport?.offsetLeft ?? 0}px`,
@@ -133,7 +135,7 @@ export default function Board() {
   window.addEventListener('keydown', handle);
   return () => window.removeEventListener('keydown', handle);
  }, []);
- return <main style={viewportStyle} className={`${s.board} ${portrait?s.portrait:''}`} data-aspect={portrait?'3:4':'auto'} aria-keyshortcuts="Shift+V F" data-theme="kumo" data-mode={mode} lang="zh-CN">
+ return <div style={viewportStyle} className={`${s.recordingFrame} ${portrait?s.verticalFrame:s.freeFrame}`} data-recording-aspect={portrait?'9:16':'auto'}><main className={`${s.board} ${portrait?s.portrait:''}`} data-aspect={portrait?'3:4':'auto'} aria-keyshortcuts="Shift+V F" data-theme="kumo" data-mode={mode} lang="zh-CN">
  {fullscreenError && <p role="alert" className={s.fullscreenError}>{fullscreenError}</p>}
  <LayoutGroup><div className={`${s.grid} ${active !== null ? s.hasExpanded : ''}`}>
  {cards.map((c,i)=><MotionCard layout layoutDependency={`${active}-${portrait}`} transition={{layout:layoutTransition}} style={{borderRadius:8,boxShadow:"var(--color-kumo-line) 0px 0px 0px 1px"}} key={c.id} className={`${s.card} ${s[c.type]} ${active===i?s.expanded:''}`}>
@@ -152,5 +154,5 @@ export default function Board() {
  {active!==null && c.type!=='camera'?<div className={s.compact}><strong>{compactNotes[c.id].title}</strong><span>{compactNotes[c.id].detail}</span></div>:c.type==='definition'?<><img src="/ha7ch.svg" alt="HA7CH" className={s.logo}/><div className={s.anc}>ANC</div><h2>{c.title}</h2><p>{c.summary}</p></>:c.type==='camera'?cameraView:c.type==='harness'?<><h2>{c.title}</h2><p>{c.summary}</p></>:c.type==='evidence'?<><h2>{c.title}</h2><div className={s.stat}>≈ ¾<small>AI 高绩效企业受访者<br/>根本性重设计工作流</small></div><p>{c.summary}</p></>:<><h2>{c.title}</h2>{c.type==='shift'&&<div className={s.shiftVisual}><span>vibe SaaS</span><b>→</b><strong>ANC 架构</strong></div>}<p>{c.summary}</p></>}
  </motion.div></>}
  </MotionCard>)}
- </div></LayoutGroup></main>;
+ </div></LayoutGroup></main></div>;
 }
