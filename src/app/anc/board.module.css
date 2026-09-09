@@ -215,3 +215,27 @@
 /* Presentation body copy has a consistent 16px reading size. */
 .board{font-size:16px}
 .board .preview>p,.board .reading .summary,.board .reading .prose p,.board .shiftVisual,.board .stat small,.board .research span,.board .reading .research>a,.board .acronym span{font-size:16px!important}
+
+/* Slightly larger supporting type, with compact layouts kept legible. */
+.board .card h2{font-size:24px}
+.portrait .card h2{font-size:clamp(20px,3.8cqw,25px)}
+.board .definition h2{font-size:30px}
+.portrait .definition h2{font-size:clamp(22px,4.6cqw,30px)}
+.board .reading h2{font-size:34px}
+.portrait .reading h2{font-size:31px}
+.board .compact strong{font-size:18px}
+.board .compact span{font-size:15px}
+.cameraIdentity strong{font-size:28px}
+.cameraIdentity span,.board .cameraBio p{font-size:13px!important}
+.cameraBio{grid-template-columns:.9fr 1.3fr;gap:10px}
+@media(max-height:740px){.board .reading h2,.portrait .reading h2{font-size:25px}}
+@container(max-width:600px){
+ .cameraBio{padding:10px 10px 24px;grid-template-columns:1fr 1.3fr;gap:6px}
+ .cameraIdentity strong{font-size:24px}
+ .cameraIdentity span,.board .cameraBio p{font-size:12px!important}
+ .board .compact strong{font-size:16px}
+ .board .compact span{font-size:13px}
+ .compact{gap:3px}
+}
+
+.cameraIdentity span{white-space:nowrap}
