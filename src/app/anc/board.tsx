@@ -81,8 +81,6 @@ export default function Board() {
   {cameraError && <p role="alert" className={s.cameraError}>{cameraError}</p>}
   {stream && <div className={s.cameraControls}><Button variant="secondary" size="sm" aria-pressed={mirrored} onClick={()=>setMirrored(!mirrored)}>镜像</Button><Button variant="secondary" size="sm" onClick={stopCamera}><CameraSlash size={14}/>关闭</Button></div>}
  </div>;
- const [mode, setMode] = useState<'light' | 'dark'>('light');
- useEffect(()=>{ const media=window.matchMedia('(prefers-color-scheme: dark)'); const sync=()=>setMode(media.matches?'dark':'light'); sync(); media.addEventListener('change',sync); return ()=>media.removeEventListener('change',sync); },[]);
  const [active, setActive] = useState<number | null>(null);
  const [portrait, setPortrait] = useState(true);
  const [viewportStyle, setViewportStyle] = useState<CSSProperties>({});
@@ -133,7 +131,7 @@ export default function Board() {
   window.addEventListener('keydown', handle);
   return () => window.removeEventListener('keydown', handle);
  }, []);
- return <main style={viewportStyle} className={`${s.board} ${portrait?s.portrait:''}`} data-aspect={portrait?'2:3':'auto'} aria-keyshortcuts="Shift+V F" data-theme="kumo" data-mode={mode} lang="zh-CN">
+ return <main style={viewportStyle} className={`${s.board} ${portrait?s.portrait:''}`} data-aspect={portrait?'2:3':'auto'} aria-keyshortcuts="Shift+V F" data-theme="kumo" data-mode="dark" lang="zh-CN">
  {fullscreenError && <p role="alert" className={s.fullscreenError}>{fullscreenError}</p>}
  <LayoutGroup><div className={`${s.grid} ${active !== null ? s.hasExpanded : ''}`}>
  {cards.map((c,i)=><MotionCard layout layoutDependency={`${active}-${portrait}`} transition={{layout:layoutTransition}} style={{borderRadius:8,boxShadow:"var(--color-kumo-line) 0px 0px 0px 1px"}} key={c.id} className={`${s.card} ${s[c.type]} ${active===i?s.expanded:''}`}>
