@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@altano/satori-fit-text": "^2.0.2",
+    "@cloudflare/kumo": "2.13.2",
+    "@phosphor-icons/react": "2.1.10",
     "@supabase/supabase-js": "^2.107.0",
     "@vercel/analytics": "^2.0.1",
     "jszip": "^3.10.1",
