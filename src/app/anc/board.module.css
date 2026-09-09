@@ -211,3 +211,7 @@
 /* Explicit border-box dimensions keep Safari's visible canvas within the window. */
 .board{height:var(--canvas-height,100dvh);box-sizing:border-box}
 .board.portrait{left:calc(var(--canvas-left,0px) + var(--canvas-width,100vw)/2);top:calc(var(--canvas-top,0px) + var(--canvas-height,100dvh)/2);width:min(var(--canvas-width,100vw),calc(var(--canvas-height,100dvh)*3/4));height:min(var(--canvas-height,100dvh),calc(var(--canvas-width,100vw)*4/3));aspect-ratio:auto;margin:0}
+
+/* Presentation body copy has a consistent 16px reading size. */
+.board{font-size:16px}
+.board .preview>p,.board .reading .summary,.board .reading .prose p,.board .shiftVisual,.board .stat small,.board .research span,.board .reading .research>a,.board .acronym span{font-size:16px!important}
