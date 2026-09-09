@@ -240,10 +240,10 @@
 
 .cameraIdentity span{white-space:nowrap}
 
-/* 9:16 recording frame: the 3:4 board sits above a clean subtitle area. */
+/* Center the 75%-height board plus one 6%-height subtitle line as an 81% group. */
 .recordingFrame{background:var(--body-bg)}
 .verticalFrame{position:fixed;left:calc(var(--canvas-left,0px) + var(--canvas-width,100vw)/2);top:calc(var(--canvas-top,0px) + var(--canvas-height,100dvh)/2);transform:translate(-50%,-50%);width:min(var(--canvas-width,100vw),calc(var(--canvas-height,100dvh)*9/16));height:min(var(--canvas-height,100dvh),calc(var(--canvas-width,100vw)*16/9));overflow:hidden;box-sizing:border-box;padding-top:0;container-type:size}
 .verticalFrame .board.portrait{position:relative;left:auto;top:auto;transform:none;width:100%;height:auto;aspect-ratio:3/4;margin:0;padding:12px;background:transparent}
 .freeFrame{width:100%}
 
-.verticalFrame .board.portrait{top:2.5%;width:var(--board-width,600px);height:calc(var(--board-width,600px)*4/3);zoom:var(--board-scale,1);aspect-ratio:auto}
+.verticalFrame .board.portrait{top:9.5%;width:var(--board-width,600px);height:calc(var(--board-width,600px)*4/3);zoom:var(--board-scale,1);aspect-ratio:auto}
