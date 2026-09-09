@@ -1,6 +1,5 @@
 import { renderCombined } from "../_og/combined";
 
-export const contentType = "image/png";
 
 type Params = Promise<{ slug: string }>;
 

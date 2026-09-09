@@ -5,6 +5,13 @@ import { company, departments, offerings } from "@/content/company";
 import { BasicLink, PostList, type ListItem } from "@/components/PostList";
 import { events, projects } from "@/content/catalog";
 
+function homeItems(items: ListItem[], showDescription = true): ListItem[] {
+  return items.map((item) => ({
+    ...item,
+    description: showDescription ? item.homeDescription ?? item.description : undefined
+  }));
+}
+
 const writing: ListItem[] = articles.map((article, index, all) => {
   const year = article.date.slice(0, 4);
   const prevYear = index > 0 ? all[index - 1].date.slice(0, 4) : null;
@@ -115,6 +122,7 @@ const jsonLd = {
       url: "https://ha7ch.com",
       logo: "https://ha7ch.com/ha7ch-avatar.png",
       description: company.description,
+      contactPoint: { "@type": "ContactPoint", email: "lawtedwu@gmail.com", contactType: "customer support", availableLanguage: ["English", "Chinese"], url: "https://ha7ch.com/contact" },
       department: departments.map((department) => ({
         "@type": "Organization",
         name: department.title,
@@ -126,6 +134,7 @@ const jsonLd = {
         url: "https://x.com/lawted2"
       },
       sameAs: [
+        "https://github.com/HA7CH",
         "https://x.com/lawted2",
         "https://github.com/HA7CH/ha7ch-home",
         "https://www.reddit.com/r/ha7ch/",
@@ -188,16 +197,22 @@ export default function Home() {
         </p>
       </article>
 
-      <PostList title="Departments" items={departments} />
-      <PostList title="Services" items={offerings} />
+      <PostList title="Departments" items={homeItems(departments)} />
+      <PostList title="Services" items={homeItems(offerings)} />
       <p className="service-contact" lang="zh-CN">
         企业诊断、课程与合作，<BasicLink href="mailto:lawtedwu@gmail.com">联系 Lawted</BasicLink>。
         创作者可了解 <BasicLink href="https://mee7.ha7ch.com/e/hcn-creator-pilot-01">HCN Creator 计划</BasicLink>。
       </p>
-      <PostList title="Events" items={events} />
-      <PostList title="Projects" items={projects} />
+      <PostList title="Events" items={homeItems(events, false)} />
+      <PostList title="Projects" items={homeItems(projects, false)} />
       <PostList title="Writing" items={writing} />
       <Participants />
+      <nav className="site-information" aria-label="Site information">
+        <BasicLink href="/about">About</BasicLink>
+        <BasicLink href="/docs">Docs</BasicLink>
+        <BasicLink href="/contact">Contact</BasicLink>
+        <BasicLink href="/privacy">Privacy</BasicLink>
+      </nav>
     </main>
   );
 }

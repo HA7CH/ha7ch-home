@@ -4,7 +4,6 @@ import { join } from "node:path";
 import { findLargestUsableFontSize } from "@altano/satori-fit-text";
 import { getArticle } from "@/content/writing";
 
-export const contentType = "image/png";
 
 const W = 1200;
 const H = 511;
