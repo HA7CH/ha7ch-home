@@ -11,8 +11,7 @@ import { paginateForCards, type Lang } from "@/content/writing/cards";
 // (对固定 slug/lang/index 内容稳定不变),build 里不再有这数百张 PNG。
 export const dynamic = "force-dynamic";
 
-export const size = { width: 1242, height: 1656 };
-export const contentType = "image/png";
+const size = { width: 1242, height: 1656 };
 
 type Params = Promise<{ slug: string; lang: string; index: string }>;
 

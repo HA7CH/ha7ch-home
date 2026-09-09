@@ -1,3 +1,4 @@
+import { markdownResponse, recoveryMarkdown } from "@/lib/content-negotiation";
 import { getArticle, getAllSlugs } from "@/content/writing";
 
 type Params = Promise<{ slug: string }>;
@@ -17,10 +18,7 @@ export async function GET(
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) {
-    return new Response("Not found", {
-      status: 404,
-      headers: { "Content-Type": "text/plain; charset=utf-8" }
-    });
+    return markdownResponse(recoveryMarkdown, 404);
   }
 
   const url = `https://ha7ch.com/writing/${article.slug}`;

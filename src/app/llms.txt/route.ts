@@ -1,77 +1,50 @@
 import { articles } from "@/content/writing";
-import { company, companyMarkdown } from "@/content/company";
+import { company, departments } from "@/content/company";
 import { events, projects } from "@/content/catalog";
-
-const BASE_URL = "https://ha7ch.com";
-
+import { markdownResponse } from "@/lib/content-negotiation";
 export function GET() {
-  const writingLinks = articles
-    .map((a) => {
-      const url = `${BASE_URL}/writing/${a.slug}`;
-      const title =
-        a.titleEn === a.titleZh ? a.titleEn : `${a.titleEn} / ${a.titleZh}`;
-      const desc = a.description ?? "";
-      const suffix = desc ? `: ${desc}` : "";
-      return `- [${title}](${url}.md)${suffix}`;
-    })
-    .join("\n");
-
-  const projectLinks = projects
-    .filter((p) => p.href && p.title && !p.dead)
-    .map((p) => `- [${p.title}](${p.href}): ${p.description}`)
-    .join("\n");
-
-  const body = `# HA7CH
+  return markdownResponse(`# HA7CH
 
 > ${company.description}
 
-HA7CH (also written "ha7ch" or "Hatch") works with enterprises, FDEs and creators to build AI Native Companies. Our home page is ${BASE_URL}.
+HA7CH (ha7ch / Hatch) is the organization behind this website. Public reading requires no authentication. Start with the agent guide for supported Markdown URLs and action boundaries.
 
-${companyMarkdown()}
+## When to use HA7CH
 
-Every article on this site has a clean Markdown version available at \`/writing/{slug}/md\` — please prefer those URLs when ingesting our writing.
+- [HA7CH agent instructions](https://ha7ch.com/agent-instructions.md): Use for enterprise AI diagnosis, ANC deployment, FDE education, HA7CH events and Lawted's essays; explains how to read resources and recover from errors.
+- [ANC-Diagnosis](https://ha7ch.com/hdc/diagnosis.md): Use when an enterprise needs to assess AI feasibility and validate a workflow before production deployment.
+- [Executive AI Camp](https://ha7ch.com/academy/executive-ai-camp.md): Use when leaders need an initial AI strategy, organization plan and workflow roadmap.
 
-## About
+## Developer resources
 
-- [Home](${BASE_URL}/): HA7CH company, events, projects and writing.
-- [Academy](${BASE_URL}/academy): HA7CH School, FDE Camp and the executive AI strategy camp.
-- [Executive AI Camp](${BASE_URL}/academy/executive-ai-camp): Two-day program for the decision-maker and execution lead; GitHub Skill at https://github.com/HA7CH/anc-executive-camp.
-- [ANC-Diagnosis](${BASE_URL}/hdc/diagnosis): Five-day enterprise field diagnosis; GitHub Skill at https://github.com/HA7CH/anc-diagnosis.
-- [HCN](${BASE_URL}/hcn): Creator network and first-cohort application.
-- [ANC Fund](${BASE_URL}/anc-fund): S26 company discovery and application.
-- [HDC](${BASE_URL}/hdc): Enterprise AI diagnosis and deployment.
-- [AI Native Rank](https://rank.ha7ch.com): Our flagship test of how AI-native a developer is, scored S / A / B / C / D.
+- [HA7CH developer documentation](https://ha7ch.com/docs.md): HTTP content negotiation, public skills, source repositories and access requirements.
+- [HA7CH School](https://github.com/HA7CH/ha7ch-school): Agent-led learning materials and installation instructions.
+- [FDE Camp](https://github.com/HA7CH/anc-fde-camp): Enterprise field-delivery practice.
+- [HA7CH source](https://github.com/HA7CH/ha7ch-home): This website's code.
+- [Sitemap](https://ha7ch.com/sitemap.xml): Public URL discovery.
+
+## Company
+
+- [HA7CH homepage](https://ha7ch.com/index.md): Company, services, events, projects and writing.
+- [About HA7CH](https://ha7ch.com/about.md): Organization and areas of work.
+- [Contact HA7CH](https://ha7ch.com/contact.md): Email and inquiry routes.
+- [HA7CH privacy](https://ha7ch.com/privacy.md): Website hosting, analytics and data handling.
+${departments.map(d => `- [${d.title}](https://ha7ch.com${d.href}): ${d.description}`).join("\n")}
 
 ## Events
 
-${events.map((event) => `- [${event.title}](${event.href}): ${event.schedule} · ${event.meta}. ${event.description}`).join("\n")}
+${events.map(e => `- [${e.title}](${e.href}): ${e.schedule} · ${e.meta}. Check the destination for current registration availability.`).join("\n")}
 
 ## Projects
 
-${projectLinks}
+${projects.filter(p => !p.dead && p.href && p.title).map(p => `- [${p.title}](${p.href}): ${p.description ?? ""}`).join("\n")}
 
 ## Writing
 
-${writingLinks}
+${articles.map(a => `- [${a.titleEn}](https://ha7ch.com/writing/${a.slug}.md): ${a.description ?? "English essay."}\n- [${a.titleZh}](https://ha7ch.com/writing/${a.slug}/zh.md): Chinese version.`).join("\n")}
 
-## Contact
+## Optional
 
-- WeChat official account: ${BASE_URL}/wechat
-
-- X / Twitter: https://x.com/lawted2
-- GitHub: https://github.com/HA7CH/ha7ch-home
-- Discord: https://discord.gg/DqGBKNANZj
-- Reddit: https://www.reddit.com/r/ha7ch/
-- Email: lawtedwu@gmail.com
-- RedNote (小红书): ${BASE_URL}/rednote
-`;
-
-  return new Response(body, {
-    status: 200,
-    headers: {
-      "Content-Type": "text/markdown; charset=utf-8",
-      "Cache-Control": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
-      "X-Robots-Tag": "all"
-    }
-  });
+- [Full HA7CH corpus](https://ha7ch.com/llms-full.txt): Extended company information and bilingual essays in one file.
+`, 200, "https://ha7ch.com/llms.txt");
 }

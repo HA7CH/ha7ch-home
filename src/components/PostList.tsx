@@ -4,9 +4,11 @@ export type ListItem = {
   group?: string;
   title?: string;
   description?: string;
+  homeDescription?: string;
   href?: string;
   date?: string;
   schedule?: string;
+  eventStatus?: "active" | "end";
   updatedAt?: string;
   meta: string;
   dead?: boolean;
@@ -36,6 +38,9 @@ export function BasicLink({
 
 export function PostList({ title, items }: { title: string; items: ListItem[] }) {
   const id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const currentYear = new Intl.DateTimeFormat("en", {
+    year: "numeric", timeZone: "Asia/Shanghai"
+  }).format(new Date());
   return (
     <section id={id} className="post-list" aria-labelledby={`${id}-title`}>
       <h2 id={`${id}-title`} className="section-title">
@@ -55,12 +60,20 @@ export function PostList({ title, items }: { title: string; items: ListItem[] })
                           ? <AcronymTitle name={item.title} inline /> : item.title}
                       </span>
                     ) : null}
-                    {item.schedule ? <span className="item-schedule">{item.schedule}</span> : null}
+                    {item.schedule && item.kind !== "event" ? <span className="item-schedule">{item.schedule}</span> : null}
                     {item.description ? (
                       <span className="item-description">{item.description}</span>
                     ) : null}
                   </span>
-                  {item.date && !item.schedule ? (
+                  {item.kind === "event" ? (
+                    <span className="event-details">
+                      {item.date ? (
+                        <time dateTime={item.date} title={item.schedule}>
+                          {(item.date.startsWith(`${currentYear}-`) ? item.date.slice(5) : item.date).replaceAll("-", ".")}
+                        </time>
+                      ) : <span className="event-date" title={item.schedule}>{item.eventStatus === "active" ? "滚动招募" : "—"}</span>}
+                    </span>
+                  ) : item.date && !item.schedule ? (
                     <time dateTime={item.date}>{item.meta}</time>
                   ) : (
                     <span className="item-meta">{item.meta}</span>

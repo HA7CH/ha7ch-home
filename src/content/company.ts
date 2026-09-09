@@ -17,6 +17,7 @@ export const departments = [
   {
     group: "Content",
     title: "HCN",
+    homeDescription: "连接 AI 创作者，共创内容与品牌合作。",
     href: "/hcn",
     description:
       "HA7CH Creator Network。连接长期分享 AI 的创作者，提供一手信息、选题共创、内容分发与品牌合作机会。创作者保留自己的判断与表达。",
@@ -26,6 +27,7 @@ export const departments = [
   {
     group: "Deployment",
     title: "HDC",
+    homeDescription: "为企业部署 ANC，让人与 Agent 协同工作。",
     href: "/hdc",
     description:
       "HA7CH Deployment Company。为企业部署 ANC——企业共同的 AI 运行层。连接任务、知识、权限与 Agent，从真实工作流开始，持续沉淀可复用的知识与 Skill。",
@@ -35,6 +37,7 @@ export const departments = [
   {
     group: "Education",
     title: "HA7CH Academy",
+    homeDescription: "通过课程与真实项目，学习 AI 与企业交付。",
     href: "/academy",
     description:
       "面向 FDE、Builder、企业老板与业务负责人。通过 Camp、企业内训和真实项目，训练企业判断、AI 战略与现场交付能力。",
@@ -44,6 +47,7 @@ export const departments = [
   {
     group: "Investment",
     title: "ANC Fund",
+    homeDescription: "发起 AI Native 企业的投资与孵化计划。",
     href: "/anc-fund",
     description:
       "AI Native Company 投资与孵化计划。关注经过真实业务验证的企业、FDE 项目与 AI Native 创业公司，探索资本、FDE 和 ANC 能力的共同投入。当前处于发起与合作阶段。",
@@ -56,6 +60,7 @@ export const offerings = [
   {
     group: "Enterprise",
     title: "ANC Deployment · 企业 ANC 部署",
+    homeDescription: "围绕真实工作流，部署企业 AI 运行层。",
     href: "/hdc",
     description:
       "由 HDC 进入企业现场，先诊断业务与部署条件，再围绕真实工作流部署 ANC，连接企业的 Context、权限与协作，让人与 Agent 在共同的运行层上工作。",
@@ -65,6 +70,7 @@ export const offerings = [
   {
     group: "Diagnosis",
     title: "ANC-Diagnosis · 企业 AI 现场诊断",
+    homeDescription: "五天现场诊断，带回企业 AI 全景图与 Demo。",
     href: diagnosis.href,
     description: diagnosis.summary,
     meta: "5 个工作日",
@@ -73,6 +79,7 @@ export const offerings = [
   {
     group: "FDE",
     title: "FDE Camp",
+    homeDescription: "用真实企业案例，练习 FDE 判断与交付。",
     href: "https://github.com/HA7CH/anc-fde-camp",
     description:
       "先看懂企业，再设计 AI 组织架构。围绕五类真实企业案例，学习 AI 战略、ANC 架构与现场交付，让方法经得起实际业务检验。",
@@ -82,6 +89,7 @@ export const offerings = [
   {
     group: "Leadership",
     title: "老板 AI 战略营",
+    homeDescription: "两天梳理公司 AI 战略与 90 天行动计划。",
     href: executiveCamp.href,
     description:
       "两天，判断未来，重构公司。老板与核心执行负责人一起，带走公司 AI 初步诊断、组织与人才调整建议，以及首个工作流和 90 天行动计划。",

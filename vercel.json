@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "routes": [
+    {
+      "src": "^/(?:about|contact|privacy|docs|hdc/diagnosis|academy/executive-ai-camp|writing/[^/]+(?:/zh)?)?/?$",
+      "continue": true,
+      "transforms": [
+        {
+          "type": "response.headers",
+          "op": "append",
+          "target": { "key": "Vary" },
+          "args": "Accept, Accept-Encoding"
+        }
+      ]
+    }
+  ]
+}

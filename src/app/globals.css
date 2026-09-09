@@ -14,10 +14,10 @@
   --surface-2: #ececea;
   --strike: rgba(0, 0, 0, 0.35);
   --fade-rgb: 255, 255, 255;
+  /* Apple UI fonts first; self-hosted Inter elsewhere, with native CJK fallback. */
   --font-primary:
-    Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    -apple-system, BlinkMacSystemFont, var(--font-inter), system-ui, "Segoe UI", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
 }
 
 @media (prefers-color-scheme: dark) {
@@ -466,6 +466,25 @@ ul {
   color: var(--muted);
   font-size: 0.75rem;
   line-height: 1.5;
+}
+
+.event-details {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.375rem;
+  padding-top: 0.1875rem;
+  color: var(--muted);
+}
+
+.post-list .event-details time,
+.event-date {
+  padding: 0;
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .department-back {
@@ -1354,22 +1373,35 @@ button {
 
   .homepage,
   .writing-page {
-    padding-top: max(1.5rem, env(safe-area-inset-top));
-    padding-right: max(1.25rem, env(safe-area-inset-right));
+    padding-top: max(2rem, env(safe-area-inset-top));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
     padding-bottom: max(3rem, env(safe-area-inset-bottom));
-    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-left: max(1.5rem, env(safe-area-inset-left));
   }
 
   .article p,
   .department-note p,
   .service-contact {
     font-size: 0.875rem;
-    line-height: 1.6;
+    line-height: 1.8;
   }
 
-  .post-list { padding-top: 2rem; }
-  .department-note { padding-top: 1.75rem; }
-  .department-note p { padding-top: 0.75rem; }
+  .article header { gap: 0.5rem; }
+  .article header time { font-size: 0.75rem; }
+  .article > p { padding-top: 1.25rem; }
+  .article > p[lang="zh-CN"] { font-size: 0.9375rem; }
+
+  .post-list { padding-top: 3rem; }
+  .section-title {
+    padding-bottom: 0.75rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+  .department-note { padding-top: 2.5rem; }
+  .department-note p { padding-top: 1rem; }
+  .service-outline li { padding-block: 1.25rem; }
+  .service-outline li p { padding-top: 0.5rem; }
+  .service-contact { font-size: 0.8125rem; }
   .department-page .department-heading { font-size: 1.25rem; }
 
   .department-back {
@@ -1479,8 +1511,8 @@ button {
   .post-list .post-list-link {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.25rem 0.625rem;
-    padding: 0.75rem 0;
+    gap: 0.5rem 0.75rem;
+    padding: 1.25rem 0;
     min-height: 44px;
   }
 
@@ -1500,7 +1532,9 @@ button {
     max-width: 100%;
     min-width: 0;
     font-size: 0.9375rem;
-    line-height: 1.4;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0;
   }
 
   .post-list .item-title::after {
@@ -1524,8 +1558,10 @@ button {
     grid-column: 1 / -1;
     grid-row: 2;
     max-width: none;
-    font-size: 0.875rem;
-    line-height: 1.5;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.75;
+    letter-spacing: 0;
   }
 
   .post-list .item-schedule {
@@ -1540,15 +1576,26 @@ button {
     grid-column: 2;
     grid-row: 1;
     align-self: start;
+    padding-top: 0.1875rem;
     font-size: 0.6875rem;
     line-height: 1.6;
     white-space: normal;
     text-align: right;
   }
 
-  .post-list .item-event .item-title { grid-column: 1 / -1; }
-  .post-list .item-event .item-meta { grid-row: 2; }
-  .post-list .item-event .item-description { grid-row: 3; }
+  .post-list .item-event .item-title { grid-column: 1; }
+  .post-list .item-event .item-description { grid-column: 1; grid-row: 2; }
+  .event-details { grid-column: 2; grid-row: 1 / 3; }
+
+  #events .post-list-link,
+  #projects .post-list-link,
+  #writing .post-list-link {
+    padding-block: 0.875rem;
+  }
+
+  .item-event .post-list-link:not(:has(.item-description)) .event-details {
+    grid-row: 1;
+  }
 
   .event-row {
     display: grid;
@@ -1581,4 +1628,39 @@ button {
   .participant-mobile-job {
     overflow-wrap: anywhere;
   }
+}
+
+/* Information pages share the site's typography and reading width. */
+.info-page .article section {
+  margin-top: 36px;
+}
+.info-page .article section h2 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.info-page .article section p {
+  margin: 12px 0;
+  line-height: 1.75;
+}
+.info-page .article section ul {
+  margin: 16px 0;
+  line-height: 1.8;
+}
+.info-page .article pre {
+  margin: 20px 0;
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+.site-information {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-top: 48px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
 }

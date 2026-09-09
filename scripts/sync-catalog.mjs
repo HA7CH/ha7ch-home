@@ -81,6 +81,7 @@ const projects = repos.filter((repo) => !repo.private && !repo.archived && publi
 for (const name of publicRepos) {
   if (!projects.some((project) => project.id === name)) throw new Error(`Public project not found: ${name}`);
 }
-const result = { syncedAt: new Date().toISOString(), events, projects };
+const syncedAt = new Date().toISOString();
+const result = { syncedAt, eventsSyncedAt: syncedAt, events, projects };
 await writeFile(new URL("src/content/catalog.generated.json", root), `${JSON.stringify(result, null, 2)}\n`);
 console.log(`Synced ${events.length} public mee7 events and ${projects.length} public GitHub projects.`);
