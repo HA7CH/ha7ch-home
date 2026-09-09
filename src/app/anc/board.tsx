@@ -133,7 +133,7 @@ export default function Board() {
   window.addEventListener('keydown', handle);
   return () => window.removeEventListener('keydown', handle);
  }, []);
- return <main style={viewportStyle} className={`${s.board} ${portrait?s.portrait:''}`} data-aspect={portrait?'2:3':'auto'} aria-keyshortcuts="Shift+V F" data-theme="kumo" data-mode={mode} lang="zh-CN">
+ return <main style={viewportStyle} className={`${s.board} ${portrait?s.portrait:''}`} data-aspect={portrait?'3:4':'auto'} aria-keyshortcuts="Shift+V F" data-theme="kumo" data-mode={mode} lang="zh-CN">
  {fullscreenError && <p role="alert" className={s.fullscreenError}>{fullscreenError}</p>}
  <LayoutGroup><div className={`${s.grid} ${active !== null ? s.hasExpanded : ''}`}>
  {cards.map((c,i)=><MotionCard layout layoutDependency={`${active}-${portrait}`} transition={{layout:layoutTransition}} style={{borderRadius:8,boxShadow:"var(--color-kumo-line) 0px 0px 0px 1px"}} key={c.id} className={`${s.card} ${s[c.type]} ${active===i?s.expanded:''}`}>
