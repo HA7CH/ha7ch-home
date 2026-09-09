@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { motion, LayoutGroup, useReducedMotion } from 'motion/react';
 import { Button } from '@cloudflare/kumo/components/button';
 import { LayerCard } from '@cloudflare/kumo/components/layer-card';
@@ -85,8 +85,56 @@ export default function Board() {
  useEffect(()=>{ const media=window.matchMedia('(prefers-color-scheme: dark)'); const sync=()=>setMode(media.matches?'dark':'light'); sync(); media.addEventListener('change',sync); return ()=>media.removeEventListener('change',sync); },[]);
  const [active, setActive] = useState<number | null>(null);
  const [portrait, setPortrait] = useState(true);
- useEffect(()=>{ const handle=(e:KeyboardEvent)=>{if(e.key==='Escape')setActive(null); const target=e.target; if(e.repeat || e.isComposing || (target instanceof HTMLElement && (target.isContentEditable || target.closest('input,textarea,select')))) return; if(e.code==='KeyV' && e.shiftKey && !e.metaKey && !e.ctrlKey && !e.altKey){e.preventDefault();setPortrait(value=>!value);}};window.addEventListener('keydown',handle);return ()=>window.removeEventListener('keydown',handle);},[]);
- return <main className={`${s.board} ${portrait?s.portrait:''}`} data-aspect={portrait?'2:3':'auto'} aria-keyshortcuts="Shift+V" data-theme="kumo" data-mode={mode} lang="zh-CN">
+ const [viewportStyle, setViewportStyle] = useState<CSSProperties>({});
+ useEffect(() => {
+  const viewport = window.visualViewport;
+  const sync = () => setViewportStyle({
+   '--canvas-width': `${viewport?.width ?? window.innerWidth}px`,
+   '--canvas-height': `${viewport?.height ?? window.innerHeight}px`,
+   '--canvas-top': `${viewport?.offsetTop ?? 0}px`,
+   '--canvas-left': `${viewport?.offsetLeft ?? 0}px`,
+  } as CSSProperties);
+  sync();
+  window.addEventListener('resize', sync);
+  document.addEventListener('fullscreenchange', sync);
+  viewport?.addEventListener('resize', sync);
+  viewport?.addEventListener('scroll', sync);
+  return () => {
+   window.removeEventListener('resize', sync);
+   document.removeEventListener('fullscreenchange', sync);
+   viewport?.removeEventListener('resize', sync);
+   viewport?.removeEventListener('scroll', sync);
+  };
+ }, []);
+ const [fullscreenError, setFullscreenError] = useState('');
+ useEffect(() => {
+  const handle = (e: KeyboardEvent) => {
+   const target = e.target;
+   if (e.repeat || e.isComposing || (target instanceof HTMLElement && (target.isContentEditable || target.closest('input,textarea,select')))) return;
+   if (e.key === 'Escape' && !document.fullscreenElement) setActive(null);
+   if (e.metaKey || e.ctrlKey || e.altKey) return;
+   if (e.code === 'KeyV' && e.shiftKey) {
+    e.preventDefault();
+    setPortrait(value => !value);
+   }
+   if (e.code === 'KeyF' && !e.shiftKey) {
+    e.preventDefault();
+    setFullscreenError('');
+    if (!document.fullscreenEnabled) {
+     setFullscreenError('当前浏览器不支持页面全屏，请使用浏览器的全屏功能。');
+     return;
+    }
+    const change = document.fullscreenElement
+     ? document.exitFullscreen()
+     : document.documentElement.requestFullscreen();
+    void change.catch(() => setFullscreenError('无法进入全屏，请重试或使用浏览器的全屏功能。'));
+   }
+  };
+  window.addEventListener('keydown', handle);
+  return () => window.removeEventListener('keydown', handle);
+ }, []);
+ return <main style={viewportStyle} className={`${s.board} ${portrait?s.portrait:''}`} data-aspect={portrait?'2:3':'auto'} aria-keyshortcuts="Shift+V F" data-theme="kumo" data-mode={mode} lang="zh-CN">
+ {fullscreenError && <p role="alert" className={s.fullscreenError}>{fullscreenError}</p>}
  <LayoutGroup><div className={`${s.grid} ${active !== null ? s.hasExpanded : ''}`}>
  {cards.map((c,i)=><MotionCard layout layoutDependency={`${active}-${portrait}`} transition={{layout:layoutTransition}} style={{borderRadius:8,boxShadow:"var(--color-kumo-line) 0px 0px 0px 1px"}} key={c.id} className={`${s.card} ${s[c.type]} ${active===i?s.expanded:''}`}>
  {active===i ? <motion.section key="expanded" layout="position" className={s.expandedContent} aria-label={c.title} initial={{opacity:0}} animate={{opacity:1}} transition={{layout:layoutTransition,opacity:{duration:reduceMotion?0:.14}}}>

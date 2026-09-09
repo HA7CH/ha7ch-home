@@ -205,3 +205,9 @@
 .portrait .grid:not(.hasExpanded) .harness .preview>p{margin:0;padding:0;line-height:1.7}
 .portrait .grid:not(.hasExpanded) .origin .preview>p{padding-top:14px}
 @container(max-width:440px){.portrait .grid:not(.hasExpanded) .harness .preview{grid-template-columns:1fr;align-content:center;gap:10px}.portrait .grid:not(.hasExpanded) .harness .preview>p{font-size:12px!important;line-height:1.5}}
+
+.fullscreenError{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:100;padding:10px 16px;background:#171717;color:#fff;border-radius:8px;font-size:14px;max-width:90vw}
+
+/* Explicit border-box dimensions keep Safari's visible canvas within the window. */
+.board{height:var(--canvas-height,100dvh);box-sizing:border-box}
+.board.portrait{left:calc(var(--canvas-left,0px) + var(--canvas-width,100vw)/2);top:calc(var(--canvas-top,0px) + var(--canvas-height,100dvh)/2);width:min(var(--canvas-width,100vw),calc(var(--canvas-height,100dvh)*2/3));height:min(var(--canvas-height,100dvh),calc(var(--canvas-width,100vw)*3/2));aspect-ratio:auto;margin:0}
