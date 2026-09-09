@@ -211,3 +211,9 @@
 /* Explicit border-box dimensions keep Safari's visible canvas within the window. */
 .board{height:var(--canvas-height,100dvh);box-sizing:border-box}
 .board.portrait{left:calc(var(--canvas-left,0px) + var(--canvas-width,100vw)/2);top:calc(var(--canvas-top,0px) + var(--canvas-height,100dvh)/2);width:min(var(--canvas-width,100vw),calc(var(--canvas-height,100dvh)*2/3));height:min(var(--canvas-height,100dvh),calc(var(--canvas-width,100vw)*3/2));aspect-ratio:auto;margin:0}
+
+/* Recording canvas: fixed pure black, independent of the system theme. */
+:global(html):has(.board),:global(body):has(.board){background:#000!important;color-scheme:dark}
+.board[data-mode="dark"]{--color-kumo-base:#000;background:#000}
+.board .card,.board .card.expanded:hover,.board .cameraScreen{background:#000!important}
+.board .logo{filter:brightness(0) invert(1)}
