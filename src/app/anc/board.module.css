@@ -247,3 +247,31 @@
 .freeFrame{width:100%}
 
 .verticalFrame .board.portrait{top:9.5%;width:var(--board-width,600px);height:calc(var(--board-width,600px)*4/3);zoom:var(--board-scale,1);aspect-ratio:auto}
+
+/* Fit the landscape design as a whole instead of shrinking its rows under fixed text. */
+.freeFrame{position:fixed;left:calc(var(--canvas-left,0px) + var(--canvas-width,100vw)/2);top:calc(var(--canvas-top,0px) + var(--canvas-height,100dvh)/2);transform:translate(-50%,-50%);width:calc(1600px * var(--wide-scale,1));height:calc(1000px * var(--wide-scale,1))}
+.freeFrame .board{width:1600px;max-width:none;height:1000px;zoom:var(--wide-scale,1);padding:20px}
+.freeFrame .grid{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:12px}
+.freeFrame .definition{grid-column:span 5;grid-row:span 2}
+.freeFrame .origin,.freeFrame .shift{grid-column:span 7;grid-row:auto}
+.freeFrame .harness{grid-column:span 5;grid-row:auto}
+.freeFrame .evidence{grid-column:span 4;grid-row:auto}
+.freeFrame .camera{grid-column:span 3;grid-row:auto}
+.freeFrame .hasExpanded{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(5,minmax(0,1fr))}
+.freeFrame .hasExpanded .expanded{grid-column:1/4!important;grid-row:1/6!important}
+.freeFrame .hasExpanded .card:not(.expanded){grid-column:4!important;grid-row:auto!important}
+.freeFrame .definition .anc{font-size:120px}
+.freeFrame .card{padding:24px!important}
+.freeFrame .card.camera,.freeFrame .card.expanded{padding:0!important}
+.freeFrame .cameraBio{grid-template-columns:1fr 1.3fr}
+.compact{height:auto;min-height:0;justify-content:flex-start}
+.compact strong,.compact span{flex-shrink:0}
+/* Reading rhythm follows the logical board, not the physical browser height. */
+.portrait .reading{padding:20px}
+.portrait .reading>.logo{width:110px;margin-bottom:14px}
+.portrait .reading h2{font-size:28px;margin-bottom:10px}
+.portrait .reading .summary{margin-bottom:12px}
+.portrait .reading .prose p{line-height:1.5;margin-bottom:8px}
+.portrait .reading .prose p:last-child{margin-bottom:0}
+.portrait .reading .research{gap:12px;margin-top:14px;padding-top:14px}
+.portrait .camera .reading{padding:0}

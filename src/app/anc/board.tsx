@@ -90,6 +90,7 @@ export default function Board() {
   const viewport = window.visualViewport;
   const sync = () => setViewportStyle({
    '--canvas-width': `${viewport?.width ?? window.innerWidth}px`,
+   '--wide-scale': Math.min((viewport?.width ?? window.innerWidth)/1600, (viewport?.height ?? window.innerHeight)/1000),
    '--board-width': `${Math.max(600, Math.min(viewport?.width ?? window.innerWidth, (viewport?.height ?? window.innerHeight) * 9 / 16))}px`,
    '--board-scale': Math.min(1, Math.min(viewport?.width ?? window.innerWidth, (viewport?.height ?? window.innerHeight) * 9 / 16) / 600),
    '--canvas-height': `${viewport?.height ?? window.innerHeight}px`,
