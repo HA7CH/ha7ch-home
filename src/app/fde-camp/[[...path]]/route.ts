@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
-import { CAMP_PATH, COOKIE_NAME, SESSION_SECONDS, sameOriginSubmission, allowAttempt, configuration, decryptArtifact, destination, issueSession, verifyPassword, verifySession } from '@/lib/fde-camp-access';
+import { CAMP_PATH, COOKIE_NAME, SESSION_SECONDS, sameOriginSubmission, allowAttempt, configuration, decryptArtifact, decryptClassroomArtifact, destination, issueSession, verifyPassword, verifySession } from '@/lib/fde-camp-access';
 import { indexView, loginView } from '@/lib/fde-camp-view';
 
 export const runtime = 'nodejs';
@@ -32,14 +32,14 @@ function cookieOptions(request: NextRequest, maxAge: number) {
 export async function GET(request: NextRequest, context: Context) {
   const part = (await context.params).path || [];
   const name = part.join('/');
-  if (part.length > 1 || !['', 'book', 'book.html', 'slides', 'slides.html', 'login'].includes(name)) return html('Not found', 404);
+  if (part.length > 1 || !['', 'book', 'book.html', 'slides', 'slides.html', 'setup', 'setup.html', 'lesson', 'lesson.html', 'login'].includes(name)) return html('Not found', 404);
   if (!configuration()) return html('课程暂时无法访问，请稍后再试。', 503);
   const target = destination(name);
   if (!verifySession(request.cookies.get(COOKIE_NAME)?.value)) return html(loginView(target), target ? 401 : 200);
   if (!target) return html(indexView());
   try {
     const encrypted = await readFile(join(process.cwd(), 'private', 'fde-camp-20260913', `${target}.enc`));
-    return html(decryptArtifact(encrypted));
+    return html(['setup','lesson'].includes(target) ? decryptClassroomArtifact(encrypted) : decryptArtifact(encrypted));
   } catch {
     return html('课程暂时无法读取，请稍后再试。', 503);
   }

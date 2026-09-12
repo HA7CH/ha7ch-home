@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { randomBytes, scryptSync, createCipheriv } from 'node:crypto';
 import { gzipSync } from 'node:zlib';
-import { configuration, verifyPassword, issueSession, verifySession, deriveKey, decryptArtifact, destination, allowAttempt } from '../src/lib/fde-camp-access.ts';
+import { configuration, verifyPassword, issueSession, verifySession, deriveKey, decryptArtifact, decryptClassroomArtifact, destination, allowAttempt } from '../src/lib/fde-camp-access.ts';
 
 test('password, sessions and encrypted artifacts fail closed', async () => {
   const password = 'test-fixture-only';
@@ -50,4 +50,29 @@ test('same-origin forms work with privacy policies and reject cross-site request
   assert.equal(sameOriginSubmission(null, 'cross-site', 'https://ha7ch.com'), false);
   assert.equal(sameOriginSubmission(null, null, 'https://ha7ch.com'), false);
   assert.equal(sameOriginSubmission('https://other.example', 'same-origin', 'https://ha7ch.com'), false);
+});
+
+
+test('classroom pages remain in the authenticated route allowlist', () => {
+  for (const page of ['setup', 'lesson']) {
+    assert.equal(destination(page), page);
+    assert.equal(destination(page + '.html'), page);
+  }
+  for (const value of ['../setup', 'setup/../../private', 'https://example.com/setup', '//evil.com']) assert.equal(destination(value), '');
+});
+
+
+test('new classroom content uses an independent key and fails closed', () => {
+  const key = randomBytes(32), iv = randomBytes(12);
+  const cipher = createCipheriv('aes-256-gcm', deriveKey(key, 'content'), iv);
+  const data = Buffer.concat([cipher.update(gzipSync('<h1>Classroom fixture</h1>')), cipher.final()]);
+  const encrypted = Buffer.concat([iv, cipher.getAuthTag(), data]);
+  delete process.env.FDE_CAMP_CLASSROOM_KEY;
+  assert.throws(() => decryptClassroomArtifact(encrypted));
+  process.env.FDE_CAMP_CLASSROOM_KEY = randomBytes(32).toString('hex');
+  assert.throws(() => decryptClassroomArtifact(encrypted));
+  process.env.FDE_CAMP_CLASSROOM_KEY = key.toString('hex');
+  assert.equal(decryptClassroomArtifact(encrypted), '<h1>Classroom fixture</h1>');
+  assert.throws(() => decryptArtifact(encrypted));
+  delete process.env.FDE_CAMP_CLASSROOM_KEY;
 });
