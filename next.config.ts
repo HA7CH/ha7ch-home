@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   // The combined OG routes read local font/SVG files at runtime; bundle them
   // into each serverless function so production doesn't 500 on a missing file.
   outputFileTracingIncludes: {
+    "/fde-camp/[[...path]]": ["./private/fde-camp-20260913/*.enc"],
     "/writing/[slug]/og-combined": ["./public/fonts/**", "./public/ha7ch.svg"],
     "/writing/[slug]/en/og-combined": ["./public/fonts/**", "./public/ha7ch.svg"],
     "/writing/[slug]/zh/og-combined": ["./public/fonts/**", "./public/ha7ch.svg"],
