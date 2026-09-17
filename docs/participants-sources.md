@@ -44,6 +44,15 @@
 - https://github.com/HA7CH/job-pro/commit/8db55e63a9f0725a6ee35394b016176648dfa819
 - https://github.com/HA7CH/job-pro/commit/bd7d0ec76807ae5738400cd1351196958711b02d
 
+### ebrahimeolakey · fde-playground / ai-native-company（2026-09-17 追加）
+
+fde-playground 的「老板酒局」off-record 事件：对话组件、LLM 调用、人物设定与玩法页的逻辑改动；ai-native-company 的第二个 reference deployment：harness-proxy 的 system prompt 代理、tool turn 过滤器及其测试。
+- https://github.com/HA7CH/fde-playground/commit/6d45d97d9028067714beeddc8173ccc476da52a7
+- https://github.com/HA7CH/ai-native-company/commit/7c9c4e1aac44150d099d85d6420102cf7bcf6fc3
+- https://github.com/HA7CH/ai-native-company/commit/0607c49e5292db4720b3683586e9c526467dfb78
+
+公开默认分支上可追到的实质代码提交为 3 项，低于本文暂定的 5 次门槛；另有 ha7ch-school 一次素材提交（不计入）与私有仓库 mee7 的多次合并 PR（按规则不作公开证据）。本条由本人申请加入，是否维持门槛例外由维护者复核决定。GitHub 公开 location 为 null，浮签不显示第二行。
+
 ## 展示规则
 
 - 保留原来的单排叠放头像、spring 展开和倾斜浮签。不得自动改成网格或拆成多排。
