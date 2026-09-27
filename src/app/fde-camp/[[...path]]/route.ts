@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { CAMP_PATH, COOKIE_NAME, SESSION_SECONDS, sameOriginSubmission, allowAttempt, configuration, decryptArtifact, decryptClassroomArtifact, destination, issueSession, verifyPassword, verifySession } from '@/lib/fde-camp-access';
 import { indexView, loginView } from '@/lib/fde-camp-view';
+import { renderCampArtifact } from '@/lib/fde-camp-content';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -39,7 +40,8 @@ export async function GET(request: NextRequest, context: Context) {
   if (!target) return html(indexView());
   try {
     const encrypted = await readFile(join(process.cwd(), 'private', 'fde-camp-20260913', `${target}.enc`));
-    return html(['setup','lesson'].includes(target) ? decryptClassroomArtifact(encrypted) : decryptArtifact(encrypted));
+    const content = ['setup','lesson'].includes(target) ? decryptClassroomArtifact(encrypted) : decryptArtifact(encrypted);
+    return html(renderCampArtifact(target, content));
   } catch {
     return html('课程暂时无法读取，请稍后再试。', 503);
   }
