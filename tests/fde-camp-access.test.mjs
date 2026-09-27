@@ -76,3 +76,23 @@ test('new classroom content uses an independent key and fails closed', () => {
   assert.throws(() => decryptArtifact(encrypted));
   delete process.env.FDE_CAMP_CLASSROOM_KEY;
 });
+
+
+test('course presentation adds Mac route while retaining cloud instructions and assets', async () => {
+  const { renderCampArtifact } = await import('../src/lib/fde-camp-content.ts');
+  const { indexView } = await import('../src/lib/fde-camp-view.ts');
+  const setup = '<html><head><style></style></head><body><aside class="margin-nav">old</aside><details class="contents">old</details><article class="writing-body"><h1>从一台 AWS 到你自己的 ANC</h1><h2 id="step-1">AWS fixture</h2><p>unchanged cloud instructions</p></article></body></html>';
+  const result = renderCampArtifact('setup', setup);
+  assert.ok(result.indexOf('id="mac-start"') < result.indexOf('id="aws-route"'));
+  assert.match(result, /unchanged cloud instructions/);
+  assert.match(result, /Mac 常驻机器人尚不在本节验收范围/);
+  assert.match(result, /<\/details><\/article>/);
+  const slides = '<title>ANC FDE Camp</title><div class="brand-actions"></div><h1>FDE Camp</h1><img src="data:image/png;base64,abc">';
+  const deck = renderCampArtifact('slides', slides);
+  assert.match(deck, /<h1>ANC CAMP<\/h1>/);
+  assert.match(deck, /href="\/fde-camp\/setup#mac-start"/);
+  assert.match(deck, /data:image\/png;base64,abc/);
+  assert.doesNotMatch(deck, /FDE Camp/);
+  assert.match(indexView(), /Mac 本机/);
+  assert.doesNotMatch(indexView(), /FDE Camp|FDE CAMP/);
+});
