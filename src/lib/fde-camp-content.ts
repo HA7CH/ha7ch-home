@@ -15,6 +15,6 @@ export function renderCampArtifact(target: string, source: string): string {
   html = html.replace(/<details class="contents">[\s\S]*?<\/details>/, macContents);
   html = html.replace('<article class="writing-body">', '<article class="writing-body">' + macGuide + '<details id="aws-route"><summary>选做：AWS 云端部署与飞书常驻服务（Linux x86_64）</summary>');
   html = html.replace('</article>', '</details></article>');
-  html = html.replace('</style>', '.contents>a{display:block;margin:10px 0}#aws-route>summary{cursor:pointer;font-size:1.2em;font-weight:600;padding:24px 0}#aws-route{margin-top:48px;border-top:1px solid #888}</style>');
+  html = html.replace('</style>', '.contents>a{display:block;margin:10px 0}#aws-route>summary{cursor:pointer;font-size:1.2em;font-weight:600;padding:24px 0}#aws-route{margin-top:48px;border-top:1px solid #888}@media screen and (min-width:1280px){.margin-nav{left:clamp(24px,2.5vw,48px);width:180px}}@media screen and (max-width:1279px){.margin-nav{display:none}}</style>');
   return html;
 }
