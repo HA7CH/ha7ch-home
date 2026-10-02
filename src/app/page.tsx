@@ -210,6 +210,7 @@ export default function Home() {
       <nav className="site-information" aria-label="Site information">
         <BasicLink href="/about">About</BasicLink>
         <BasicLink href="/docs">Docs</BasicLink>
+        <BasicLink href="/SKILL.md">Agents / Skill</BasicLink>
         <BasicLink href="/contact">Contact</BasicLink>
         <BasicLink href="/privacy">Privacy</BasicLink>
       </nav>

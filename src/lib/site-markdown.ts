@@ -12,7 +12,7 @@ export function siteMarkdown(path: string): string | undefined {
     `## Events\n\n${events.map(e => `- [${e.title}](${e.href}): ${e.schedule} · ${e.meta}`).join("\n")}`,
     `## Projects\n\n${projects.filter(p => !p.dead && p.href).map(p => `- [${p.title}](${p.href}): ${p.description ?? ""}`).join("\n")}`,
     `## Writing\n\n${articles.map(a => `- [${a.titleEn}](https://ha7ch.com/writing/${a.slug}.md)`).join("\n")}`,
-    `## Information\n\n${Object.entries(siteInfo).map(([slug,p]) => `- [${p.title}](https://ha7ch.com/${slug}.md)`).join("\n")}`
+    `## Information\n\n- [HA7CH public Skill](https://ha7ch.com/SKILL.md)\n${Object.entries(siteInfo).map(([slug,p]) => `- [${p.title}](https://ha7ch.com/${slug}.md)`).join("\n")}`
   ].join("\n\n") + "\n";
   const info = infoMarkdown(path.slice(1));
   if (info) return info;

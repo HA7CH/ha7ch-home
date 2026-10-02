@@ -47,10 +47,10 @@ export const departments = [
   {
     group: "Investment",
     title: "ANC Fund",
-    homeDescription: "发起 AI Native 企业的投资与孵化计划。",
+    homeDescription: "开展 AI Native 企业投资与孵化业务。",
     href: "/anc-fund",
     description:
-      "AI Native Company 投资与孵化计划。关注经过真实业务验证的企业、FDE 项目与 AI Native 创业公司，探索资本、FDE 和 ANC 能力的共同投入。当前处于发起与合作阶段。",
+      "AI Native Company 投资与孵化计划。关注经过真实业务验证的企业、FDE 项目与 AI Native 创业公司，探索资本、FDE 和 ANC 能力的共同投入。投资与孵化业务已启动，具体合作以项目沟通为准。",
     meta: "投资孵化",
     kind: "department" as const
   }
@@ -78,9 +78,9 @@ export const offerings = [
   },
   {
     group: "FDE",
-    title: "FDE Camp",
+    title: "ANC Camp",
     homeDescription: "用真实企业案例，练习 FDE 判断与交付。",
-    href: "https://github.com/HA7CH/anc-fde-camp",
+    href: "https://camp.ha7ch.com/",
     description:
       "先看懂企业，再设计 AI 组织架构。围绕五类真实企业案例，学习 AI 战略、ANC 架构与现场交付，让方法经得起实际业务检验。",
     meta: "FDE / Builder",
