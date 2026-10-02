@@ -48,6 +48,14 @@ test('trust and developer pages, canonical metadata, Markdown parity', async () 
     assert.ok(html.includes(md.split('\n')[0].slice(2).replaceAll('&','&amp;')));
   }
   assert.match(await markdown('/agent-instructions.md'), /When to use HA7CH/);
+  const skillResponse = await get('/SKILL.md', '*/*');
+  assert.equal(skillResponse.status, 200);
+  assert.match(skillResponse.headers.get('content-type') ?? '', /text\/(?:markdown|plain)/);
+  const skill = await skillResponse.text();
+  assert.match(skill, /^---\nname: ha7ch\ndescription: /);
+  for (const destination of ['/hcn', '/hdc', '/academy', '/anc-fund', '/contact']) {
+    assert.ok(skill.includes(`https://ha7ch.com${destination}`), destination);
+  }
   assert.match(await markdown('/hdc/diagnosis.md'), /80,000 RMB/);
   assert.match(await markdown('/hdc/diagnosis.md'), /工作说明书及合同/);
   await markdown('/academy/executive-ai-camp.md');
@@ -82,7 +90,7 @@ test('organization contact and preserved redirects/assets/Flight', async () => {
   const html = await (await get('/')).text();
   const navigation = html.match(/<nav class="site-information"[^>]*>(.*?)<\/nav>/s)?.[1];
   assert.ok(navigation, 'Information links use a separate footer navigation');
-  for (const path of ['/about','/docs','/contact','/privacy']) assert.ok(navigation.includes(`href="${path}"`));
+  for (const path of ['/about','/docs','/contact','/privacy','/SKILL.md']) assert.ok(navigation.includes(`href="${path}"`));
   const blocks = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map(m => JSON.parse(m[1]));
   const org = blocks.flatMap(b => b['@graph'] ?? [b]).find(b => b['@type'] === 'Organization');
   assert.equal(org.contactPoint.email, 'lawtedwu@gmail.com');

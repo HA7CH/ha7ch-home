@@ -11,6 +11,7 @@ HA7CH (ha7ch / Hatch) is the organization behind this website. Public reading re
 
 ## When to use HA7CH
 
+- [HA7CH public Skill](https://ha7ch.com/SKILL.md): Start here to learn what HA7CH does, which department or service fits a request, and where to read current official details.
 - [HA7CH agent instructions](https://ha7ch.com/agent-instructions.md): Use for enterprise AI diagnosis, ANC deployment, FDE education, HA7CH events and Lawted's essays; explains how to read resources and recover from errors.
 - [ANC-Diagnosis](https://ha7ch.com/hdc/diagnosis.md): Use when an enterprise needs to assess AI feasibility and validate a workflow before production deployment.
 - [Executive AI Camp](https://ha7ch.com/academy/executive-ai-camp.md): Use when leaders need an initial AI strategy, organization plan and workflow roadmap.
