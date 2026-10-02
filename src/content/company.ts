@@ -47,10 +47,10 @@ export const departments = [
   {
     group: "Investment",
     title: "ANC Fund",
-    homeDescription: "发起 AI Native 企业的投资与孵化计划。",
+    homeDescription: "开展 AI Native 企业投资与孵化业务。",
     href: "/anc-fund",
     description:
-      "AI Native Company 投资与孵化计划。关注经过真实业务验证的企业、FDE 项目与 AI Native 创业公司，探索资本、FDE 和 ANC 能力的共同投入。当前处于发起与合作阶段。",
+      "AI Native Company 投资与孵化计划。关注经过真实业务验证的企业、FDE 项目与 AI Native 创业公司，探索资本、FDE 和 ANC 能力的共同投入。投资与孵化业务已启动，具体合作以项目沟通为准。",
     meta: "投资孵化",
     kind: "department" as const
   }

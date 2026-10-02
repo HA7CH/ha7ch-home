@@ -12,7 +12,7 @@ HA7CH works to hatch AI Native Companies: organizations where people and agents 
 - [HCN](https://ha7ch.com/hcn) is the creator network for AI content, collaboration, and brand work.
 - [HDC](https://ha7ch.com/hdc) works with enterprises on AI diagnosis and ANC deployment. ANC is a shared AI operating layer connecting business context, tasks, people, agents, and permissions.
 - [HA7CH Academy](https://ha7ch.com/academy) offers practical AI education for enterprise leaders, FDEs, and builders.
-- [ANC Fund](https://ha7ch.com/anc-fund) explores investment and incubation of AI Native Companies. It is in the formation and collaboration stage.
+- [ANC Fund](https://ha7ch.com/anc-fund) 已启动 AI Native 企业投资与孵化业务，关注经过真实业务验证的企业与 FDE 项目。
 
 For an enterprise assessing a workflow, read [ANC-Diagnosis](https://ha7ch.com/hdc/diagnosis). For leaders planning an AI strategy, read [Executive AI Camp](https://ha7ch.com/academy/executive-ai-camp). For FDE practice, see the official [FDE Camp](https://github.com/HA7CH/anc-fde-camp) project. For agent-led learning, see [HA7CH School](https://github.com/HA7CH/ha7ch-school).
 
