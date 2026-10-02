@@ -20,7 +20,7 @@ HA7CH (ha7ch / Hatch) is the organization behind this website. Public reading re
 
 - [HA7CH developer documentation](https://ha7ch.com/docs.md): HTTP content negotiation, public skills, source repositories and access requirements.
 - [HA7CH School](https://github.com/HA7CH/ha7ch-school): Agent-led learning materials and installation instructions.
-- [FDE Camp](https://github.com/HA7CH/anc-fde-camp): Enterprise field-delivery practice.
+- [ANC Camp](https://camp.ha7ch.com/SKILL.md): Current FDE and ANC training program (formerly FDE Camp); read its published program for current details.
 - [HA7CH source](https://github.com/HA7CH/ha7ch-home): This website's code.
 - [Sitemap](https://ha7ch.com/sitemap.xml): Public URL discovery.
 

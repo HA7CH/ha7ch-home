@@ -78,9 +78,9 @@ export const offerings = [
   },
   {
     group: "FDE",
-    title: "FDE Camp",
+    title: "ANC Camp",
     homeDescription: "用真实企业案例，练习 FDE 判断与交付。",
-    href: "https://github.com/HA7CH/anc-fde-camp",
+    href: "https://camp.ha7ch.com/",
     description:
       "先看懂企业，再设计 AI 组织架构。围绕五类真实企业案例，学习 AI 战略、ANC 架构与现场交付，让方法经得起实际业务检验。",
     meta: "FDE / Builder",

@@ -14,10 +14,10 @@ HA7CH works to hatch AI Native Companies: organizations where people and agents 
 - [HA7CH Academy](https://ha7ch.com/academy) offers practical AI education for enterprise leaders, FDEs, and builders.
 - [ANC Fund](https://ha7ch.com/anc-fund) 已启动 AI Native 企业投资与孵化业务，关注经过真实业务验证的企业与 FDE 项目。
 
-For an enterprise assessing a workflow, read [ANC-Diagnosis](https://ha7ch.com/hdc/diagnosis). For leaders planning an AI strategy, read [Executive AI Camp](https://ha7ch.com/academy/executive-ai-camp). For FDE practice, see the official [FDE Camp](https://github.com/HA7CH/anc-fde-camp) project. For agent-led learning, see [HA7CH School](https://github.com/HA7CH/ha7ch-school).
+For an enterprise assessing a workflow, read [ANC-Diagnosis](https://ha7ch.com/hdc/diagnosis). For leaders planning an AI strategy, read [Executive AI Camp](https://ha7ch.com/academy/executive-ai-camp). For hands-on FDE and ANC training, read the current [ANC Camp Skill](https://camp.ha7ch.com/SKILL.md) (formerly FDE Camp). For agent-led learning, see [HA7CH School](https://github.com/HA7CH/ha7ch-school).
 
 ## Follow current sources
 
-Read [the HA7CH homepage](https://ha7ch.com/) for current services and projects, [llms.txt](https://ha7ch.com/llms.txt) for the public content index, and [developer docs](https://ha7ch.com/docs) for available Markdown pages. Check each official [event page](https://mee7.ha7ch.com/) for current dates and registration. For ANC Night specifically, read its [event Skill](https://night.ha7ch.com/SKILL.md); its ticket details belong there.
+Read [the HA7CH homepage](https://ha7ch.com/) for current services and projects, [llms.txt](https://ha7ch.com/llms.txt) for the public content index, and [developer docs](https://ha7ch.com/docs) for available Markdown pages. For the ANC Night community gathering, read its [official event Skill](https://night.ha7ch.com/SKILL.md). ANC Camp is a training program; read its [current Skill](https://camp.ha7ch.com/SKILL.md) and [program details](https://camp.ha7ch.com/references/program.md). Check those pages for current dates, availability, and terms rather than relying on this overview.
 
 For enterprise diagnosis, education, or collaboration, use the public [contact page](https://ha7ch.com/contact) or email [Lawted](mailto:lawtedwu@gmail.com). Do not infer a confirmed partnership, availability, or price from an older page; check the current official destination before relaying details.

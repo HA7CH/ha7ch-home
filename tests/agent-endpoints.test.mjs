@@ -56,6 +56,9 @@ test('trust and developer pages, canonical metadata, Markdown parity', async () 
   for (const destination of ['/hcn', '/hdc', '/academy', '/anc-fund', '/contact']) {
     assert.ok(skill.includes(`https://ha7ch.com${destination}`), destination);
   }
+  assert.match(skill, /https:\/\/night\.ha7ch\.com\/SKILL\.md/);
+  assert.match(skill, /https:\/\/camp\.ha7ch\.com\/SKILL\.md/);
+  assert.ok(!skill.includes('https://mee7.ha7ch.com/'), 'event discovery should not send visitors to the organizer login');
   assert.match(await markdown('/hdc/diagnosis.md'), /80,000 RMB/);
   assert.match(await markdown('/hdc/diagnosis.md'), /工作说明书及合同/);
   await markdown('/academy/executive-ai-camp.md');
