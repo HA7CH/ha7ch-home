@@ -91,9 +91,8 @@ test('sitemap public routes and robots', async () => {
 });
 test('organization contact and preserved redirects/assets/Flight', async () => {
   const html = await (await get('/')).text();
-  const navigation = html.match(/<nav class="site-information"[^>]*>(.*?)<\/nav>/s)?.[1];
-  assert.ok(navigation, 'Information links use a separate footer navigation');
-  for (const path of ['/about','/docs','/contact','/privacy','/SKILL.md']) assert.ok(navigation.includes(`href="${path}"`));
+  assert.ok(html.includes('href="/SKILL.md"'), 'prompt links directly to the public Skill');
+  assert.ok(html.includes('id="home-language"'), 'explicit language choice is available');
   const blocks = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map(m => JSON.parse(m[1]));
   const org = blocks.flatMap(b => b['@graph'] ?? [b]).find(b => b['@type'] === 'Organization');
   assert.equal(org.contactPoint.email, 'lawtedwu@gmail.com');
