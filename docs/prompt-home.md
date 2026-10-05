@@ -22,3 +22,5 @@ The minimum repair adds a full HTTPS URL, an explicit response language and an i
 Native subagent trials were excluded from the blind results because they inherited company instructions despite being started without conversation history. No private knowledge was submitted to Gemini. No registration, message to HA7CH, or payment was attempted.
 
 The content-type and Skill edits are candidate changes, not yet proven on production. Required repository review is pending; production release and public semantic retest remain outstanding.
+
+A public About fallback was added after the MIME repair still did not let guest Gemini read the Skill. A fresh Chinese trial then correctly explained the company, four departments and ANC. Its follow-up revealed that the fallback page lacked Night/Camp distinctions and a direct contact, so those already-public facts and the programs' current Skill links were added to About. The Contact page's removed `/#events` anchor was replaced with the direct current Night/Camp Skill links. Neither page duplicates event dates or prices.
