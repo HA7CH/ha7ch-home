@@ -11,7 +11,7 @@ Validation for this change:
 - Browser at 1440×1000 and 390×844: Chinese → English → Chinese; each copied clipboard value exactly matched visible text, with no horizontal overflow.
 - Desktop/mobile visual inspection against the public Night homepage and supplied screenshot.
 
-The user has approved the preview. Production remains unchanged pending required review and the release checks below.
+The user approved the preview and authorized publication. The final application release is commit `496bcef936e63d08cc655ee8690fce940faaf192`, live at https://ha7ch.com/.
 
 ## Blind prompt trial (2026-10-06)
 
@@ -21,6 +21,15 @@ The minimum repair adds a full HTTPS URL, an explicit response language and an i
 
 Native subagent trials were excluded from the blind results because they inherited company instructions despite being started without conversation history. No private knowledge was submitted to Gemini. No registration, message to HA7CH, or payment was attempted.
 
-The content-type and Skill edits are candidate changes, not yet proven on production. Required repository review is pending; production release and public semantic retest remain outstanding.
+The content-type and Skill edits were published and read back from production. The target branch has no required review rules; Claude review was requested but has not returned. No reviewer approval is implied, and this agent did not merge the PR.
 
 A public About fallback was added after the MIME repair still did not let guest Gemini read the Skill. A fresh Chinese trial then correctly explained the company, four departments and ANC. Its follow-up revealed that the fallback page lacked Night/Camp distinctions and a direct contact, so those already-public facts and the programs' current Skill links were added to About. The Contact page's removed `/#events` anchor was replaced with the direct current Night/Camp Skill links. Neither page duplicates event dates or prices.
+
+
+## Final public verification
+
+The released homepage and Skill were read from ha7ch.com. The Skill matches the release source bytes and responds as text/plain UTF-8. The public endpoint suite passed 7/7. On the live homepage, actual clipboard content matched displayed Chinese/English/Chinese at 1440×1000 and 390×844, with a fresh default of Chinese and no horizontal overflow.
+
+New logged-out Gemini Flash-Lite conversations received only the Chinese or English prompt copied from the final public homepage. Both explicitly based their introductions on the official About fallback and explained the company and four departments. Follow-ups correctly described enterprise workflow diagnosis/deployment, ANC's shared operating layer, Night as a community gathering, Camp as hands-on training, and the public contact email. No event dates, pricing, bookings, inquiries or payments were invented or performed.
+
+This establishes useful bilingual company explanations in the tested guest Gemini condition. It does not establish direct Gemini loading of SKILL.md or compatibility with every model. Original retrieval failures, exclusion of contaminated native-agent trials, and repair iterations were preserved separately; HTTP success alone was never treated as semantic acceptance.
