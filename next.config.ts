@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async headers() {
+    // Some agent fetchers reject text/markdown. Keep the standard SKILL.md
+    // URL and Markdown body, served as universally readable UTF-8 text.
+    return [{ source: "/SKILL.md", headers: [{ key: "Content-Type", value: "text/plain; charset=utf-8" }] }];
+  },
   // The combined OG routes read local font/SVG files at runtime; bundle them
   // into each serverless function so production doesn't 500 on a missing file.
   outputFileTracingIncludes: {

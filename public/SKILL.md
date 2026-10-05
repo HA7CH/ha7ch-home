@@ -7,6 +7,8 @@ description: Explain HA7CH in the visitor’s language and guide questions about
 
 HA7CH works to hatch AI Native Companies: organizations where people and agents share work context, responsibilities, permissions, and results. Its public aim is “和 HA7CH 一起，孵化全球第一批 AI Native Company。”
 
+In plain language, HA7CH helps businesses decide where AI is useful, try it on real work, and deploy it into daily operations. It also trains leaders and builders, connects AI creators, and invests in and incubates AI Native businesses. “AI Native Company” describes the kind of company being built; in HA7CH's deployment services, ANC is the company's shared AI operating layer, not just an individual chatbot.
+
 ## Help the visitor
 
 Reply in the visitor’s language, including Chinese or English, even when a linked source uses another language. Preserve official names, URLs, prices and qualifications when translating. Start by answering the actual question; for a general introduction, briefly explain what HA7CH does and offer the most relevant next reading.
@@ -32,6 +34,6 @@ For an enterprise assessing a workflow, read [ANC-Diagnosis](https://ha7ch.com/h
 
 ## Follow current sources
 
-Read [the HA7CH homepage](https://ha7ch.com/) for current services and projects, [llms.txt](https://ha7ch.com/llms.txt) for the public content index, and [developer docs](https://ha7ch.com/docs) for available Markdown pages. For the ANC Night community gathering, read its [official event Skill](https://night.ha7ch.com/SKILL.md). ANC Camp is a training program; read its [current Skill](https://camp.ha7ch.com/SKILL.md) and [program details](https://camp.ha7ch.com/references/program.md). Check those pages for current dates, availability, and terms rather than relying on this overview.
+Read [About HA7CH](https://ha7ch.com/about) for the company overview, [llms.txt](https://ha7ch.com/llms.txt) for the public content index, and [developer docs](https://ha7ch.com/docs) for available Markdown pages. For the ANC Night community gathering, read its [official event Skill](https://night.ha7ch.com/SKILL.md). ANC Camp is a training program; read its [current Skill](https://camp.ha7ch.com/SKILL.md) and [program details](https://camp.ha7ch.com/references/program.md). Check those pages for current dates, availability, and terms rather than relying on this overview. If a source cannot be read, say what is missing; do not substitute old search snippets or another project's README for its current terms.
 
 For enterprise diagnosis, education, or collaboration, use the public [contact page](https://ha7ch.com/contact) or email [Lawted](mailto:lawtedwu@gmail.com). Do not infer a confirmed partnership, availability, or price from an older page; check the current official destination before relaying details.

@@ -50,7 +50,7 @@ test('trust and developer pages, canonical metadata, Markdown parity', async () 
   assert.match(await markdown('/agent-instructions.md'), /When to use HA7CH/);
   const skillResponse = await get('/SKILL.md', '*/*');
   assert.equal(skillResponse.status, 200);
-  assert.match(skillResponse.headers.get('content-type') ?? '', /text\/(?:markdown|plain)/);
+  assert.match(skillResponse.headers.get('content-type') ?? '', /text\/plain/);
   const skill = await skillResponse.text();
   assert.match(skill, /^---\nname: ha7ch\ndescription: /);
   for (const destination of ['/hcn', '/hdc', '/academy', '/anc-fund', '/contact']) {
@@ -74,7 +74,7 @@ test('llms file format and every local index target resolves', async () => {
   const paths = [...new Set([...md.matchAll(/\]\(https:\/\/ha7ch\.com([^)]*)\)/g)].map(m => m[1]))];
   await batches(paths, async (path) => {
     const r = await get(path, '*/*'); assert.equal(r.status,200,path);
-    if (path.endsWith('.md') || path.endsWith('.txt')) assert.match(r.headers.get('content-type'),/markdown/,path);
+    if (path.endsWith('.md') || path.endsWith('.txt')) assert.match(r.headers.get('content-type'),path === '/SKILL.md' ? /text\/plain/ : /markdown/,path);
     const body = await r.text();
     if (path.startsWith("/writing/") && path.endsWith(".md")) assert.ok(!body.startsWith("# HA7CH\n"), path);
   });

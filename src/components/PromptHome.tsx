@@ -36,7 +36,7 @@ export default function PromptHome() {
       <h1 className={styles.brand}><img src="/ha7ch-black.svg" alt="HA7CH" width="150" height="24" /></h1>
       <p className={styles.instruction}>copy this prompt to ur agent.</p>
       <div className={styles.promptRow}>
-        <p className={styles.prompt} ref={prompt}>{en ? "Read " : "请读取 "}<a href="/SKILL.md" type="text/markdown">ha7ch.com/SKILL.md</a>{en ? " and help me understand HA7CH." : "，帮我了解 HA7CH。"}</p>
+        <p className={styles.prompt} ref={prompt}>{en ? "Read " : "请读取 "}<a href="/SKILL.md" type="text/plain">https://ha7ch.com/SKILL.md</a>{en ? " and introduce HA7CH in English. If you cannot read it, say so; do not guess." : "，用中文介绍 HA7CH。读不到请直说，勿猜测。"}</p>
         <button type="button" className={styles.copy} onClick={copy} aria-label={en ? "Copy prompt" : "复制提示词"} title={en ? "Copy prompt" : "复制提示词"}>
           <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><rect x="8" y="8" width="12" height="13" rx="1" /><path d="M16 8V3H3v13h5" /></svg>
         </button>
