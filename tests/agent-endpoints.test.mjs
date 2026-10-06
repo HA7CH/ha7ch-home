@@ -91,10 +91,10 @@ test('sitemap public routes and robots', async () => {
 });
 test('organization contact and preserved redirects/assets/Flight', async () => {
   const html = await (await get('/')).text();
-  assert.ok(html.includes('href="/SKILL.md"'), 'root introduction links directly to the public Skill');
+  assert.ok(html.includes('<link rel="alternate" type="text/plain" href="https://ha7ch.com/SKILL.md"'), 'root metadata preserves the public Skill alternate');
   assert.ok(html.includes('id="home-language"'), 'explicit language choice is available');
   assert.ok(html.includes('帮我了解 ha7ch.com'), 'short Chinese prompt is server-rendered');
-  assert.ok(html.includes('ANC Night') && html.includes('ANC Camp'), 'root HTML includes the actual company introduction');
+  assert.ok(!html.includes('<details'), 'homepage has no About disclosure');
   const rootMarkdown = await (await get('/', 'text/markdown')).text();
   for (const fact of ['shared AI operating layer', 'lawtedwu@gmail.com', 'https://night.ha7ch.com/SKILL.md', 'https://camp.ha7ch.com/SKILL.md']) assert.ok(rootMarkdown.includes(fact), fact);
   const blocks = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map(m => JSON.parse(m[1]));

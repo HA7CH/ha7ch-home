@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { DropdownMenu } from "@cloudflare/kumo/components/dropdown";
-import { homeIntroduction, homeLinks } from "@/content/home-introduction";
 import styles from "./PromptHome.module.css";
 
 export default function PromptHome() {
@@ -52,13 +51,6 @@ export default function PromptHome() {
         </button>
       </div>
       <p className={styles.status} role="status" aria-live="polite">{status === "copied" ? (en ? "Copied." : "已复制。") : status === "manual" ? (en ? "Text selected. Please copy it manually." : "已选中文本，请手动复制。") : ""}</p>
-      <details className={styles.about}>
-        <summary>{en ? "About HA7CH" : "关于 HA7CH"}</summary>
-        <div className={styles.aboutBody}>
-          {homeIntroduction[language].paragraphs.map(text => <p key={text}>{text}</p>)}
-          <nav aria-label={en ? "Learn more" : "进一步了解"}>{homeLinks.map(link => <a key={link.href} href={link.href}>{link[language]}</a>)}</nav>
-        </div>
-      </details>
     </section>
   </main>;
 }
