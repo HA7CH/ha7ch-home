@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/SKILL.md`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     {
       url: `${BASE_URL}/`,
       lastModified: now,
