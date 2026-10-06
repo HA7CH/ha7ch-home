@@ -23,10 +23,3 @@
 .languageItem[data-highlighted], .languageItem:focus-visible { background: #f1f1ef; }
 .languageItem:focus-visible { box-shadow: inset 0 0 0 1px #aaa; }
 .check { font-size: 14px; }
-.about { margin-top: 8px; color: #777; font-size: 13px; }
-.about summary { width: fit-content; min-height: 44px; padding: 12px 0; cursor: pointer; }
-.about summary:focus-visible { outline: 2px solid #111; outline-offset: 4px; }
-.aboutBody { max-width: 680px; padding: 12px 0 24px; color: #555; line-height: 1.8; font-size: 15px; }
-.aboutBody p + p { margin-top: 16px; }
-.aboutBody nav { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 20px; }
-.aboutBody a { display: inline-flex; align-items: center; min-height: 44px; color: #333; text-decoration: underline; text-underline-offset: 4px; }
