@@ -1,6 +1,5 @@
-import { companyMarkdown } from "@/content/company";
-import { events, projects } from "@/content/catalog";
-import { articles, getArticle } from "@/content/writing";
+import { homeIntroductionMarkdown } from "@/content/home-introduction";
+import { getArticle } from "@/content/writing";
 import { infoMarkdown, siteInfo } from "@/content/site-info";
 import { diagnosis, executiveCamp } from "@/content/services";
 
@@ -8,12 +7,7 @@ export function supportsMarkdown(path: string) {
   return path === "/" || Object.hasOwn(siteInfo, path.slice(1)) || [diagnosis.href, executiveCamp.href].includes(path) || /^\/writing\/[^/]+(?:\/zh)?$/.test(path);
 }
 export function siteMarkdown(path: string): string | undefined {
-  if (path === "/") return `# HA7CH\n\n${companyMarkdown()}\n\n` + [
-    `## Events\n\n${events.map(e => `- [${e.title}](${e.href}): ${e.schedule} · ${e.meta}`).join("\n")}`,
-    `## Projects\n\n${projects.filter(p => !p.dead && p.href).map(p => `- [${p.title}](${p.href}): ${p.description ?? ""}`).join("\n")}`,
-    `## Writing\n\n${articles.map(a => `- [${a.titleEn}](https://ha7ch.com/writing/${a.slug}.md)`).join("\n")}`,
-    `## Information\n\n- [HA7CH public Skill](https://ha7ch.com/SKILL.md)\n${Object.entries(siteInfo).map(([slug,p]) => `- [${p.title}](https://ha7ch.com/${slug}.md)`).join("\n")}`
-  ].join("\n\n") + "\n";
+  if (path === "/") return homeIntroductionMarkdown();
   const info = infoMarkdown(path.slice(1));
   if (info) return info;
   const service = [diagnosis, executiveCamp].find(s => s.href === path);
