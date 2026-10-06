@@ -24,7 +24,7 @@ export function proxy(request: NextRequest) {
   if (!supportsMarkdown(path)) return NextResponse.next();
   const format = negotiate(request.headers.get("accept"));
   if (format === null) return new NextResponse("Not acceptable. Request text/html or text/markdown.\n", { status: 406, headers: { "Content-Type": "text/plain; charset=utf-8", Vary: "Accept", "Cache-Control": "private, no-store" } });
-  const headers = { Vary: "Accept, Accept-Encoding", Link: `<https://ha7ch.com${path === "/" ? "/index" : path}.md>; rel="alternate"; type="text/markdown", <https://ha7ch.com/llms.txt>; rel="describedby"` };
+  const headers = { Vary: "Accept, Accept-Encoding", Link: `<https://ha7ch.com${path === "/" ? "/index" : path}.md>; rel="alternate"; type="text/markdown", <https://ha7ch.com/llms.txt>; rel="describedby", <https://ha7ch.com/SKILL.md>; rel="describedby"; type="text/plain"` };
   if (format === "markdown") {
     const body = siteMarkdown(path);
     return markdownResponse(body ?? recoveryMarkdown, body ? 200 : 404, body ? `https://ha7ch.com${path}` : undefined);
