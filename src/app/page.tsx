@@ -3,8 +3,9 @@ import PromptHome from "@/components/PromptHome";
 
 export const metadata: Metadata = {
   title: "HA7CH",
-  description: "让你的 Agent 读取 HA7CH 公开 Skill，了解公司、企业 AI 服务、教育与创作者合作。Read the public HA7CH Skill with your agent.",
+  keywords: ["HA7CH", "AI Native Company", "ANC", "enterprise AI", "AI education", "creator collaboration"],
+  description: "HA7CH 帮助企业诊断与部署 AI，提供实战教育、创作者合作及投资孵化。HA7CH helps businesses put AI to work through workflow diagnosis, ANC deployment, practical education and creator collaboration.",
   alternates: { canonical: "/", types: { "text/plain": "/SKILL.md" } }
 };
-const organization = { "@context": "https://schema.org", "@type": "Organization", name: "HA7CH", url: "https://ha7ch.com", contactPoint: { "@type": "ContactPoint", email: "lawtedwu@gmail.com", contactType: "customer support" } };
+const organization = { "@context": "https://schema.org", "@type": "Organization", name: "HA7CH", description: "Enterprise AI workflow diagnosis and ANC deployment, practical education, creator collaboration, investment and incubation.", url: "https://ha7ch.com", contactPoint: { "@type": "ContactPoint", email: "lawtedwu@gmail.com", contactType: "customer support" } };
 export default function Home() { return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }} /><PromptHome /></>; }
