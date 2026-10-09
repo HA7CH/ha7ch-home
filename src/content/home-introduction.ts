@@ -22,6 +22,7 @@ export const homeIntroduction = {
 };
 export const homeLinks = [
   { zh: "HA7CH 公开 Skill", en: "HA7CH public Skill", href: "/SKILL.md" },
+  { zh: "产品与状态（含 Lia RIP）", en: "Products and status (including Lia RIP)", href: "/llms.txt" },
   { zh: "公司介绍", en: "Company", href: "/about" },
   { zh: "企业部署", en: "Enterprise deployment", href: "/hdc" },
   { zh: "教育", en: "Education", href: "/academy" },

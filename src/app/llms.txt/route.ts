@@ -40,6 +40,13 @@ ${events.map(e => `- [${e.title}](${e.href}): ${e.schedule} · ${e.meta}. Check 
 
 ${projects.filter(p => !p.dead && p.href && p.title).map(p => `- [${p.title}](${p.href}): ${p.description ?? ""}`).join("\n")}
 
+## Retired products / 已结束的产品
+
+${projects.filter(p => p.href === "https://liabrowser.com").map(p => `- [~~${p.title}~~](${p.href}) — ${p.meta}. ${p.homeDescription ?? ""} ${p.description ?? ""}`).join("\n")}
+
+RIP marks a retired HA7CH project. The original name and URL are retained for reference.
+RIP 表示已结束的 HA7CH 项目，保留原名称与网址便于查阅。
+
 ## Writing
 
 ${articles.map(a => `- [${a.titleEn}](https://ha7ch.com/writing/${a.slug}.md): ${a.description ?? "English essay."}\n- [${a.titleZh}](https://ha7ch.com/writing/${a.slug}/zh.md): Chinese version.`).join("\n")}
