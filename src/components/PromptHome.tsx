@@ -30,7 +30,7 @@ export default function PromptHome() {
     <div className={styles.language}>
       <DropdownMenu>
         <DropdownMenu.Trigger render={<button id="home-language" className={styles.languageTrigger} />}>
-          <span>{en ? "Language" : "语言"}</span><span className={styles.currentLanguage}>{en ? "English" : "中文"}</span>
+          <span>Language:</span><span className={styles.currentLanguage}>{en ? "English" : "中文"}</span>
           <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="m3 4.5 3 3 3-3" stroke="currentColor" strokeWidth="1.2" /></svg>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content align="end" sideOffset={6} className={styles.languageMenu} style={{ zIndex: 30 }}>
