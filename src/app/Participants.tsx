@@ -11,7 +11,8 @@ type Participant = { name: string; src: string; job?: string; href?: string };
 const admitted = [
   { login: "LAWTED", name: "lawted", location: "Hangzhou, China", avatar: "/avatars/lawted.png" },
   { login: "MWDZ", name: "MWDZ", location: "Mountain View, CA" },
-  { login: "dxh2723192626", name: "dxh2723192626", location: "" }
+  { login: "dxh2723192626", name: "dxh2723192626", location: "" },
+  { login: "ebrahimeolakey", name: "ebrahimeolakey", location: "" }
 ];
 const participants: Participant[] = [
   ...admitted.map((person) => {
