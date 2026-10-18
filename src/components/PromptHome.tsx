@@ -2,13 +2,30 @@
 
 import { useRef, useState } from "react";
 import { DropdownMenu } from "@cloudflare/kumo/components/dropdown";
+import { HOME_LANGUAGE_COOKIE, type HomeLanguage } from "@/lib/home-language";
 import styles from "./PromptHome.module.css";
 
-export default function PromptHome() {
-  const [language, setLanguage] = useState<"zh" | "en">("zh");
+export default function PromptHome({ initialLanguage }: { initialLanguage: HomeLanguage }) {
+  const [language, setLanguage] = useState<HomeLanguage>(initialLanguage);
   const [status, setStatus] = useState<"idle" | "copied" | "manual">("idle");
   const prompt = useRef<HTMLParagraphElement>(null);
   const en = language === "en";
+
+  function changeLanguage(value: string) {
+    if (value !== "en" && value !== "zh") return;
+    setLanguage(value);
+    setStatus("idle");
+    // Keep presentation links shareable and prevent an old ?lang override on reload.
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", value);
+    window.history.replaceState(null, "", url);
+    try {
+      const secure = window.location.protocol === "https:" ? "; Secure" : "";
+      document.cookie = `${HOME_LANGUAGE_COOKIE}=${value}; Path=/; Max-Age=31536000; SameSite=Lax${secure}`;
+    } catch {
+      // The current page and explicit URL still work when cookies are blocked.
+    }
+  }
 
   async function copy() {
     const text = prompt.current?.textContent ?? "";
@@ -34,7 +51,7 @@ export default function PromptHome() {
           <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="m3 4.5 3 3 3-3" stroke="currentColor" strokeWidth="1.2" /></svg>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content align="end" sideOffset={6} className={styles.languageMenu} style={{ zIndex: 30 }}>
-          <DropdownMenu.RadioGroup value={language} onValueChange={value => { setLanguage(value as "zh" | "en"); setStatus("idle"); }}>
+          <DropdownMenu.RadioGroup value={language} onValueChange={changeLanguage}>
             <DropdownMenu.RadioItem value="zh" closeOnClick className={styles.languageItem}>中文<DropdownMenu.RadioItemIndicator className={styles.check}>✓</DropdownMenu.RadioItemIndicator></DropdownMenu.RadioItem>
             <DropdownMenu.RadioItem value="en" closeOnClick className={styles.languageItem}>English<DropdownMenu.RadioItemIndicator className={styles.check}>✓</DropdownMenu.RadioItemIndicator></DropdownMenu.RadioItem>
           </DropdownMenu.RadioGroup>

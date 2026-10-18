@@ -93,7 +93,7 @@ test('organization contact and preserved redirects/assets/Flight', async () => {
   const html = await (await get('/')).text();
   assert.ok(html.includes('<link rel="alternate" type="text/plain" href="https://ha7ch.com/SKILL.md"'), 'root metadata preserves the public Skill alternate');
   assert.ok(html.includes('id="home-language"'), 'explicit language choice is available');
-  assert.ok(html.includes('帮我了解 ha7ch.com'), 'short Chinese prompt is server-rendered');
+  assert.ok(html.includes('帮我了解 ha7ch.com'), 'Chinese fallback prompt is server-rendered');
   assert.ok(!html.includes('<details'), 'homepage has no About disclosure');
   const rootMarkdown = await (await get('/', 'text/markdown')).text();
   for (const fact of ['shared AI operating layer', 'lawtedwu@gmail.com', 'https://night.ha7ch.com/SKILL.md', 'https://camp.ha7ch.com/SKILL.md']) assert.ok(rootMarkdown.includes(fact), fact);
@@ -106,6 +106,31 @@ test('organization contact and preserved redirects/assets/Flight', async () => {
   }
   const asset = await get('/ha7ch.svg','*/*'); assert.equal(asset.status,200); assert.match(asset.headers.get('content-type'), /image\/svg/);
   const flight = await get('/','*/*',{headers:{RSC:'1'}}); assert.match(flight.headers.get('content-type'),/text\/x-component/);
+});
+test('homepage first HTML contains the chosen language and cannot enter a shared cache', async () => {
+  for (const [path, language, cookie, expected] of [
+    ['/', 'zh-CN,zh;q=0.9,en;q=0.8', '', 'zh'],
+    ['/', 'en-US,en;q=0.9', '', 'en'],
+    ['/', '', '', 'zh'],
+    ['/', 'fr-FR', '', 'zh'],
+    ['/', 'zh-CN', 'ha7ch-home-language=en', 'en'],
+    ['/', 'en-US', 'ha7ch-home-language=zh', 'zh'],
+    ['/?lang=en', 'zh-CN', 'ha7ch-home-language=zh', 'en'],
+    ['/?lang=zh', 'en-US', 'ha7ch-home-language=en', 'zh'],
+    ['/?lang=invalid', 'zh-CN', '', 'zh'],
+    ['/', 'zh-CN', '', 'zh']
+  ]) {
+    const response = await get(path, 'text/html', { headers: { 'Accept-Language': language, Cookie: cookie } });
+    assert.equal(response.status, 200);
+    assert.match(response.headers.get('cache-control') ?? '', /private/);
+    assert.match(response.headers.get('cache-control') ?? '', /no-store/);
+    const html = await response.text();
+    const main = html.match(/<main\b[^>]*>[\s\S]*?<\/main>/)?.[0];
+    assert.ok(main, 'homepage content exists before JavaScript executes');
+    assert.ok(main.includes(`lang="${expected === 'zh' ? 'zh-CN' : 'en'}"`));
+    assert.ok(main.includes(expected === 'zh' ? '帮我了解 ha7ch.com' : 'Help me learn about ha7ch.com'));
+    assert.ok(!main.includes(expected === 'en' ? '帮我了解 ha7ch.com' : 'Help me learn about ha7ch.com'));
+  }
 });
 test('canonical production domain has no redirect chain', { skip: new URL(base).hostname !== 'ha7ch.com' }, async () => {
   assert.equal((await get('/', '*/*', {redirect:'manual'})).status,200);
