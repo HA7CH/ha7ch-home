@@ -121,22 +121,25 @@ test("publisher API requires its token and writes expiring pages", async () => {
 });
 
 
-test("product homepage replaces only GET and HEAD at the ANC root", async () => {
+test("restores the original plain-text ANC root and keeps service endpoints", async () => {
   const env = { PAGES: new MemoryKV() };
   const request = (pathname, method = "GET", host = "anc.ha7ch.com") =>
     new Request(`https://${host}${pathname}`, { method });
+  const originalIndex = "anc — AI Native Company\n\n入职入口:GET /<company>/onboard.md\n网页展示:GET /p/<slug>\n";
   const get = await worker.fetch(request("/"), env);
   assert.equal(get.status, 200);
-  assert.match(get.headers.get("content-type"), /text\/html/);
-  assert.ok(get.headers.get("x-anc-site-version"));
-  assert.match(await get.text(), /AI Native Company/);
+  assert.equal(get.headers.get("content-type"), "text/plain; charset=utf-8");
+  assert.equal(get.headers.get("x-anc-site-version"), null);
+  assert.equal(await get.text(), originalIndex);
   const head = await worker.fetch(request("/", "HEAD"), env);
-  assert.equal(await head.text(), "");
+  assert.equal(head.status, 200);
   assert.deepEqual([...head.headers], [...get.headers]);
-  for (const req of [request("/", "POST"), request("/", "GET", "example.com")]) {
+  for (const req of [request("/?lang=zh"), request("/", "POST"), request("/", "GET", "example.com")]) {
     const response = await worker.fetch(req, env);
+    assert.equal(response.status, 200);
     assert.equal(response.headers.get("x-anc-site-version"), null);
-    assert.match(response.headers.get("content-type"), /text\/plain/);
+    assert.equal(response.headers.get("content-type"), "text/plain; charset=utf-8");
+    assert.equal(await response.text(), originalIndex);
   }
   const health = await worker.fetch(request("/healthz"), env);
   assert.deepEqual(await health.json(), { ok: true, service: "anc-onboard" });
@@ -154,3 +157,4 @@ test("existing published pages retain their own CSP and can still be deleted", a
   assert.equal(removed.status, 200);
   assert.equal(kv.entries.has("page:existing"), false);
 });
+
