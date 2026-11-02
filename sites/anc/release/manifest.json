@@ -1,0 +1,24 @@
+{
+  "format": 1,
+  "homepage_sha256": "9c56abe3f07c9b3fe95b6a8ed71942752df7c2c52f8629680ff69126a84c09c7",
+  "homepage_bytes": 71384,
+  "site_version_header": "X-ANC-Site-Version",
+  "allowed_production_hosts": [
+    "anc.ha7ch.com"
+  ],
+  "source_sha256": {
+    "dist/index.html": "c84aa395e93577fbb6ed4bbec760a9509e0e3437fc1944919a2ff82e883de195",
+    "dist/style.css": "50371e832a7018fc6e9a4a32e66aae56273bc6cd80bdd244c3004aaa33b8b6b4",
+    "dist/faq.js": "4a02b34d123176e314f2fa42259f7c1ada15dc22094d1273e7fd7360935e3e65",
+    "dist/app.js": "af1709c35798cec05c173ffe13855d21581a2acff07fd83c9745529f2958b161",
+    "dist/assets/anc-symbol.svg": "9cd40e4e60d1d6f4291c08b124be3b734366de1e2d90658de7549ec0d7d88be0",
+    "dist/assets/ha7ch-black.svg": "f82edf0cae9c7f1af895d53752c8df62ece48085d92920331cd01b6491f5d381",
+    "integration/homepage-handler.mjs": "fa98b0656d15c782f103808696aca9801908736b81bdb89b7db4afaf4458e829",
+    "scripts/build.mjs": "312d8dbe1eecdcb2a00bf29eb0666f7e1a17b51ddbcb32fa3ce5e343acbf2a0c"
+  },
+  "output_sha256": {
+    "release/anc-standalone.html": "9c56abe3f07c9b3fe95b6a8ed71942752df7c2c52f8629680ff69126a84c09c7",
+    "release/anc-homepage.mjs": "ab39125cd4755b0d5235f2c172c6945b8fcca452595d8ff4059a4a72d9cab223"
+  },
+  "content_security_policy": "default-src 'none'; script-src 'sha256-SgKzTRIxduMU8vpCJZ98GtoV3CIJTRJz5/1zYJNePmU=' 'sha256-rxcJw1eYzsBcFz/+E4VdIVgaKs/wf9g8l0VSnylYsWE='; style-src 'sha256-UDcegypwGPxumkoy5mquVic7xs2AvdJEwwBKqjO4trQ='; img-src data:; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'"
+}

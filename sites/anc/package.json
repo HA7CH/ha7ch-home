@@ -1,0 +1,13 @@
+{
+  "name": "anc-product-site",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "dev": "node scripts/preview.mjs"
+  }
+}
