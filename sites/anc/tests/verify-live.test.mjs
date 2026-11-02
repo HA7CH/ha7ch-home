@@ -8,13 +8,18 @@ import { createAncHomepageHandler, ANC_HOMEPAGE_SHA256 } from '../release/anc-ho
 
 // Run the real verification CLI against a disposable same-process HTTP fixture.
 // No preview daemon or external deployment is contacted by these tests.
-async function fixture(t, mutate = value => value) {
+async function fixture(t, mutate = value => value, pathname = '/') {
   const requests = [];
   const homepage = createAncHomepageHandler({ allowedHosts: ['127.0.0.1'] });
   const server = http.createServer(async (req, res) => {
     requests.push({ method: req.method, path: req.url });
     try {
-      const original = homepage(new Request(`http://${req.headers.host}${req.url}`, { method: req.method }));
+      const target = new URL(req.url, `http://${req.headers.host}`);
+      assert.equal(target.pathname, pathname, 'verification must preserve the requested target path');
+      // The legacy helper supplies the exact release response; the fixture mounts
+      // that response at the requested path, as the main site's Next.js route does.
+      target.pathname = '/';
+      const original = homepage(new Request(target, { method: req.method }));
       assert.ok(original, 'verification must only request the homepage');
       const result = mutate({
         status: original.status,
@@ -37,9 +42,9 @@ async function fixture(t, mutate = value => value) {
   return { origin: `http://127.0.0.1:${server.address().port}`, requests };
 }
 
-function runVerification(origin) {
+function runVerification(target) {
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, ['operations/verify-live.mjs', origin], {
+    const child = spawn(process.execPath, ['operations/verify-live.mjs', target], {
       cwd: PROJECT_ROOT, stdio: ['ignore', 'pipe', 'pipe']
     });
     let stdout = '';
@@ -67,6 +72,37 @@ test('verify-live CLI accepts the exact release response for GET, query GET and 
     { method: 'GET', path: '/?lang=zh' },
     { method: 'HEAD', path: '/' }
   ]);
+});
+
+test('verify-live CLI preserves a full target path for GET, query GET and HEAD', async t => {
+  const pathname = '/ai-native-company';
+  const { origin, requests } = await fixture(t, undefined, pathname);
+  const target = `${origin}${pathname}`;
+  const result = await runVerification(target);
+  assert.equal(result.code, 0, result.stderr);
+  assert.equal(result.stderr, '');
+  assert.equal((result.stdout.match(/^PASS /gm) || []).length, 3);
+  assert.ok(result.stdout.includes(`Homepage verified at ${target};`));
+  assert.deepEqual(requests, [
+    { method: 'GET', path: pathname },
+    { method: 'GET', path: `${pathname}?lang=zh` },
+    { method: 'HEAD', path: pathname }
+  ]);
+});
+
+test('verify-live CLI rejects ambiguous or credential-bearing targets before any request', async t => {
+  const { origin, requests } = await fixture(t);
+  const credentials = new URL('/ai-native-company', origin);
+  credentials.username = 'example';
+  for (const target of [credentials.href, `${origin}/ai-native-company?lang=en`, `${origin}/ai-native-company#faq`]) {
+    const result = await runVerification(target);
+    assert.equal(result.code, 1);
+    assert.match(result.stderr, /without credentials, query or fragment/);
+  }
+  const insecure = await runVerification('http://example.com/ai-native-company');
+  assert.equal(insecure.code, 1);
+  assert.match(insecure.stderr, /Use HTTPS/);
+  assert.deepEqual(requests, []);
 });
 
 test('verify-live CLI rejects changed HTML despite correct status and version header', async t => {

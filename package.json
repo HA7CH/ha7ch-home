@@ -8,8 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --experimental-strip-types --test tests/content-negotiation.test.mjs tests/catalog.test.mjs tests/fde-camp-access.test.mjs tests/home-language.test.mjs",
-    "test:endpoints": "node --test tests/agent-endpoints.test.mjs"
+    "test": "node --experimental-strip-types --test tests/content-negotiation.test.mjs tests/catalog.test.mjs tests/fde-camp-access.test.mjs tests/home-language.test.mjs tests/anc-product-route.test.mjs",
+    "test:endpoints": "node --test tests/agent-endpoints.test.mjs",
+    "test:anc": "node --experimental-strip-types --test tests/anc-product-route.test.mjs sites/anc/tests/*.test.mjs"
   },
   "dependencies": {
     "@altano/satori-fit-text": "^2.0.2",

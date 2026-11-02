@@ -151,7 +151,9 @@ test('manifest verifies current source and output bytes; module is self-containe
   assert.equal(manifest.homepage_sha256, ANC_HOMEPAGE_SHA256);
   assert.equal(manifest.homepage_bytes, Buffer.byteLength(html));
   assert.equal(manifest.content_security_policy, ANC_HOMEPAGE_CSP);
-  assert.deepEqual(manifest.allowed_production_hosts, ['anc.ha7ch.com']);
+  assert.equal(manifest.production_url, 'https://ha7ch.com/ai-native-company');
+  assert.deepEqual(manifest.allowed_production_hosts, ['ha7ch.com']);
+  assert.deepEqual(manifest.legacy_worker_allowed_hosts, ['anc.ha7ch.com']);
   for (const [filename, hash] of Object.entries({ ...manifest.source_sha256, ...manifest.output_sha256 })) {
     assert.equal(sha256(await readFile(path.join(PROJECT_ROOT, filename))), hash, filename);
   }
