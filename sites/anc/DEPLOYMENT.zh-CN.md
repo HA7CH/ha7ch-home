@@ -125,7 +125,9 @@ const ancHomepage = createAncHomepageHandler({
 
 若原中间件、Cloudflare Transform Rules、其他代理层会追加 CSP，或自动修改 HTML，必须在 staging 检查最终响应：多个 CSP 会同时生效，脚本/样式字节被改动会导致 hash 不再匹配。只在首页的响应路径协调这些规则，不能放宽 API 或其他页面的安全策略。
 
-初次上线使用 `Cache-Control: no-store`，便于立即回滚。检查已有 Cache Rules/HTML 转换不会覆盖这一意图。响应中的 `X-ANC-Site-Version` 是 HTML 的 SHA-256，便于核对版本，不含任何凭据。
+`no-transform` 阻止 Cloudflare 自动注入统计脚本，保持最终 HTML 与 CSP hash 一致。参见 [Cloudflare 官方说明](https://developers.cloudflare.com/web-analytics/faq/)。
+
+初次上线使用 `Cache-Control: no-store, no-transform`，便于立即回滚。检查已有 Cache Rules/HTML 转换不会覆盖这一意图。响应中的 `X-ANC-Site-Version` 是 HTML 的 SHA-256，便于核对版本，不含任何凭据。
 
 ## 5. 集成检查与上线
 

@@ -25,7 +25,7 @@ test('GET / and query variants return the exact release HTML and release headers
     assert.equal(response.status, 200);
     assert.equal(await response.text(), html);
     assert.equal(response.headers.get('content-type'), 'text/html; charset=utf-8');
-    assert.equal(response.headers.get('cache-control'), 'no-store');
+    assert.equal(response.headers.get('cache-control'), 'no-store, no-transform');
     assert.equal(response.headers.get('content-security-policy'), ANC_HOMEPAGE_CSP);
     assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
     assert.equal(response.headers.get('referrer-policy'), 'strict-origin-when-cross-origin');
