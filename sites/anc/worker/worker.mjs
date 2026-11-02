@@ -1,7 +1,5 @@
 // Existing anc-onboard production source exported on 2026-11-02.
 // Preserve publishing, onboarding, authentication and storage routes.
-import { createAncHomepageHandler } from '../release/anc-homepage.mjs';
-const ancHomepage = createAncHomepageHandler();
 
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
@@ -188,8 +186,6 @@ Sitemap: ${url.origin}/sitemap.xml
         headers: { "content-type": "text/markdown; charset=utf-8" }
       });
     }
-    const homepage = ancHomepage(request);
-    if (homepage) return homepage;
     if (url.pathname === "/") {
       return text("anc \u2014 AI Native Company\n\n\u5165\u804C\u5165\u53E3:GET /<company>/onboard.md\n\u7F51\u9875\u5C55\u793A:GET /p/<slug>\n");
     }
@@ -199,3 +195,4 @@ Sitemap: ${url.origin}/sitemap.xml
 export {
   worker_default as default
 };
+
