@@ -199,4 +199,3 @@ Sitemap: ${url.origin}/sitemap.xml
 export {
   worker_default as default
 };
-
