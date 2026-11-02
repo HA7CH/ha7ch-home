@@ -34,7 +34,7 @@ The homepage uses no backend, analytics, lead form, external fonts or external s
 
 The existing `anc.ha7ch.com` service also supports page publishing, onboarding and APIs. The prepared handler serves only `GET /` and `HEAD /` on an explicit host allowlist. Every other path or method falls through to the existing application. This release requires no DNS, KV, database, secret, account or authentication changes.
 
-The actual current Worker repository, production configuration and deployment access are not part of this package. Its maintainer must locate them, preserve the existing middleware and routes, run the integration checks, and deploy through the existing pipeline. There is intentionally no guessed `wrangler.json`, Worker name or production deployment workflow here.
+The existing production Worker integration is maintained in `worker/worker.mjs`; see [worker/README.md](worker/README.md). It preserves the deployed publishing, onboarding and authentication code. Production configuration and credentials stay outside this repository. Verify the current remote version before each release, then use the existing Worker configuration and run the integration checks.
 
 ## Product scope
 

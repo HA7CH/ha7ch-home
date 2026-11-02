@@ -18,7 +18,7 @@
 | 一个实际使用的 `/<company>/onboard.md` | 选用允许检查的已有入口 |
 | 现有 API 的健康检查、匿名拒绝、授权读取检查 | 使用项目已有检查 |
 
-**当前交付不包含原 Worker 的源码或账号配置。** `ha7ch-home` 是本网站源码的交付位置，根目录的 Vercel 部署命令不能把这个目录接到 ANC 域名。不要从本目录新建同名 Worker、修改 DNS 或覆盖原应用；先定位真实 Worker，再做下面的局部接入。
+**原 Worker 的接入源码现已保存在 `worker/worker.mjs`，账号配置仍不入库。** `ha7ch-home` 是本网站源码的交付位置，根目录的 Vercel 部署命令不能把这个目录接到 ANC 域名。不要从本目录新建同名 Worker、修改 DNS 或覆盖原应用；后续发布使用 `worker/README.md` 的维护流程，仍需核对真实 Worker 的当前版本和配置。
 
 生产入口若由 Dashboard 维护，先导出并保存当前完整代码和配置记录；如果无法确认当前完整源码或回滚版本，先补齐这一步。
 
@@ -125,7 +125,9 @@ const ancHomepage = createAncHomepageHandler({
 
 若原中间件、Cloudflare Transform Rules、其他代理层会追加 CSP，或自动修改 HTML，必须在 staging 检查最终响应：多个 CSP 会同时生效，脚本/样式字节被改动会导致 hash 不再匹配。只在首页的响应路径协调这些规则，不能放宽 API 或其他页面的安全策略。
 
-初次上线使用 `Cache-Control: no-store`，便于立即回滚。检查已有 Cache Rules/HTML 转换不会覆盖这一意图。响应中的 `X-ANC-Site-Version` 是 HTML 的 SHA-256，便于核对版本，不含任何凭据。
+`no-transform` 阻止 Cloudflare 自动注入统计脚本，保持最终 HTML 与 CSP hash 一致。参见 [Cloudflare 官方说明](https://developers.cloudflare.com/web-analytics/faq/)。
+
+初次上线使用 `Cache-Control: no-store, no-transform`，便于立即回滚。检查已有 Cache Rules/HTML 转换不会覆盖这一意图。响应中的 `X-ANC-Site-Version` 是 HTML 的 SHA-256，便于核对版本，不含任何凭据。
 
 ## 5. 集成检查与上线
 
