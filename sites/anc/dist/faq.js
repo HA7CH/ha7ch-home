@@ -36,6 +36,42 @@ window.ANC_FAQ = [
     }
   },
   {
+    "id": "company-workflow",
+    "category": "product",
+    "en": {
+      "q": "If AI makes every employee faster, why rethink the company?",
+      "a": "A project can still wait on handoffs, missing context, and decisions, even when individual tasks take less time. ANC looks at the whole workflow: how information reaches the work, how tasks draw on the right capabilities, and how results feed the next step. Personal productivity is one part of that design."
+    },
+    "zh": {
+      "q": "AI 已经让每个人变快，为什么还要重新组织公司？",
+      "a": "个人任务耗时减少之后，项目仍可能等待交接、背景信息和决策。ANC 关注完整工作流：信息如何到达需要它的地方，任务如何连接合适的能力，结果如何进入下一步。个人效率是这套设计中的一个部分。"
+    }
+  },
+  {
+    "id": "human-capabilities",
+    "category": "people",
+    "en": {
+      "q": "Where do people fit when agents organize the work?",
+      "a": "People bring judgment, relationships, and the ability to act in the physical world. ANC’s harness design aims to connect these contributions with agent execution in one continuing task. People need clear roles, authority, and context, and their results and contributions should remain visible. The collaboration path is configured for the actual work."
+    },
+    "zh": {
+      "q": "围绕 Agent 组织工作时，人处在什么位置？",
+      "a": "人带来判断、关系，以及在现实现场采取行动的能力。ANC 的 Harness 设计希望把这些贡献与 Agent 的执行连接到同一个持续任务里。人需要清楚的角色、权限与上下文，工作结果和贡献也应当被看见。具体协作路径要围绕真实工作来配置。"
+    }
+  },
+  {
+    "id": "framework-origin",
+    "category": "product",
+    "en": {
+      "q": "Where did the ANC framework begin?",
+      "a": "In his account of the framework, Lawted describes a racing-team project where engineering, public relations, and logistics information repeatedly passed through the owner. Connecting that information and the team’s working methods led him to explore how agents could help reorganize collaboration across the company."
+    },
+    "zh": {
+      "q": "ANC 框架从哪里开始？",
+      "a": "在 Lawted 对框架起源的讲述中，一个赛车队的工程、公关和后勤信息经常需要老板中转。连接这些资料与团队工作经验的实践，让他开始探索如何围绕 Agent 重新组织整家公司的协作。"
+    }
+  },
+  {
     "id": "interruptions",
     "category": "product",
     "en": {

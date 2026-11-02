@@ -1,14 +1,22 @@
 # ANC — AI Native Company
 
-The bilingual ANC product website, prepared for `anc.ha7ch.com`. Its story starts with owners, managers and employees, then explains Human on the Loop, persistent work, company knowledge, Bean, Dojo, anstack, deployment and a searchable FAQ.
+The bilingual ANC product website is served at **https://ha7ch.com/ai-native-company** through the existing `ha7ch-home` Next.js app and Vercel deployment. It introduces ANC through owners, managers and employees, then connects Human on the Loop, company knowledge, persistent work, Bean, Dojo and a searchable FAQ.
 
-The monochrome design follows `ha7ch.com` and uses the existing HA7CH wordmark. This directory is independent of the parent Next.js app: adding or merging it does not connect the ANC domain or change the main website's routes.
+The monochrome design follows HA7CH. The existing `/anc` redirect and `/anc/01` page remain unchanged.
 
-**Deployment owner: start with [DEPLOYMENT.zh-CN.md](DEPLOYMENT.zh-CN.md).** A short handoff is in [HANDOFF.zh-CN.md](HANDOFF.zh-CN.md).
+## Source and generated release
 
-## Local commands
+- `dist/`: editable HTML, CSS, JavaScript and SVG assets.
+- `release/anc-homepage.mjs`: generated, self-contained HTML plus its CSP and content hash. The main app imports these exports in `src/app/ai-native-company/route.ts`.
+- `release/anc-standalone.html`: the same complete document for inspection or compatible HTML hosting.
+- `release/manifest.json`: production URL, source/output hashes and CSP.
+- `operations/verify-live.mjs`: read-only GET, language-query GET and HEAD checks at a supplied URL.
 
-Node.js 22 or newer; no dependency installation or model credentials are needed.
+The Next.js route serves only the new product page. It preserves the bundled document's exact bytes and hash-based CSP. No separate asset routes, DNS changes, Cloudflare account access, database, secrets or model credentials are required.
+
+## Checks and preview
+
+This subproject requires Node.js 22 or newer and has no dependencies:
 
 ```bash
 cd sites/anc
@@ -18,24 +26,22 @@ npm test
 npm run dev
 ```
 
-`dist/` is the editable source. `release/` is a deterministic generated package and should be regenerated after source changes. The local server is for previewing the real homepage response, including its Content Security Policy. It is not a production server.
+Regenerate `release/` after source changes; do not edit generated files directly. The standalone preview serves the document at its local root. To check the integrated path, use the main repository's normal Next.js development server and open `/ai-native-company`.
 
-## Deployment package
+From the repository root, `npm run test:anc` covers the main app route and this package. Run the main app's required checks and build before merging. Merging the reviewed changes to `master` uses the existing Vercel pipeline.
 
-- `release/anc-homepage.mjs`: self-contained ES module with HTML, styles, scripts, images and a root-only response handler. Copy this **one file** into the existing Worker and integrate it at the existing homepage route.
-- `release/anc-standalone.html`: self-contained HTML for standalone inspection or compatible HTML hosting.
-- `release/manifest.json`: source and output checksums.
-- `integration/`: integration guidance/template; it does not replace a production Worker.
-- `operations/verify-live.mjs`: read-only checks for the deployed homepage. Existing application routes must also pass their own baseline checks.
+Production verification, from this directory:
 
-The homepage uses no backend, analytics, lead form, external fonts or external scripts. Language preference stays in the visitor's browser. Links point to HA7CH's existing public contact page and Dojo.
+```bash
+node operations/verify-live.mjs https://ha7ch.com/ai-native-company
+```
 
-## Deployment boundary
+The verifier also accepts an origin-only URL for the legacy root preview. It does not follow redirects or probe unrelated application routes. See [DEPLOYMENT.zh-CN.md](DEPLOYMENT.zh-CN.md) for release checks and rollback, or [HANDOFF.zh-CN.md](HANDOFF.zh-CN.md) for a short summary.
 
-The existing `anc.ha7ch.com` service also supports page publishing, onboarding and APIs. The prepared handler serves only `GET /` and `HEAD /` on an explicit host allowlist. Every other path or method falls through to the existing application. This release requires no DNS, KV, database, secret, account or authentication changes.
+## Legacy Worker compatibility
 
-The actual current Worker repository, production configuration and deployment access are not part of this package. Its maintainer must locate them, preserve the existing middleware and routes, run the integration checks, and deploy through the existing pipeline. There is intentionally no guessed `wrangler.json`, Worker name or production deployment workflow here.
+`integration/homepage-handler.mjs` and `integration/worker-example.md` remain available for the former subdomain integration. That optional helper still limits handling to root GET/HEAD on its explicit host allowlist. The new Next.js route imports the document exports directly and does not call that helper.
 
 ## Product scope
 
-Current work execution and prototypes are distinguished from development work. Hardware reliability, contribution attribution and the complete work-to-training cycle are not presented as universally ready. The package contains only the approved public website copy and deployment instructions, with no private customer names, contract values, credentials, runtime files or ChatGPT hosting identity.
+Current execution and prototypes are distinguished from development work. The page uses no backend, analytics, lead form, external fonts or external scripts. Language preference stays in the visitor's browser. The package contains public product copy, with no private customer contracts, credentials or runtime data.

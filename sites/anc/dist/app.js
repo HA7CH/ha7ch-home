@@ -44,6 +44,17 @@
     'platform.bean.note':'硬件可靠性仍在继续验收。',
     'footer.tagline':'AI Native Company，由 HA7CH 构建。'
   });
+  Object.assign(zh, {
+    'framework.title':'让整家公司更好地运转。',
+    'framework.intro':'每个人变快了，工作仍可能卡在交接、等待和反复解释上。ANC 同时关心：信息怎样流动，能力怎样协作，结果怎样回到工作中。',
+    'framework.origin.label':'来自 LAWTED 的企业实践',
+    'framework.origin.title':'当每个问题，<br>都要经过老板。',
+    'framework.origin.body':'Lawted 把 ANC 框架的起点追溯到一个赛车队项目：工程师掌握轮胎信息，公关需要赞助商资料，后勤负责出行安排，老板成了大家之间的信息中转站。这段经历形成了 ANC 的一个方向：把公司的资料与工作方法连接起来，让团队能够直接调用。',
+    'framework.harness.label':'HARNESS 的设计',
+    'framework.harness.title':'把合适的能力，<br>连接到同一件事里。',
+    'framework.harness.body':'我们围绕上下文、能力、权限和结果设计 Harness。Agent 可以推进日常执行；需要判断、关系或现场行动时，就需要合适的人参与。我们的目标是让人的处理结果回到持续推进的原任务中，同时保留清楚的责任。',
+    'framework.link':'展开 Lawted 的 ANC 框架 ↗'
+  });
   const en = Object.fromEntries([...document.querySelectorAll('[data-i18n]')].map(e => [e.dataset.i18n,e.innerHTML]));
   const panels = {
     en:[

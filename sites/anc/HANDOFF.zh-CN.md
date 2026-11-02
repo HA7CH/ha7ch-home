@@ -1,17 +1,20 @@
-# 给 Lawted 的部署交接
+# ANC 官网发布说明
 
-ANC 官网内容和设计已确认，源码与部署包都在 `sites/anc/`。
+正式地址：**https://ha7ch.com/ai-native-company**。
 
-请按 [部署 SOP](DEPLOYMENT.zh-CN.md) 接到 `https://anc.ha7ch.com/`。网站采用 HA7CH 黑白设计，围绕老板、中层和员工解释 ANC = AI Native Company，包含硬件、Dojo、工作示例及双语 FAQ。
+网站通过 `HA7CH/ha7ch-home` 的 Next.js 路由发布，沿用 `master` 分支的 Vercel 自动部署。无需单独委托 Lawted 接入 Worker，也不需要修改 DNS。
 
-已经准备好：
+- 可编辑页面位于 `sites/anc/dist/`；生成包位于 `sites/anc/release/`。
+- `src/app/ai-native-company/route.ts` 导入生成的完整 HTML、CSP 和版本 hash，处理新页面的 GET/HEAD。
+- 原 `/anc` 重定向和 `/anc/01` 页面保留。
+- 中英文、老板/中层/员工视角、硬件、Dojo、任务示例和 FAQ 都在同一页面中。
 
-- 可编辑静态源码和中英文内容。
-- `release/anc-homepage.mjs` 单文件模块，内含完整 HTML、样式、脚本和图标。
-- 精确限制到首页 GET/HEAD 的接入逻辑，其余路径交回原应用。
-- 可重复构建、内容 hash、CSP、路由边界测试与上线检查脚本。
-- staging、生产验收和回滚步骤。
+更新内容后重新 build/check/test，提交源码与生成物，通过 PR 检查后合并到 `master`。Vercel 发布完成后，从 `sites/anc` 执行：
 
-你需要在当前 Cloudflare 账号里定位 `anc.ha7ch.com` 的真实 Worker 和源码，把模块接在原首页路由，然后按原流程部署。这个域名仍在承载网页展示、入职和 API，所以本次不更换 DNS、不覆盖原 Worker、不修改现有鉴权或数据。
+```bash
+node operations/verify-live.mjs https://ha7ch.com/ai-native-company
+```
 
-本仓库中的代码和部署包已经准备；实际 Worker 接入及生产发布尚未执行。完成后请按 SOP 最后一节回传版本与验收结果。
+再检查桌面、手机和页面交互，以及主站首页、`/anc` 和 `/anc/01` 的原有行为。完整步骤见 [部署 SOP](DEPLOYMENT.zh-CN.md)。
+
+旧 Worker 接入模板仅保留作兼容参考，不参与本次主站路径的发布。
