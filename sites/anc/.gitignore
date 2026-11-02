@@ -1,0 +1,6 @@
+node_modules/
+.wrangler/
+.env
+.env.*
+.dev.vars*
+qa-results/
