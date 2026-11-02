@@ -18,7 +18,8 @@ export function createAncHomepageHandler({ allowedHosts = ['anc.ha7ch.com'] } = 
     if (!hosts.has(url.hostname) || url.pathname !== '/' || !['GET', 'HEAD'].includes(request.method)) return null;
     const headers = {
       'Content-Type': 'text/html; charset=utf-8',
-      'Cache-Control': 'no-store',
+      // Preserve the bytes used by CSP hashes; stop proxy analytics injection.
+      'Cache-Control': 'no-store, no-transform',
       'Content-Security-Policy': ANC_HOMEPAGE_CSP,
       'X-Content-Type-Options': 'nosniff',
       'Referrer-Policy': 'strict-origin-when-cross-origin',

@@ -2,7 +2,7 @@
 
 正式地址：**https://ha7ch.com/ai-native-company**。
 
-网站通过 `HA7CH/ha7ch-home` 的 Next.js 路由发布，沿用 `master` 分支的 Vercel 自动部署。无需单独委托 Lawted 接入 Worker，也不需要修改 DNS。
+网站通过 `HA7CH/ha7ch-home` 的 Next.js 路由发布，沿用 `master` 分支的 Vercel 自动部署。本次无需 Worker 接入或 DNS 修改。
 
 - 可编辑页面位于 `sites/anc/dist/`；生成包位于 `sites/anc/release/`。
 - `src/app/ai-native-company/route.ts` 导入生成的完整 HTML、CSP 和版本 hash，处理新页面的 GET/HEAD。
@@ -17,4 +17,4 @@ node operations/verify-live.mjs https://ha7ch.com/ai-native-company
 
 再检查桌面、手机和页面交互，以及主站首页、`/anc` 和 `/anc/01` 的原有行为。完整步骤见 [部署 SOP](DEPLOYMENT.zh-CN.md)。
 
-旧 Worker 接入模板仅保留作兼容参考，不参与本次主站路径的发布。
+独立的 `anc.ha7ch.com` Worker 已有源码 `worker/worker.mjs`、[维护说明](worker/README.md)和[历史发布记录](RELEASE-2026-11-02.md)。本次只发布主站新路径，不修改或部署该 Worker；其版本按独立发布记录维护。

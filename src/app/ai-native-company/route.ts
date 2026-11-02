@@ -8,7 +8,7 @@ import {
 // Next.js mounts this only at /ai-native-company; /anc and /anc/01 stay intact.
 const headers = {
   'Content-Type': 'text/html; charset=utf-8',
-  'Cache-Control': 'no-store',
+  'Cache-Control': 'no-store, no-transform',
   'Content-Security-Policy': ANC_HOMEPAGE_CSP,
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin',

@@ -23,6 +23,7 @@ function verifyHeaders(response, label) {
   assert.match(response.headers.get('content-type') || '', /^text\/html;\s*charset=utf-8$/i, `${label}: HTML content type`);
   assert.equal(response.headers.get('x-anc-site-version'), ANC_HOMEPAGE_SHA256, `${label}: release version header`);
   assert.match(response.headers.get('cache-control') || '', /(?:^|,)\s*no-store\s*(?:,|$)/i, `${label}: no-store cache policy`);
+  assert.match(response.headers.get('cache-control') || '', /(?:^|,)\s*no-transform\s*(?:,|$)/i, `${label}: preserve exact HTML through proxies`);
   assert.equal(response.headers.get('content-security-policy'), ANC_HOMEPAGE_CSP, `${label}: expected hash-based CSP (review any upstream changes)`);
   assert.equal(response.headers.get('x-content-type-options'), 'nosniff', `${label}: nosniff header`);
   assert.equal(response.headers.get('referrer-policy'), 'strict-origin-when-cross-origin', `${label}: referrer policy`);

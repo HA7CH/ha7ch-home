@@ -12,7 +12,7 @@ The monochrome design follows HA7CH. The existing `/anc` redirect and `/anc/01` 
 - `release/manifest.json`: production URL, source/output hashes and CSP.
 - `operations/verify-live.mjs`: read-only GET, language-query GET and HEAD checks at a supplied URL.
 
-The Next.js route serves only the new product page. It preserves the bundled document's exact bytes and hash-based CSP. No separate asset routes, DNS changes, Cloudflare account access, database, secrets or model credentials are required.
+The Next.js route serves only the new product page. It preserves the bundled document's exact bytes and hash-based CSP, with `Cache-Control: no-store, no-transform`. No separate asset routes, DNS changes, Cloudflare account access, database, secrets or model credentials are required.
 
 ## Checks and preview
 
@@ -38,9 +38,11 @@ node operations/verify-live.mjs https://ha7ch.com/ai-native-company
 
 The verifier also accepts an origin-only URL for the legacy root preview. It does not follow redirects or probe unrelated application routes. See [DEPLOYMENT.zh-CN.md](DEPLOYMENT.zh-CN.md) for release checks and rollback, or [HANDOFF.zh-CN.md](HANDOFF.zh-CN.md) for a short summary.
 
-## Legacy Worker compatibility
+## Separate subdomain Worker
 
-`integration/homepage-handler.mjs` and `integration/worker-example.md` remain available for the former subdomain integration. That optional helper still limits handling to root GET/HEAD on its explicit host allowlist. The new Next.js route imports the document exports directly and does not call that helper.
+The existing `anc.ha7ch.com` service has its own checked-in entrypoint, `worker/worker.mjs`, [maintenance instructions](worker/README.md) and [historical release record](RELEASE-2026-11-02.md). This main-site release does not modify or deploy that Worker. Its production version can remain separate; use its corresponding release artifacts when verifying the subdomain.
+
+`integration/homepage-handler.mjs` retains the Worker's root GET/HEAD and explicit-host boundaries. The new Next.js route imports the document exports directly and does not call that helper. Merging main-site changes to `master` does not itself publish a new Cloudflare Worker version.
 
 ## Product scope
 

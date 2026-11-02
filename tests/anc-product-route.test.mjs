@@ -11,7 +11,7 @@ test('product route returns the self-contained release with matching integrity a
   assert.equal(response.status, 200);
   assert.equal(html, release);
   assert.equal(response.headers.get('content-type'), 'text/html; charset=utf-8');
-  assert.equal(response.headers.get('cache-control'), 'no-store');
+  assert.equal(response.headers.get('cache-control'), 'no-store, no-transform');
   assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
   assert.equal(response.headers.get('referrer-policy'), 'strict-origin-when-cross-origin');
   assert.equal(response.headers.get('x-anc-site-version'), createHash('sha256').update(html).digest('hex'));

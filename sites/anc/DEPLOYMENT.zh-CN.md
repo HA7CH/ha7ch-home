@@ -2,7 +2,7 @@
 
 正式地址：**https://ha7ch.com/ai-native-company**。发布仓库为 `HA7CH/ha7ch-home`，沿用主站 `master` 分支的 Vercel 自动部署。
 
-本次新增独立产品页，保留现有 `/anc` 重定向和 `/anc/01` 页面，也不修改主站其他路由。无需 DNS、Cloudflare Worker、账号权限或数据迁移。
+本次新增独立产品页，保留现有 `/anc` 重定向和 `/anc/01` 页面，也不修改主站其他路由。本次不修改或部署单独的 ANC Cloudflare Worker，也无需 DNS、账号权限或数据迁移。
 
 ## 1. 修改与生成
 
@@ -32,7 +32,7 @@ npm run test:anc
 | `/anc/01` | 保持原页面 |
 | 主站首页及其他路由 | 保持原行为 |
 
-新页面设置 `Cache-Control: no-store`、精确的脚本/样式 hash CSP、`nosniff`、referrer policy，以及 `X-ANC-Site-Version` 内容 hash。不要给这一响应追加会拦截现有资源的 CSP，也不要转换内联脚本或样式的字节。无需增加 `/style.css`、`/app.js` 或 `/assets/*` 路由。
+新页面设置 `Cache-Control: no-store, no-transform`、精确的脚本/样式 hash CSP、`nosniff`、referrer policy，以及 `X-ANC-Site-Version` 内容 hash。不要给这一响应追加会拦截现有资源的 CSP，也不要转换内联脚本或样式的字节。无需增加 `/style.css`、`/app.js` 或 `/assets/*` 路由。
 
 ## 3. 预览与合并
 
@@ -71,6 +71,8 @@ node operations/verify-live.mjs https://ha7ch.com/ai-native-company
 
 发布记录只需包含：生产 URL、合并 commit、Vercel 部署版本、`X-ANC-Site-Version`、交互与原有路径检查结果，以及可回滚版本。不要记录 token、Cookie 或私有配置。
 
-## 兼容说明
+## 独立子域名 Worker
 
-`integration/homepage-handler.mjs` 与 Worker 示例保留原有根路径及主机白名单边界，仅供旧方案兼容。本次 `/ai-native-company` 的发布无需使用它们，也不要求接入原 ANC 子域名服务。
+`anc.ha7ch.com` 的独立 Worker 源码位于 `worker/worker.mjs`，维护流程见 [worker/README.md](worker/README.md)，历史部署见 [RELEASE-2026-11-02.md](RELEASE-2026-11-02.md)。本次 `/ai-native-company` 发布不修改或部署这个服务；主站 Vercel 与该 Worker 分别维护生产版本。
+
+`integration/homepage-handler.mjs` 保留该 Worker 原有的根路径及主机白名单边界。主站新路由不调用这个处理器。若以后维护子域名，应遵循 Worker 自身流程，并使用对应部署版本的 release 文件验收，不能用主站新生成包的 hash 判断独立 Worker 是否已更新。

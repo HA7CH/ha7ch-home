@@ -17,12 +17,12 @@
     "dist/app.js": "fa5ef139065a90c1fae4e0c15ec02c574e7de2702c29959b331942077e888762",
     "dist/assets/anc-symbol.svg": "9cd40e4e60d1d6f4291c08b124be3b734366de1e2d90658de7549ec0d7d88be0",
     "dist/assets/ha7ch-black.svg": "f82edf0cae9c7f1af895d53752c8df62ece48085d92920331cd01b6491f5d381",
-    "integration/homepage-handler.mjs": "fa98b0656d15c782f103808696aca9801908736b81bdb89b7db4afaf4458e829",
+    "integration/homepage-handler.mjs": "d9ac09838fa6f58460d6c7b1cd21f8c2619c1f8f70e9ed99b6855a071a43ad05",
     "scripts/build.mjs": "cee838cb63fb84f5d457b51e206063df48ccdad35ec2a03fa59ccd311231c06a"
   },
   "output_sha256": {
     "release/anc-standalone.html": "9687df3d3c099bd81014600c27cf9c2cee696fa72ecbad41722c1a06dd65d872",
-    "release/anc-homepage.mjs": "670dc4b6f6b0ecd7733feda3dce288f79f551c1a9d1e918e92490a3e3f86b1a9"
+    "release/anc-homepage.mjs": "025f90770bc41815c9c2478d7fbae994178050cc599892bfcfbe0f1e2d52c333"
   },
   "content_security_policy": "default-src 'none'; script-src 'sha256-lR4cWrtVue4VlV+K4vMJHQwrizX4fEEsIVLYY3Xv3YY=' 'sha256-+l7xOQZakMH65ODBXsAsV0594nAsKZWbMxlCB36Ih2I='; style-src 'sha256-UDcegypwGPxumkoy5mquVic7xs2AvdJEwwBKqjO4trQ='; img-src data:; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'"
 }
